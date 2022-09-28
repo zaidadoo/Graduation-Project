@@ -1,0 +1,20 @@
+▀█▀ █░█ ▄▀█ █▄░█ █▄▀   █▄█ █▀█ █░█
+░█░ █▀█ █▀█ █░▀█ █░█   ░█░ █▄█ █▄█
+
+
+
+			Khashuga
+
+	Please go to the counter
+	to pay for your order.
+
+		Order ID: 2
+
+
+#ORD 2 - 28/09/2022 2:16:45 PM
+#	Total		Product
+06	414.00		Talal
+
+Total			414
+
+Have a good day!

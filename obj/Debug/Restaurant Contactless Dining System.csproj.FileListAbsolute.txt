@@ -1,0 +1,42 @@
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.Properties.Resources.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.GenerateResource.cache
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.CoreCompileInputs.cache
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.SetupForm.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.MainMenu.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.CustomerOrdersDisplay.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.RestaurantMenu.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\Dining System.exe.config
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\Dining System.exe
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\Dining System.pdb
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.exe
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.pdb
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.CompleteMenu.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\System.Data.SQLite.dll
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\System.Data.SQLite.xml
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.CopyComplete
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.MenuItem.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.OrderedItem.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csprojAssemblyReference.cache
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.KitchenManagement.resources
+C:\Users\USERR\Desktop\Zaid\University\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.PasswordChecker.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\Dining System.exe.config
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\Dining System.exe
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\Dining System.pdb
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\System.Data.SQLite.dll
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\bin\Debug\System.Data.SQLite.xml
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csprojAssemblyReference.cache
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.CompleteMenu.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.SetupForm.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.MainMenu.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.CustomerOrdersDisplay.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.RestaurantMenu.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.KitchenManagement.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.MenuItem.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.OrderedItem.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.PasswordChecker.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant_Contactless_Dining_System.Properties.Resources.resources
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.GenerateResource.cache
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.CoreCompileInputs.cache
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.CopyComplete
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.exe
+C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.pdb
