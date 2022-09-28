@@ -59,13 +59,13 @@ title: Contactless Dining System Report
 
 # GUI Documentation
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image1.png){width="6.232430008748906in" height="5.183333333333334in"}Initial Setup
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image1.png)Initial Setup
 
 > In the initial setup, the restaurant can add their restaurant logo,
 > name, and manager password. After submitting the proper details, they
 > will be taken to the main menu.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image2.jpeg){width="6.478087270341208in" height="3.6954166666666666in"}Main Menu
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image2.jpeg)Main Menu
 
 > In the main menu, the restaurant is able to access the different
 > panels based on their needs. If customer display is accessed, then
@@ -86,14 +86,14 @@ title: Contactless Dining System Report
 > left; while on the right, all the order IDs of orders being prepared
 > will show up automatically, and refresh every 5 seconds.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image4.png){width="6.523332239720035in" height="3.402603893263342in"}Customer Ordering Menu Splash Screen
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image4.png)Customer Ordering Menu Splash Screen
 
 > The splash screen displays the restaurant name and their logo. Once
 > the customer clicks on start order
 >
 > it'll reveal the complete menu, where they could order.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image5.png){width="6.523137576552931in" height="1.0865616797900262in"}Management Menu
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image5.png)Management Menu
 
 > The kitchen management tabs allow us to navigate the kitchen
 > management; in addition, in the top right corner, the manager could
@@ -101,35 +101,35 @@ title: Contactless Dining System Report
 > tab; manager could also click back to go back to main menu, exit to
 > close the software, or sign out from manager mode.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image6.png){width="6.544531933508312in" height="3.424165573053368in"}Cashier Side
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image6.png)Cashier Side
 
 > Cashier tab allows the employee to view the orders pending or being
 > prepared. Orders viewed here can be modified as per the following:
 > confirm an order is paid, cancel an order, or complete an order once
 > customers receive it.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image7.png){width="6.519025590551181in" height="3.854582239720035in"}Kitchen Side
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image7.png)Kitchen Side
 
 > Kitchen tab shows the orders need to get prepared, while the ordered
 > items show the item name, and the quantity.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image8.png){width="6.506842738407699in" height="3.77in"}Manager Retrieve All Orders
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image8.png)Manager Retrieve All Orders
 
 > This tab allows the manager to view all orders with any status.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image9.png){width="6.554783464566929in" height="3.896874453193351in"}Restaurant Info Manager
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image9.png)Restaurant Info Manager
 
 > This tab allows the manager to change the restaurant name, password,
 > or logo set before.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image10.png){width="6.550018591426071in" height="3.9148950131233597in"}Manage Menu Items
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image10.png)Manage Menu Items
 
 > This tab allows the manager to delete, modify, and insert items on the
 > restaurant menu.
 
 ## Customer Menu
 
-> ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image11.png){width="6.512928696412948in"
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image11.png){width="6.512928696412948in"
 > height="3.1309372265966755in"}
 >
 > The restaurant logo is loaded from the database on the left. Under
@@ -178,7 +178,7 @@ height="2.8541666666666665in"}
 
 # Code Implementation
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image17.jpeg){width="8.499998906386702in" height="6.229026684164479in"}Form1.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image17.jpeg)Form1.cs
 
 -   LogoUpload_Click opens an OpenFileDialog that only accepts image
     > type files. If image is received, we update the box with the
@@ -194,7 +194,7 @@ height="2.8541666666666665in"}
 -   Logo has to be converted into a byte array in order to be sent to
     > database.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image18.jpeg){width="8.499998906386702in" height="7.1322222222222225in"}Form2.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image18.jpeg)Form2.cs
 
 -   ExitButton_Click exits application.
 
@@ -207,7 +207,7 @@ height="2.8541666666666665in"}
     > operation has been used here due to deleted object might being
     > used.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image19.jpeg){width="8.499998906386702in" height="7.579444444444444in"}Form3.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image19.jpeg)Form3.cs
 
 -   CustomerOrdersDIsplay_Load retrieves restaurant logo from database
     > and shows it in the picture box set. Then it creates an interval
@@ -218,7 +218,7 @@ height="2.8541666666666665in"}
     > for the orders being prepared at the moment, if none then it'll
     > show that.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image20.jpeg){width="8.499998906386702in" height="7.229722222222223in"}Form4.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image20.jpeg)Form4.cs
 
 -   Load event gets the restaurant logo and name from database then sets
     > the image in the picture box and changes the splash screen welcome
@@ -227,7 +227,7 @@ height="2.8541666666666665in"}
 -   StartOrder_Click starts the CompleteMenu user control that allows
     > customers to order from.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image21.jpeg){width="8.499998906386702in" height="6.570972222222222in"}Form5.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image21.jpeg)Form5.cs
 
 -   Load event disables buttons for cashier side, and disables all tab
     > navigation (unless user is admin)
@@ -369,7 +369,7 @@ height="6.047916666666667in"}
 -   DeleteItem_Click allows the user to delete the menu item from the
     > database.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image38.jpeg){width="8.499998906386702in" height="6.6704155730533685in"}CompleteMenu.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image38.jpeg)CompleteMenu.cs
 
 -   ExitButton_Click checks if customer wants to cancel their order and
     > return to splash screen.
@@ -405,14 +405,14 @@ height="7.148611111111111in"}
 -   After inserting order in database, it creates a new text file in the
     > form of a receipt that can be printed.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image42.jpeg){width="8.499998906386702in" height="7.5072222222222225in"}MenuItem.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image42.jpeg)MenuItem.cs
 
 -   Setters and getters that is used to change the menu item details in
     > the complete menu user control.
 
 -   AddItem_Click inserts that selected menu items into the cart.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image43.jpeg){width="8.499998906386702in" height="7.499305555555556in"}OrderedItem.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image43.jpeg)OrderedItem.cs
 
 -   Setters and getters that is used to change the cart item details in
     > the checkout panel.
@@ -420,7 +420,7 @@ height="7.148611111111111in"}
 -   quantityAdd_Click and quantityMinus_Click changes the specific cart
     > item quantity.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image44.jpeg){width="8.499998906386702in" height="6.755in"}Order.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image44.jpeg)Order.cs
 
 -   Array that can contain up to 100 unique items in a single cart.
 
@@ -437,7 +437,7 @@ height="7.020555555555555in"}
 
 -   ClearAll function deletes all items from the cart.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image46.jpeg){width="8.499998906386702in" height="6.914861111111111in"}PasswordChecker.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image46.jpeg)PasswordChecker.cs
 
 -   SubmitPassword_Click checks if password entered in the text field is
     > the same as in the database.
@@ -445,7 +445,7 @@ height="7.020555555555555in"}
 -   Password_KeyDown allows user to press enter to submit password
     > instead of clicking button.
 
-## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image47.jpeg){width="8.499998906386702in" height="6.92638779527559in"}Program.cs
+## ![](vertopal_028555db347b44f2bf226a6a7176665b/media/image47.jpeg)Program.cs
 
 -   At the start of the application, check if owner of restaurant
     > submitted their details; if not then start the start up before the
