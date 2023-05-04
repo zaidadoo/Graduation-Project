@@ -40,3 +40,92 @@ C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant
 C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.CopyComplete
 C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.exe
 C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.pdb
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Dining System.exe.config
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Dining System.exe
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Dining System.pdb
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Data.SQLite.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Data.SQLite.xml
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.AssemblyReference.cache
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.SuggestedBindingRedirects.cache
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.CompleteMenu.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.SetupForm.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.MainMenu.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.CustomerOrdersDisplay.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.RestaurantMenu.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.KitchenManagement.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.MenuItem.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.OrderedItem.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.PasswordChecker.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.Properties.Resources.resources
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.GenerateResource.cache
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.CoreCompileInputs.cache
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.CopyComplete
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Dining System.exe
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Dining System.pdb
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Azure.Core.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Azure.Identity.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Data.SqlClient.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Identity.Client.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Abstractions.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Logging.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Protocols.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Buffers.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Configuration.ConfigurationManager.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Memory.Data.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Memory.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Numerics.Vectors.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.AccessControl.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.Cryptography.ProtectedData.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.Permissions.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.Principal.Windows.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Text.Encodings.Web.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Text.Json.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.ValueTuple.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Azure.Core.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Azure.Identity.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Data.SqlClient.pdb
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Data.SqlClient.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Identity.Client.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Identity.Client.Extensions.Msal.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Abstractions.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Logging.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Protocols.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Buffers.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Configuration.ConfigurationManager.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Memory.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Memory.Data.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Numerics.Vectors.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.AccessControl.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.Cryptography.ProtectedData.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.Permissions.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Security.Principal.Windows.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Text.Encodings.Web.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Text.Json.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\System.ValueTuple.xml
+E:\University\Graduation Project\Graduation-Project\bin\Debug\de\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\es\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\fr\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\it\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\ja\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\ko\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\pt-BR\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll

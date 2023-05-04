@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
+using System.Data.SqlClient;
 
 namespace Restaurant_Contactless_Dining_System
 {
@@ -18,9 +18,9 @@ namespace Restaurant_Contactless_Dining_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            SQLiteConnection con = new SQLiteConnection("Data Source=menusystem.db;Version=3");
-            SQLiteCommand cmd = new SQLiteCommand();
-            SQLiteDataReader dr;
+            SqlConnection con = new SqlConnection("Server=tcp:kioskjo.database.windows.net;Database=kioskjodb;User ID=kioskjo;Password=sMJJeL8GJ5vNHYY;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
 
             con.Open();
 
