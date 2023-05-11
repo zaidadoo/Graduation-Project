@@ -7,40 +7,44 @@ using System.Data.SqlClient;
 
 namespace Restaurant_Contactless_Dining_System
 {
-    static class Program
+  static class Program
+  {
+    /// <summary>
+    /// The main entry point for the application.
+    /// </summary>
+    [STAThread]
+    static void Main()
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+      Application.EnableVisualStyles();
+      Application.SetCompatibleTextRenderingDefault(false);
 
-            SqlConnection con = new SqlConnection("Server=tcp:kioskjo.database.windows.net;Database=kioskjodb;User ID=kioskjo;Password=sMJJeL8GJ5vNHYY;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader dr;
+      bool doneSetup = true;
 
-            con.Open();
+      // check if DoneSetup.txt exists
+      // create it if it doesn't
+      if (!System.IO.File.Exists("DoneSetup.txt"))
+      {
+        System.IO.File.Create("DoneSetup.txt");
+        doneSetup = false;
+      }
+      else
+      {
+        // get the contents of DoneSetup.txt
+        string contents = System.IO.File.ReadAllText("DoneSetup.txt");
 
-            cmd.Connection = con;
-            cmd.CommandText = "SELECT * FROM restaurant_info";
-            dr = cmd.ExecuteReader();
+        // if file is empty doneSetup is false
+        if (contents.Equals(""))
+          doneSetup = false;
+      }
 
-            
-
-            if (!dr.HasRows)
-            {
-                con.Close();
-                Application.Run(new SetupForm());
-            }
-            else
-            {
-                con.Close();
-                Application.Run(new MainMenu());
-            }
-
-        }
+      if (!doneSetup)
+      {
+        Application.Run(new SetupChoice());
+      }
+      else
+      {
+        Application.Run(new MainMenu());
+      }
     }
+  }
 }

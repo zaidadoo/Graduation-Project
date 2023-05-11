@@ -129,3 +129,4 @@ E:\University\Graduation Project\Graduation-Project\bin\Debug\pt-BR\Microsoft.Da
 E:\University\Graduation Project\Graduation-Project\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 E:\University\Graduation Project\Graduation-Project\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 E:\University\Graduation Project\Graduation-Project\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.SetupChoice.resources

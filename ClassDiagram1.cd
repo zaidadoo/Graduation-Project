@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Restaurant_Contactless_Dining_System.CompleteMenu">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QCAQIQAAACGoEEQAAkCAAQYKEAggAAwAQlEABAAACAA=</HashCode>
+      <FileName>CompleteMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.SetupForm" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAQAgCCgAFQAACCAAUQiBBAAAAACAAAABQJAAIQ=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.MainMenu" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkAUAAIACAgFFKAACCAAEACAAABAAAAAEQABQACAAg=</HashCode>
+      <FileName>Form2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.CustomerOrdersDisplay" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAAAIAACAgAEQAAACAAQASEAAAAIAAABAQBAgAAAA=</HashCode>
+      <FileName>Form3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.RestaurantMenu" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBAAAACASAAAEQAAACAAQACUAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Form4.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.KitchenManagement" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wiqO6YU4mOGHi1WIgSSIIwZiFl0gANlCljhVhQrRRc4=</HashCode>
+      <FileName>Form5.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.MenuItem" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAgEABCAASAAAAACAAAUCkAAAACAAAAAAAAAEIAA=</HashCode>
+      <FileName>MenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.Order" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACABBABAAAAAAABAAIgAAACAAAAAAACAAAAAAABAAAA=</HashCode>
+      <FileName>Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.OrderedItem" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCABAAAIACAASAAAAACAAAUCBAAAECDAAAAAAAAAIAA=</HashCode>
+      <FileName>OrderedItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.PasswordChecker" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAACAAABQAQACAAQACEAAAAAACAAAAAAIAAAQ=</HashCode>
+      <FileName>PasswordChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.Program" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.Properties.Resources" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAgBUAAAgQAAAAAAAAAAACAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Restaurant_Contactless_Dining_System.Properties.Settings" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -19,7 +19,7 @@ namespace Restaurant_Contactless_Dining_System.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -63,6 +63,26 @@ namespace Restaurant_Contactless_Dining_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Blue_Green_Gradient_Quote_Instagram_Story {
+            get {
+                object obj = ResourceManager.GetObject("Blue Green Gradient Quote Instagram Story", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BlueGradient {
+            get {
+                object obj = ResourceManager.GetObject("BlueGradient", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap KITCHEN_MANAGE {
             get {
                 object obj = ResourceManager.GetObject("KITCHEN_MANAGE", resourceCulture);
@@ -76,6 +96,26 @@ namespace Restaurant_Contactless_Dining_System.Properties {
         internal static System.Drawing.Bitmap LOGO_BLACK {
             get {
                 object obj = ResourceManager.GetObject("LOGO_BLACK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo_blue_copy {
+            get {
+                object obj = ResourceManager.GetObject("Logo blue copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo_copy {
+            get {
+                object obj = ResourceManager.GetObject("Logo copy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
