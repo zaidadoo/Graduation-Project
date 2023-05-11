@@ -8,13 +8,13 @@
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 3
+		Order ID: 4
 
 
-#ORD 3 - 11/05/2023 5:56:21 PM
+#ORD 4 - 11/05/2023 7:17:20 PM
 #	Total		Product
-05	615.00		Hamza
+01	123.00		Hamza
 
-Total			615
+Total			123
 
 Have a good day!

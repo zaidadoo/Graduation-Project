@@ -19,11 +19,18 @@ namespace Restaurant_Contactless_Dining_System
     SQLiteDataReader dr;
 
     public static Order currentOrder = new Order();
+    private static bool englishLanguage = true;
 
     public CompleteMenu()
     {
       InitializeComponent();
       currentOrder.setParent = this;
+    }
+
+    public void setLanguage(bool isEnglish)
+    {
+      englishLanguage = isEnglish;
+      loaderHelper();
     }
 
     private void ExitButton_Click(object sender, EventArgs e)
@@ -59,6 +66,20 @@ namespace Restaurant_Contactless_Dining_System
 
     private void CompleteMenu_Load(object sender, EventArgs e)
     {
+    }
+
+    private void loaderHelper()
+    {
+      // popup showing language
+      if (englishLanguage)
+      {
+        MessageBox.Show("English language selected.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+      else
+      {
+        MessageBox.Show("Arabic language selected.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+
       return;
 
       SelectedItem.Hide();
