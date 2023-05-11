@@ -320,9 +320,12 @@
     <None Include="Extra Resources\BlueGradient.png" />
     <None Include="Extra GUI\BlueGradient.png" />
     <None Include="Resources\BlueGradient.png" />
+    <None Include="Resources\customer %281%29.png" />
     <Content Include="Resources\LOGO_BLACK.ico" />
     <Content Include="Resources\LOGO_PINK.png" />
+    <None Include="Resources\meal.png" />
     <Content Include="Resources\ORDER_HERE.jpg" />
+    <None Include="Resources\supervisor.png" />
     <Content Include="Resources\TV_Screen.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

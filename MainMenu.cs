@@ -62,5 +62,10 @@ namespace Restaurant_Contactless_Dining_System
                 return;
             }
         }
+
+    private void ExitButton_Click_1(object sender, EventArgs e)
+    {
+      Application.Exit();
     }
+  }
 }

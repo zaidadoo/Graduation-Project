@@ -83,6 +83,16 @@ namespace Restaurant_Contactless_Dining_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap customer__1_ {
+            get {
+                object obj = ResourceManager.GetObject("customer (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap KITCHEN_MANAGE {
             get {
                 object obj = ResourceManager.GetObject("KITCHEN_MANAGE", resourceCulture);
@@ -143,9 +153,29 @@ namespace Restaurant_Contactless_Dining_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap meal {
+            get {
+                object obj = ResourceManager.GetObject("meal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ORDER_HERE {
             get {
                 object obj = ResourceManager.GetObject("ORDER_HERE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap supervisor {
+            get {
+                object obj = ResourceManager.GetObject("supervisor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -8,13 +8,13 @@
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 2
+		Order ID: 3
 
 
-#ORD 2 - 28/09/2022 2:16:45 PM
+#ORD 3 - 11/05/2023 5:56:21 PM
 #	Total		Product
-06	414.00		Talal
+05	615.00		Hamza
 
-Total			414
+Total			615
 
 Have a good day!

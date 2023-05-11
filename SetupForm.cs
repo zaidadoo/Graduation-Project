@@ -270,7 +270,7 @@ namespace Restaurant_Contactless_Dining_System
 
         // insert into restaurant_info
         cmd.Parameters.Clear();
-        cmd.Parameters.Add("ilogo", SqlDbType.Binary, 20).Value = image;
+        cmd.Parameters.Add("ilogo", SqlDbType.VarBinary).Value = image;
         cmd.Parameters.AddWithValue("iname_arabic", nameArabic);
         cmd.Parameters.AddWithValue("iname_english", nameEnglish);
         cmd.Parameters.AddWithValue("imain_color", mainColor);
@@ -368,7 +368,7 @@ namespace Restaurant_Contactless_Dining_System
       }
       else
       {
-        Form changeForm = new MainMenu();
+        Form changeForm = new SetupChoice();
         this.Hide();
         changeForm.ShowDialog();
         Application.Exit();
