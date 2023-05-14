@@ -40,9 +40,6 @@ C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant
 C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Restaurant Contactless Dining System.csproj.CopyComplete
 C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.exe
 C:\Users\USERR\Desktop\Zaid\University\OLD\Visual Programming\Project\Restaurant Contactless Dining System\obj\Debug\Dining System.pdb
-E:\University\Graduation Project\Graduation-Project\bin\Debug\Dining System.exe.config
-E:\University\Graduation Project\Graduation-Project\bin\Debug\Dining System.exe
-E:\University\Graduation Project\Graduation-Project\bin\Debug\Dining System.pdb
 E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Data.SQLite.dll
 E:\University\Graduation Project\Graduation-Project\bin\Debug\System.Data.SQLite.xml
 E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.AssemblyReference.cache
@@ -60,8 +57,6 @@ E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contact
 E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.GenerateResource.cache
 E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.CoreCompileInputs.cache
 E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant Contactless Dining System.csproj.CopyComplete
-E:\University\Graduation Project\Graduation-Project\obj\Debug\Dining System.exe
-E:\University\Graduation Project\Graduation-Project\obj\Debug\Dining System.pdb
 E:\University\Graduation Project\Graduation-Project\bin\Debug\Azure.Core.dll
 E:\University\Graduation Project\Graduation-Project\bin\Debug\Azure.Identity.dll
 E:\University\Graduation Project\Graduation-Project\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
@@ -130,3 +125,8 @@ E:\University\Graduation Project\Graduation-Project\bin\Debug\ru\Microsoft.Data.
 E:\University\Graduation Project\Graduation-Project\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 E:\University\Graduation Project\Graduation-Project\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
 E:\University\Graduation Project\Graduation-Project\obj\Debug\Restaurant_Contactless_Dining_System.SetupChoice.resources
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Kiosk JO.exe.config
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Kiosk JO.exe
+E:\University\Graduation Project\Graduation-Project\bin\Debug\Kiosk JO.pdb
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Kiosk JO.exe
+E:\University\Graduation Project\Graduation-Project\obj\Debug\Kiosk JO.pdb

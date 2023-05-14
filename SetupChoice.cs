@@ -31,10 +31,17 @@ namespace Restaurant_Contactless_Dining_System
       // create database handler
       DatabaseHandler db = new DatabaseHandler();
 
+      // get cmd from DatabaseHandler
+      SqlCommand cmd = db.Command;
+
       // check if branch_id exists
       SqlDataReader reader;
-        
-      reader = db.ExecuteQuery("SELECT * FROM branch WHERE branch_id = '" + branchField.Text + "'");
+
+      // add parameters
+      cmd.Parameters.Clear();
+      cmd.Parameters.AddWithValue("@branch_id", branchField.Text);
+
+      reader = db.ExecuteQuery("SELECT * FROM branch WHERE branch_id = @branch_id");
 
       if (!reader.HasRows)
       {
@@ -55,7 +62,15 @@ namespace Restaurant_Contactless_Dining_System
       byte[] bytes = sha512.ComputeHash(Encoding.UTF8.GetBytes(passwordField.Text));
       string hashedPassword = BitConverter.ToString(bytes).Replace("-", "").ToLower();
 
-      reader = db.ExecuteQuery("SELECT * FROM users WHERE branch_id = '" + branchField.Text + "' AND password = '" + hashedPassword + "'");
+      // get cmd from DatabaseHandler
+      cmd = db.Command;
+
+      // add parameters
+      cmd.Parameters.Clear();
+      cmd.Parameters.AddWithValue("@branch_id", branchField.Text);
+      cmd.Parameters.AddWithValue("@password", hashedPassword);
+
+      reader = db.ExecuteQuery("SELECT * FROM users WHERE branch_id = @branch_id AND password = @password");
 
       if (reader.HasRows)
       {

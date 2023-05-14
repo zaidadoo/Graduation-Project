@@ -58,8 +58,17 @@ namespace Restaurant_Contactless_Dining_System
       string branch_id = File.ReadAllText("DoneSetup.txt");
       string restaurant_id = "";
 
+      // get cmd from DatabaseHandler
+      SqlCommand cmd = db.Command;
+
+      // clear cmd
+      cmd.Parameters.Clear();
+
+      // add paramters
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
       // get restaurant_id using branch_id
-      SqlDataReader reader = db.ExecuteQuery("SELECT restaurant_id FROM branch WHERE branch_id=\'" + branch_id + "\'");
+      SqlDataReader reader = db.ExecuteQuery("SELECT * FROM branch WHERE branch_id = @branch_id");
 
       if(reader.HasRows)
       {
@@ -82,8 +91,14 @@ namespace Restaurant_Contactless_Dining_System
       // close connection
       db.CloseConnection();
 
+      // clear cmd parameters
+      cmd.Parameters.Clear();
+
+      // add parameters
+      cmd.Parameters.AddWithValue("@restaurant_id", restaurant_id);
+
       // get logo and colors from restaurant_info
-      SqlDataReader dr = db.ExecuteQuery("SELECT logo, main_color, accent_color, text_color FROM restaurant_info WHERE restaurant_id=\'" + restaurant_id + "\'");
+      SqlDataReader dr = db.ExecuteQuery("SELECT logo, main_color, accent_color, text_color FROM restaurant_info WHERE restaurant_id=@restaurant_id");
 
       if (dr.HasRows)
       {

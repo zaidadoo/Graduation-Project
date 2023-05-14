@@ -44,8 +44,14 @@ namespace Restaurant_Contactless_Dining_System
       // create database handler
       DatabaseHandler db = new DatabaseHandler();
 
+      // get cmd from DatabaseHandler
+      SqlCommand cmd = db.Command;
+
+      cmd.Parameters.Clear();
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
       // get restaurant_id from branch_id in branch table
-      SqlDataReader reader = db.ExecuteQuery("SELECT restaurant_id FROM branch WHERE branch_id = \'" + branch_id + "\'");
+      SqlDataReader reader = db.ExecuteQuery("SELECT * FROM branch WHERE branch_id = @branch_id");
 
       string restaurant_id = "";
 
@@ -72,8 +78,11 @@ namespace Restaurant_Contactless_Dining_System
       // close connection
       db.CloseConnection();
 
+      cmd.Parameters.Clear();
+      cmd.Parameters.AddWithValue("@restaurant_id", restaurant_id);
+
       // get restaurant name and logo from restaurant_info table
-      SqlDataReader dr = db.ExecuteQuery("SELECT * FROM restaurant_info WHERE restaurant_id = \'" + restaurant_id + "\'");
+      SqlDataReader dr = db.ExecuteQuery("SELECT * FROM restaurant_info WHERE restaurant_id = @restaurant_id");
 
       if (dr.HasRows)
       {

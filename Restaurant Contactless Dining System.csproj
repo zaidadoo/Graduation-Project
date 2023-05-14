@@ -7,7 +7,7 @@
     <ProjectGuid>{601B3DC7-1F07-4EFE-A8A2-CCBE0F021E31}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Restaurant_Contactless_Dining_System</RootNamespace>
-    <AssemblyName>Dining System</AssemblyName>
+    <AssemblyName>Kiosk JO</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\LOGO_BLACK.ico</ApplicationIcon>
+    <ApplicationIcon>Logo blue copy.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Azure.Core, Version=1.25.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
@@ -321,6 +321,7 @@
     <None Include="Extra GUI\BlueGradient.png" />
     <None Include="Resources\BlueGradient.png" />
     <None Include="Resources\customer %281%29.png" />
+    <Content Include="Logo blue copy.ico" />
     <Content Include="Resources\LOGO_BLACK.ico" />
     <Content Include="Resources\LOGO_PINK.png" />
     <None Include="Resources\meal.png" />

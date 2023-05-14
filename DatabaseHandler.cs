@@ -56,12 +56,12 @@ namespace Restaurant_Contactless_Dining_System
 
         command.CommandText = sql;
         command.Connection = connection;
+
         reader = command.ExecuteReader();
       }
       catch (Exception ex)
       {
         MessageBox.Show(ex.Message);
-
         reader = null;
       }
 

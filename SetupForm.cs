@@ -219,8 +219,17 @@ namespace Restaurant_Contactless_Dining_System
 
       if(newRestaurantCheck.Checked)
       {
+        // get cmd from database
+        SqlCommand cmd = db.Command;
+
+        // clear cmd params
+        cmd.Parameters.Clear();
+
+        // add params
+        cmd.Parameters.AddWithValue("@name_english", nameEnglishField.Text);
+
         // check if restaurant_name exists
-        reader = db.ExecuteQuery("SELECT * FROM restaurant_info WHERE name_english = '" + nameEnglishField.Text + "'");
+        reader = db.ExecuteQuery("SELECT * FROM restaurant_info WHERE name_english = @name_english");
 
         if (reader.HasRows)
         {
@@ -236,8 +245,16 @@ namespace Restaurant_Contactless_Dining_System
         db.CloseConnection();
       }
 
+      // get cmd from database
+      SqlCommand cmd2 = db.Command;
+
+      cmd2.Parameters.Clear();
+
+      // add params
+      cmd2.Parameters.AddWithValue("@branch_id", branchIdField.Text);
+
       // check if branch id already exists
-      reader = db.ExecuteQuery("SELECT * FROM branch WHERE branch_id = '" + branchIdField.Text + "'");
+      reader = db.ExecuteQuery("SELECT * FROM branch WHERE branch_id = @branch_id");
 
       if (reader.HasRows)
       {
@@ -297,8 +314,14 @@ namespace Restaurant_Contactless_Dining_System
       string branchId = branchIdField.Text;
       int numOfTables = Int32.Parse(numOfTablesField.Text);
 
+      // clear cmd params
+      cmd2.Parameters.Clear();
+
+      // add params
+      cmd2.Parameters.AddWithValue("@name_english", nameEnglishField.Text);
+
       // get restaurant_id using name_english
-      reader = db.ExecuteQuery("SELECT restaurant_id FROM restaurant_info WHERE name_english = '" + nameEnglishField.Text + "'");
+      reader = db.ExecuteQuery("SELECT restaurant_id FROM restaurant_info WHERE name_english = @name_english");
 
       if (!reader.HasRows)
       {
@@ -316,8 +339,8 @@ namespace Restaurant_Contactless_Dining_System
       // close connection
       db.CloseConnection();
 
-      // get command from DatabaseHandler
-      SqlCommand cmd2 = db.Command;
+      // clear cmd params
+      cmd2.Parameters.Clear();
 
       cmd2.CommandText = "INSERT INTO branch (branch_id, restaurant_id, number_of_tables)" + " values (@ibranch_id, @irestaurant_id, @inum_of_tables)";
 
