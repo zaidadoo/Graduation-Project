@@ -229,11 +229,11 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form5.cs">
+    <Compile Include="KitchenManagement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form5.Designer.cs">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <Compile Include="KitchenManagement.Designer.cs">
+      <DependentUpon>KitchenManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuItem.cs">
       <SubType>UserControl</SubType>
@@ -274,8 +274,8 @@
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form5.resx">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <EmbeddedResource Include="KitchenManagement.resx">
+      <DependentUpon>KitchenManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuItem.resx">
       <DependentUpon>MenuItem.cs</DependentUpon>
