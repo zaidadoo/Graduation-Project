@@ -42,8 +42,12 @@ namespace Restaurant_Contactless_Dining_System
       this.Title = new System.Windows.Forms.Label();
       this.SubTitle = new System.Windows.Forms.Label();
       this.setupPanel = new System.Windows.Forms.Panel();
+      this.nameEnglishField = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
       this.newRestaurantCheck = new System.Windows.Forms.CheckBox();
+      this.label3 = new System.Windows.Forms.Label();
       this.textColorBox = new System.Windows.Forms.PictureBox();
+      this.nameArabicField = new System.Windows.Forms.TextBox();
       this.label8 = new System.Windows.Forms.Label();
       this.textColorField = new System.Windows.Forms.TextBox();
       this.accentColorBox = new System.Windows.Forms.PictureBox();
@@ -57,10 +61,6 @@ namespace Restaurant_Contactless_Dining_System
       this.label5 = new System.Windows.Forms.Label();
       this.label4 = new System.Windows.Forms.Label();
       this.LogoUpload = new System.Windows.Forms.PictureBox();
-      this.nameEnglishField = new System.Windows.Forms.TextBox();
-      this.label3 = new System.Windows.Forms.Label();
-      this.nameArabicField = new System.Windows.Forms.TextBox();
-      this.label2 = new System.Windows.Forms.Label();
       this.topStripPanel.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.setupPanel.SuspendLayout();
@@ -146,7 +146,7 @@ namespace Restaurant_Contactless_Dining_System
       this.branchIdField.BackColor = System.Drawing.Color.White;
       this.branchIdField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
       this.branchIdField.Location = new System.Drawing.Point(68, 376);
-      this.branchIdField.MaxLength = 40;
+      this.branchIdField.MaxLength = 50;
       this.branchIdField.Name = "branchIdField";
       this.branchIdField.Size = new System.Drawing.Size(278, 32);
       this.branchIdField.TabIndex = 1;
@@ -157,7 +157,7 @@ namespace Restaurant_Contactless_Dining_System
       this.passwordField.BackColor = System.Drawing.Color.White;
       this.passwordField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
       this.passwordField.Location = new System.Drawing.Point(68, 520);
-      this.passwordField.MaxLength = 40;
+      this.passwordField.MaxLength = 50;
       this.passwordField.Name = "passwordField";
       this.passwordField.Size = new System.Drawing.Size(278, 32);
       this.passwordField.TabIndex = 3;
@@ -239,6 +239,29 @@ namespace Restaurant_Contactless_Dining_System
       this.setupPanel.Size = new System.Drawing.Size(1173, 699);
       this.setupPanel.TabIndex = 11;
       // 
+      // nameEnglishField
+      // 
+      this.nameEnglishField.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.nameEnglishField.BackColor = System.Drawing.Color.White;
+      this.nameEnglishField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
+      this.nameEnglishField.Location = new System.Drawing.Point(68, 232);
+      this.nameEnglishField.MaxLength = 50;
+      this.nameEnglishField.Name = "nameEnglishField";
+      this.nameEnglishField.Size = new System.Drawing.Size(278, 32);
+      this.nameEnglishField.TabIndex = 12;
+      // 
+      // label2
+      // 
+      this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.label2.AutoSize = true;
+      this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label2.ForeColor = System.Drawing.Color.Black;
+      this.label2.Location = new System.Drawing.Point(65, 212);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(179, 17);
+      this.label2.TabIndex = 11;
+      this.label2.Text = "Restaurant Name In English";
+      // 
       // newRestaurantCheck
       // 
       this.newRestaurantCheck.AutoSize = true;
@@ -253,6 +276,18 @@ namespace Restaurant_Contactless_Dining_System
       this.newRestaurantCheck.UseVisualStyleBackColor = true;
       this.newRestaurantCheck.CheckedChanged += new System.EventHandler(this.newRestaurantCheck_CheckedChanged);
       // 
+      // label3
+      // 
+      this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.label3.AutoSize = true;
+      this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label3.ForeColor = System.Drawing.Color.Black;
+      this.label3.Location = new System.Drawing.Point(65, 284);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(173, 17);
+      this.label3.TabIndex = 13;
+      this.label3.Text = "Restaurant Name In Arabic";
+      // 
       // textColorBox
       // 
       this.textColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -261,6 +296,18 @@ namespace Restaurant_Contactless_Dining_System
       this.textColorBox.Size = new System.Drawing.Size(32, 32);
       this.textColorBox.TabIndex = 28;
       this.textColorBox.TabStop = false;
+      // 
+      // nameArabicField
+      // 
+      this.nameArabicField.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.nameArabicField.BackColor = System.Drawing.Color.White;
+      this.nameArabicField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
+      this.nameArabicField.Location = new System.Drawing.Point(68, 304);
+      this.nameArabicField.MaxLength = 50;
+      this.nameArabicField.Name = "nameArabicField";
+      this.nameArabicField.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+      this.nameArabicField.Size = new System.Drawing.Size(278, 32);
+      this.nameArabicField.TabIndex = 14;
       // 
       // label8
       // 
@@ -281,7 +328,7 @@ namespace Restaurant_Contactless_Dining_System
       this.textColorField.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
       this.textColorField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
       this.textColorField.Location = new System.Drawing.Point(468, 376);
-      this.textColorField.MaxLength = 40;
+      this.textColorField.MaxLength = 7;
       this.textColorField.Name = "textColorField";
       this.textColorField.Size = new System.Drawing.Size(115, 32);
       this.textColorField.TabIndex = 26;
@@ -315,7 +362,7 @@ namespace Restaurant_Contactless_Dining_System
       this.accentColorField.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
       this.accentColorField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
       this.accentColorField.Location = new System.Drawing.Point(468, 304);
-      this.accentColorField.MaxLength = 40;
+      this.accentColorField.MaxLength = 7;
       this.accentColorField.Name = "accentColorField";
       this.accentColorField.Size = new System.Drawing.Size(115, 32);
       this.accentColorField.TabIndex = 23;
@@ -349,7 +396,7 @@ namespace Restaurant_Contactless_Dining_System
       this.mainColorField.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
       this.mainColorField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
       this.mainColorField.Location = new System.Drawing.Point(468, 232);
-      this.mainColorField.MaxLength = 40;
+      this.mainColorField.MaxLength = 7;
       this.mainColorField.Name = "mainColorField";
       this.mainColorField.Size = new System.Drawing.Size(115, 32);
       this.mainColorField.TabIndex = 20;
@@ -418,52 +465,6 @@ namespace Restaurant_Contactless_Dining_System
       this.LogoUpload.TabIndex = 10;
       this.LogoUpload.TabStop = false;
       this.LogoUpload.Click += new System.EventHandler(this.LogoUpload_Click);
-      // 
-      // nameEnglishField
-      // 
-      this.nameEnglishField.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.nameEnglishField.BackColor = System.Drawing.Color.White;
-      this.nameEnglishField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
-      this.nameEnglishField.Location = new System.Drawing.Point(68, 232);
-      this.nameEnglishField.MaxLength = 40;
-      this.nameEnglishField.Name = "nameEnglishField";
-      this.nameEnglishField.Size = new System.Drawing.Size(278, 32);
-      this.nameEnglishField.TabIndex = 12;
-      // 
-      // label3
-      // 
-      this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label3.AutoSize = true;
-      this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label3.ForeColor = System.Drawing.Color.Black;
-      this.label3.Location = new System.Drawing.Point(65, 284);
-      this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(173, 17);
-      this.label3.TabIndex = 13;
-      this.label3.Text = "Restaurant Name In Arabic";
-      // 
-      // nameArabicField
-      // 
-      this.nameArabicField.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.nameArabicField.BackColor = System.Drawing.Color.White;
-      this.nameArabicField.Font = new System.Drawing.Font("Segoe UI Semilight", 14F);
-      this.nameArabicField.Location = new System.Drawing.Point(68, 304);
-      this.nameArabicField.MaxLength = 40;
-      this.nameArabicField.Name = "nameArabicField";
-      this.nameArabicField.Size = new System.Drawing.Size(278, 32);
-      this.nameArabicField.TabIndex = 14;
-      // 
-      // label2
-      // 
-      this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label2.AutoSize = true;
-      this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label2.ForeColor = System.Drawing.Color.Black;
-      this.label2.Location = new System.Drawing.Point(65, 212);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(179, 17);
-      this.label2.TabIndex = 11;
-      this.label2.Text = "Restaurant Name In English";
       // 
       // SetupForm
       // 

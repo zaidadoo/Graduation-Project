@@ -78,6 +78,8 @@ namespace Restaurant_Contactless_Dining_System
         // open connection
         OpenConnection();
 
+        command.Connection = connection;
+
         reader = command.ExecuteNonQuery();
       }
       catch (Exception ex)

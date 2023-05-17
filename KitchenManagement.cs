@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
 using System.IO;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
@@ -732,193 +731,322 @@ namespace Restaurant_Contactless_Dining_System
 
     private void SpecialDealsRadio_CheckedChanged(object sender, EventArgs e)
     {
-      //MenuItemsList.Enabled = true;
-      //DeleteItem.Enabled = false;
-      //ClearFormFields_Click(this, new EventArgs());
-      //ItemDetailsPanel.Enabled = false;
-      //MenuItemsList.Items.Clear();
+      MenuItemsList.Enabled = true;
+      DeleteItem.Enabled = false;
+      ClearFormFields_Click(this, new EventArgs());
+      ItemDetailsPanel.Enabled = false;
+      MenuItemsList.Items.Clear();
 
-      //con.Open();
-      //cmd.Connection = con;
+      // check if special deal radio is checked
+      if (!SpecialDealsRadio.Checked)
+        return;
 
-      //cmd.CommandText = "SELECT * FROM menu WHERE category='special'";
-      //dr = cmd.ExecuteReader();
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    MenuItemsList.Items.Add(dr["id"] + ". " + dr["name"].ToString());
-      //  }
-      //}
+      // get cmd from db
+      SqlCommand cmd = db.Command;
+      cmd.Parameters.Clear();
 
-      //dr.Close();
-      //con.Close();
+      // read branch_id from DoneSetup.txt
+      if (branch_id == null)
+        branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // cmd params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+      cmd.Parameters.AddWithValue("@category", "Promotions");
+
+      string sqlString = "SELECT * FROM menu_items WHERE branch_id=@branch_id AND category=@category";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          MenuItemsList.Items.Add(dr["item_id"] + ". " + dr["name_english"].ToString());
+        }
+      }
+      else
+      {
+        MessageBox.Show("No items found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      // close db connection
+      db.CloseConnection();
     }
 
     private void StarterItemsRadio_CheckedChanged(object sender, EventArgs e)
     {
-      //MenuItemsList.Enabled = true;
-      //DeleteItem.Enabled = false;
-      //ClearFormFields_Click(this, new EventArgs());
-      //ItemDetailsPanel.Enabled = false;
-      //MenuItemsList.Items.Clear();
+      MenuItemsList.Enabled = true;
+      DeleteItem.Enabled = false;
+      ClearFormFields_Click(this, new EventArgs());
+      ItemDetailsPanel.Enabled = false;
+      MenuItemsList.Items.Clear();
 
-      //con.Open();
-      //cmd.Connection = con;
+      // check if start items radio is checked
+      if (!StarterItemsRadio.Checked)
+        return;
 
-      //cmd.CommandText = "SELECT * FROM menu WHERE category='starter'";
-      //dr = cmd.ExecuteReader();
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    MenuItemsList.Items.Add(dr["id"] + ". " + dr["name"].ToString());
-      //  }
-      //}
+      // get cmd from db
+      SqlCommand cmd = db.Command;
 
-      //dr.Close();
-      //con.Close();
+      // clear cmd
+      cmd.Parameters.Clear();
+
+      // read branch_id from DoneSetup.txt
+      if (branch_id == null)
+        branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // cmd params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+      cmd.Parameters.AddWithValue("@category", "Starter Items");
+
+      string sqlString = "SELECT * FROM menu_items WHERE branch_id=@branch_id AND category=@category";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          MenuItemsList.Items.Add(dr["item_id"] + ". " + dr["name_english"].ToString());
+        }
+      }
+      else
+      {
+        MessageBox.Show("No items found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      // close connection
+      db.CloseConnection();
     }
 
     private void MainItemsRadio_CheckedChanged(object sender, EventArgs e)
     {
-      //MenuItemsList.Enabled = true;
-      //DeleteItem.Enabled = false;
-      //ClearFormFields_Click(this, new EventArgs());
-      //ItemDetailsPanel.Enabled = false;
-      //MenuItemsList.Items.Clear();
+      MenuItemsList.Enabled = true;
+      DeleteItem.Enabled = false;
+      ClearFormFields_Click(this, new EventArgs());
+      ItemDetailsPanel.Enabled = false;
+      MenuItemsList.Items.Clear();
 
-      //con.Open();
-      //cmd.Connection = con;
+      // check if main items radio is checked
+      if (!MainItemsRadio.Checked)
+        return;
 
-      //cmd.CommandText = "SELECT * FROM menu WHERE category='main'";
-      //dr = cmd.ExecuteReader();
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    MenuItemsList.Items.Add(dr["id"] + ". " + dr["name"].ToString());
-      //  }
-      //}
+      // get cmd from db
+      SqlCommand cmd = db.Command;
 
-      //dr.Close();
-      //con.Close();
+      // clear cmd
+      cmd.Parameters.Clear();
+
+      // read branch_id from DoneSetup.txt
+      if (branch_id == null)
+        branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // cmd params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+      cmd.Parameters.AddWithValue("@category", "Main Items");
+
+      // query
+      string sqlString = "SELECT * FROM menu_items WHERE branch_id=@branch_id AND category=@category";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          MenuItemsList.Items.Add(dr["item_id"] + ". " + dr["name_english"].ToString());
+        }
+      }
+      else
+      {
+        MessageBox.Show("No items found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      // close connection
+      db.CloseConnection();
     }
 
     private void DessertsRadio_CheckedChanged(object sender, EventArgs e)
     {
-      //MenuItemsList.Enabled = true;
-      //DeleteItem.Enabled = false;
-      //ClearFormFields_Click(this, new EventArgs());
-      //ItemDetailsPanel.Enabled = false;
-      //MenuItemsList.Items.Clear();
+      MenuItemsList.Enabled = true;
+      DeleteItem.Enabled = false;
+      ClearFormFields_Click(this, new EventArgs());
+      ItemDetailsPanel.Enabled = false;
+      MenuItemsList.Items.Clear();
 
-      //con.Open();
-      //cmd.Connection = con;
+      // check if desserts radio is checked
+      if (!DessertsRadio.Checked)
+        return;
 
-      //cmd.CommandText = "SELECT * FROM menu WHERE category='dessert'";
-      //dr = cmd.ExecuteReader();
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    MenuItemsList.Items.Add(dr["id"] + ". " + dr["name"].ToString());
-      //  }
-      //}
+      // get cmd from db
+      SqlCommand cmd = db.Command;
 
-      //dr.Close();
-      //con.Close();
+      // clear cmd
+      cmd.Parameters.Clear();
+
+      // read branch_id from DoneSetup.txt
+      if(branch_id == null)
+        branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // cmd params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+      cmd.Parameters.AddWithValue("@category", "Desserts");
+
+      // query
+      string sqlString = "SELECT * FROM menu_items WHERE branch_id=@branch_id AND category=@category";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          MenuItemsList.Items.Add(dr["item_id"] + ". " + dr["name_english"].ToString());
+        }
+      }
+      else
+      {
+        MessageBox.Show("No items found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      db.CloseConnection();
     }
 
     private void ExtraItemsRadio_CheckedChanged(object sender, EventArgs e)
     {
-      //MenuItemsList.Enabled = true;
-      //DeleteItem.Enabled = false;
-      //ClearFormFields_Click(this, new EventArgs());
-      //ItemDetailsPanel.Enabled = false;
-      //MenuItemsList.Items.Clear();
+      MenuItemsList.Enabled = true;
+      DeleteItem.Enabled = false;
+      ClearFormFields_Click(this, new EventArgs());
+      ItemDetailsPanel.Enabled = false;
+      MenuItemsList.Items.Clear();
 
-      //con.Open();
-      //cmd.Connection = con;
+      // check if extra items radio is checked
+      if (!ExtraItemsRadio.Checked)
+        return;
 
-      //cmd.CommandText = "SELECT * FROM menu WHERE category='extra'";
-      //dr = cmd.ExecuteReader();
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    MenuItemsList.Items.Add(dr["id"] + ". " + dr["name"].ToString());
-      //  }
-      //}
+      // get cmd from db
+      SqlCommand cmd = db.Command;
 
-      //dr.Close();
-      //con.Close();
+      // clear cmd
+      cmd.Parameters.Clear();
+
+      // read branch_id from DoneSetup.txt
+      if (branch_id == null)
+        branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // cmd params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+      cmd.Parameters.AddWithValue("@category", "Extra Items");
+
+      // query
+      string sqlString = "SELECT * FROM menu_items WHERE branch_id=@branch_id AND category=@category";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          MenuItemsList.Items.Add(dr["item_id"] + ". " + dr["name_english"].ToString());
+        }
+      }
+      else
+      {
+        MessageBox.Show("No items found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+
+      db.CloseConnection();
     }
 
     bool picUploadOkay = false;
 
     private void MenuItemsList_SelectedIndexChanged(object sender, EventArgs e)
     {
-      //DeleteItem.Enabled = true;
+      DeleteItem.Enabled = true;
 
-      //con.Open();
-      //cmd.Connection = con;
+      // check if selected item is null
+      if (MenuItemsList.SelectedItem == null)
+        return;
 
-      //string itemID = (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.'));
+      string itemID = (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.'));
 
-      //cmd.CommandText = "SELECT * FROM menu WHERE id=" + int.Parse(itemID);
-      //dr = cmd.ExecuteReader();
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //byte[] imageBytes = null;
+      SqlCommand cmd = db.Command;
 
-      //if (dr.HasRows)
-      //{
-      //  ItemDetailsPanel.Enabled = true;
-      //  while (dr.Read())
-      //  {
-      //    ItemNameInput.Text = dr["name"].ToString();
-      //    ItemPriceInput.Value = decimal.Parse(dr["price"].ToString());
-      //    if (dr["category"].Equals("special"))
-      //    {
-      //      ItemCategoryInput.SelectedIndex = 0;
-      //    }
-      //    else if (dr["category"].Equals("starter"))
-      //    {
-      //      ItemCategoryInput.SelectedIndex = 1;
-      //    }
-      //    else if (dr["category"].Equals("main"))
-      //    {
-      //      ItemCategoryInput.SelectedIndex = 2;
-      //    }
-      //    else if (dr["category"].Equals("dessert"))
-      //    {
-      //      ItemCategoryInput.SelectedIndex = 3;
-      //    }
-      //    else
-      //    {
-      //      ItemCategoryInput.SelectedIndex = 4;
-      //    }
+      cmd.Parameters.Clear();
 
-      //    if (dr["image"] != null && !Convert.IsDBNull(dr["image"]))
-      //    {
-      //      imageBytes = (byte[])dr["image"];
-      //    }
-      //  }
-      //}
+      cmd.Parameters.AddWithValue("@item_id", itemID);
 
-      //dr.Close();
-      //con.Close();
+      string sqlString = "SELECT * FROM menu_items WHERE item_id=@item_id";
 
-      //MemoryStream ms = new MemoryStream(imageBytes);
-      //Image finalImage = Image.FromStream(ms);
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
 
-      //UploadItemPicture.Image = finalImage;
-      //picUploadOkay = true;
+      byte[] imageBytes = null;
+
+      if (dr.HasRows)
+      {
+        ItemDetailsPanel.Enabled = true;
+        while (dr.Read())
+        {
+          // english name
+          ItemNameInput.Text = dr["name_english"].ToString();
+
+          // arabic name
+          ItemArabicNameInput.Text = dr["name_arabic"].ToString();
+
+          // english description
+          ItemEnglishDescriptionInput.Text = dr["description_english"].ToString();
+
+          // arabic description
+          ItemArabicDescriptionInput.Text = dr["description_arabic"].ToString();
+
+          // price
+          ItemPriceInput.Value = decimal.Parse(dr["price"].ToString());
+
+          // ItemCategoryInput selection
+          if (dr["category"].ToString() == "Promotions")
+            ItemCategoryInput.SelectedIndex = 0;
+          else if (dr["category"].ToString() == "Starter Items")
+            ItemCategoryInput.SelectedIndex = 1;
+          else if (dr["category"].ToString() == "Main Items")
+            ItemCategoryInput.SelectedIndex = 2;
+          else if (dr["category"].ToString() == "Desserts")
+            ItemCategoryInput.SelectedIndex = 3;
+          else if (dr["category"].ToString() == "Extra Items")
+            ItemCategoryInput.SelectedIndex = 4;
+
+          if (dr["image"] != null && !Convert.IsDBNull(dr["image"]))
+          {
+            imageBytes = (byte[])dr["image"];
+          }
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      MemoryStream ms = new MemoryStream(imageBytes);
+      Image finalImage = Image.FromStream(ms);
+
+      UploadItemPicture.Image = finalImage;
+      picUploadOkay = true;
     }
 
     OpenFileDialog open2 = new OpenFileDialog();
@@ -935,165 +1063,154 @@ namespace Restaurant_Contactless_Dining_System
 
     private void SubmitItemDetails_Click(object sender, EventArgs e)
     {
-      //if (newItem)
-      //{
-      //  DialogResult res = MessageBox.Show("Are you sure you want to submit details?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      //  if (res == DialogResult.No)
-      //    return;
+      DialogResult res = MessageBox.Show("Are you sure you want to submit details?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (res == DialogResult.No)
+        return;
 
-      //  if (ItemNameInput.Text.Equals("") || ItemCategoryInput.SelectedItem == null)
-      //  {
-      //    MessageBox.Show("Error: Some details might be missing, please check before submiting.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //    return;
-      //  }
-      //  if (!picUploadOkay)
-      //  {
-      //    MessageBox.Show("Error: Image not uploaded", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //    return;
-      //  }
+      // name english empty
+      if (ItemNameInput.Text.Equals(""))
+      {
+        MessageBox.Show("Error: Item english name cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  con.Open();
+      // arabic name empty
+      if (ItemArabicNameInput.Text.Equals(""))
+      {
+        MessageBox.Show("Error: Item arabic name cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  cmd.Connection = con;
-      //  cmd.CommandText = "INSERT INTO menu (name, price, category, image)" + " values (@iname, @iprice, @icategory, @iimage)";
+      // english description empty
+      if (ItemEnglishDescriptionInput.Text.Equals(""))
+      {
+        MessageBox.Show("Error: Item english description cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  byte[] image = File.ReadAllBytes(open2.FileName);
-      //  cmd.Parameters.AddWithValue("iname", ItemNameInput.Text);
-      //  cmd.Parameters.AddWithValue("iprice", ItemPriceInput.Value);
-      //  if (ItemCategoryInput.SelectedIndex == 0)
-      //  {
-      //    cmd.Parameters.AddWithValue("icategory", "special");
-      //  }
-      //  else if (ItemCategoryInput.SelectedIndex == 1)
-      //  {
-      //    cmd.Parameters.AddWithValue("icategory", "starter");
-      //  }
-      //  else if (ItemCategoryInput.SelectedIndex == 2)
-      //  {
-      //    cmd.Parameters.AddWithValue("icategory", "main");
-      //  }
-      //  else if (ItemCategoryInput.SelectedIndex == 3)
-      //  {
-      //    cmd.Parameters.AddWithValue("icategory", "dessert");
-      //  }
-      //  else
-      //  {
-      //    cmd.Parameters.AddWithValue("icategory", "extra");
-      //  }
-      //  cmd.Parameters.Add("iimage", DbType.Binary, 20).Value = image;
+      // arabic description empty
+      if (ItemArabicDescriptionInput.Text.Equals(""))
+      {
+        MessageBox.Show("Error: Item arabic description cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  int rowsAffected = cmd.ExecuteNonQuery();
-      //  if (rowsAffected == 0)
-      //    MessageBox.Show("Error... item not added.");
-      //  else
-      //  {
-      //    MessageBox.Show("Item added successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-      //  }
+      // price empty
+      if (ItemPriceInput.Value == 0)
+      {
+        MessageBox.Show("Error: Item price cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  con.Close();
+      // category empty
+      if (ItemCategoryInput.SelectedIndex == -1)
+      {
+        MessageBox.Show("Error: Item category cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  ItemDetailsPanel.Enabled = false;
-      //  UploadItemPicture.Image = null;
-      //  ClearFormFields_Click(this, new EventArgs());
-      //}
-      //else
-      //{
-      //  DialogResult res = MessageBox.Show("Are you sure you want to submit details?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      //  if (res == DialogResult.No)
-      //    return;
+      // logo upload empty
+      if (!picUploadOkay)
+      {
+        MessageBox.Show("Error: Image not uploaded", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
 
-      //  if (ItemNameInput.Text.Equals("") || ItemCategoryInput.SelectedItem == null)
-      //  {
-      //    MessageBox.Show("Error: Some details might be missing, please check before submiting.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //    return;
-      //  }
-      //  if (!picUploadOkay)
-      //  {
-      //    MessageBox.Show("Error: Image not uploaded", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //    return;
-      //  }
+      if (newItem)
+      {
+        // create database handler
+        DatabaseHandler db = new DatabaseHandler();
 
-      //  con.Open();
+        // get cmd from database
+        SqlCommand cmd = db.Command;
 
-      //  cmd.Connection = con;
-      //  cmd.CommandText = "INSERT INTO menu (name, price, category, image)" + " values (@iname, @iprice, @icategory, @iimage)";
+        // clear cmd
+        cmd.Parameters.Clear();
 
-      //  if (open2.FileName != "")
-      //  {
-      //    cmd.CommandText = "UPDATE menu SET name=@iname, price=@iprice, category=@icategory, image=@iimage WHERE id=@iid";
+        // read branch_id from DoneSetup.txt
+        branch_id = File.ReadAllText("DoneSetup.txt");
 
-      //    byte[] image = File.ReadAllBytes(open2.FileName);
-      //    cmd.Parameters.AddWithValue("iname", ItemNameInput.Text);
-      //    cmd.Parameters.AddWithValue("iprice", ItemPriceInput.Value);
-      //    cmd.Parameters.AddWithValue("iid", (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.')));
-      //    if (ItemCategoryInput.SelectedIndex == 0)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "special");
-      //    }
-      //    else if (ItemCategoryInput.SelectedIndex == 1)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "starter");
-      //    }
-      //    else if (ItemCategoryInput.SelectedIndex == 2)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "main");
-      //    }
-      //    else if (ItemCategoryInput.SelectedIndex == 3)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "dessert");
-      //    }
-      //    else
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "extra");
-      //    }
-      //    cmd.Parameters.Add("iimage", DbType.Binary, 20).Value = image;
-      //  }
-      //  else
-      //  {
-      //    cmd.CommandText = "UPDATE menu SET name=@iname, price=@iprice, category=@icategory WHERE id=@iid";
+        // add parameters
+        cmd.Parameters.AddWithValue("@name_english", ItemNameInput.Text);
+        cmd.Parameters.AddWithValue("@name_arabic", ItemArabicNameInput.Text);
+        cmd.Parameters.AddWithValue("@description_english", ItemEnglishDescriptionInput.Text);
+        cmd.Parameters.AddWithValue("@description_arabic", ItemArabicDescriptionInput.Text);
+        cmd.Parameters.AddWithValue("@price", ItemPriceInput.Value);
+        cmd.Parameters.AddWithValue("@category", ItemCategoryInput.SelectedItem.ToString());
+        cmd.Parameters.AddWithValue("@image", File.ReadAllBytes(open2.FileName));
+        cmd.Parameters.AddWithValue("@branch_id", branch_id);
 
-      //    cmd.Parameters.AddWithValue("iname", ItemNameInput.Text);
-      //    cmd.Parameters.AddWithValue("iprice", ItemPriceInput.Value);
-      //    cmd.Parameters.AddWithValue("iid", (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.')));
-      //    if (ItemCategoryInput.SelectedIndex == 0)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "special");
-      //    }
-      //    else if (ItemCategoryInput.SelectedIndex == 1)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "starter");
-      //    }
-      //    else if (ItemCategoryInput.SelectedIndex == 2)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "main");
-      //    }
-      //    else if (ItemCategoryInput.SelectedIndex == 3)
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "dessert");
-      //    }
-      //    else
-      //    {
-      //      cmd.Parameters.AddWithValue("icategory", "extra");
-      //    }
-      //  }
+        // set command text
+        cmd.CommandText = "INSERT INTO menu_items (name_english, name_arabic, description_english, description_arabic, price, category, image, branch_id) VALUES (@name_english, @name_arabic, @description_english, @description_arabic, @price, @category, @image, @branch_id)";
 
-      //  int rowsAffected = cmd.ExecuteNonQuery();
-      //  if (rowsAffected == 0)
-      //    MessageBox.Show("Error... item not updated.");
-      //  else
-      //  {
-      //    MessageBox.Show("Item updated successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-      //  }
+        int rowsAffected = db.ExecuteNonQuery();
 
-      //  con.Close();
+        if (rowsAffected == 0)
+        {
+          MessageBox.Show("Error: Item not added", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-      //  ItemDetailsPanel.Enabled = false;
-      //  UploadItemPicture.Image = null;
-      //  ClearFormFields_Click(this, new EventArgs());
-      //}
+          // close connection
+          db.CloseConnection();
 
-      //MenuItemsList.Enabled = false;
-      //SpecialDealsRadio_CheckedChanged(this, new EventArgs());
+          return;
+        }
+
+        MessageBox.Show("Item added successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        // close connection
+        db.CloseConnection();
+
+        ItemDetailsPanel.Enabled = false;
+        UploadItemPicture.Image = null;
+        ClearFormFields_Click(this, new EventArgs());
+      }
+      else
+      {
+        // create database handler
+        DatabaseHandler db = new DatabaseHandler();
+
+        // get cmd from database
+        SqlCommand cmd = db.Command;
+
+        // clear cmd
+        cmd.Parameters.Clear();
+
+        // read branch_id from DoneSetup.txt
+        branch_id = File.ReadAllText("DoneSetup.txt");
+
+        // add parameters
+        cmd.Parameters.AddWithValue("@name_english", ItemNameInput.Text);
+        cmd.Parameters.AddWithValue("@name_arabic", ItemArabicNameInput.Text);
+        cmd.Parameters.AddWithValue("@description_english", ItemEnglishDescriptionInput.Text);
+        cmd.Parameters.AddWithValue("@description_arabic", ItemArabicDescriptionInput.Text);
+        cmd.Parameters.AddWithValue("@price", ItemPriceInput.Value);
+        cmd.Parameters.AddWithValue("@category", ItemCategoryInput.SelectedItem.ToString());
+        cmd.Parameters.AddWithValue("@image", File.ReadAllBytes(open2.FileName));
+        cmd.Parameters.AddWithValue("@branch_id", branch_id);
+        cmd.Parameters.AddWithValue("@id", (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.')));
+
+        // set command text
+        cmd.CommandText = "UPDATE menu_items SET name_english = @name_english, name_arabic = @name_arabic, description_english = @description_english, description_arabic = @description_arabic, price = @price, category = @category, image = @image WHERE item_id = @id";
+
+        int rowsAffected = db.ExecuteNonQuery();
+
+        if (rowsAffected == 0)
+          MessageBox.Show("Error... item not updated.");
+        else
+        {
+          MessageBox.Show("Item updated successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // close connection
+        db.CloseConnection();
+
+        ItemDetailsPanel.Enabled = false;
+        UploadItemPicture.Image = null;
+        ClearFormFields_Click(this, new EventArgs());
+      }
+
+      MenuItemsList.Enabled = false;
+      SpecialDealsRadio_CheckedChanged(this, new EventArgs());
     }
 
     private void ClearFormFields_Click(object sender, EventArgs e)
@@ -1102,6 +1219,9 @@ namespace Restaurant_Contactless_Dining_System
       ItemNameInput.Clear();
       ItemPriceInput.Value = 0;
       ItemCategoryInput.Text = "";
+      ItemArabicNameInput.Clear();
+      ItemEnglishDescriptionInput.Clear();
+      ItemArabicDescriptionInput.Clear();
     }
 
     private void DeleteItem_Click(object sender, EventArgs e)
@@ -1110,31 +1230,51 @@ namespace Restaurant_Contactless_Dining_System
       if (res == DialogResult.No)
         return;
 
-      //con.Open();
-      //cmd.Connection = con;
+      // create database handler
+      DatabaseHandler db = new DatabaseHandler();
 
-      //try
-      //{
-      //  cmd.CommandText = "DELETE FROM menu WHERE id=" + (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.'));
-      //}
-      //catch (NullReferenceException)
-      //{
-      //  MessageBox.Show("Select an item first please.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //}
-      //finally
-      //{
-      //  int rowsAffected = cmd.ExecuteNonQuery();
-      //  if (rowsAffected == 0)
-      //    MessageBox.Show("Error... item not deleted.");
-      //  else
-      //  {
-      //    MessageBox.Show("Item deleted successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-      //  }
+      // get cmd from db
+      SqlCommand cmd = db.Command;
 
-      //  con.Close();
+      try
+      {
+        string id = (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.'));
 
-      //  SpecialDealsRadio_CheckedChanged(this, new EventArgs());
-      //}
+        // add parameters
+        cmd.Parameters.AddWithValue("@id", id);
+
+        cmd.CommandText = "DELETE FROM menu_items WHERE item_id=@id";
+      }
+      catch (NullReferenceException)
+      {
+        MessageBox.Show("Select an item first please.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+      finally
+      {
+        int rowsAffected = db.ExecuteNonQuery();
+        if (rowsAffected == 0)
+          MessageBox.Show("Error... item not deleted.");
+        else
+        {
+          MessageBox.Show("Item deleted successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // close connection
+        db.CloseConnection();
+
+        // clear menu
+        MenuItemsList.Items.Clear();
+
+        // unselect radio buttons
+        SpecialDealsRadio.Checked = false;
+        StarterItemsRadio.Checked = false;
+        MainItemsRadio.Checked = false;
+        DessertsRadio.Checked = false;
+        ExtraItemsRadio.Checked = false;
+
+        // disable delete button
+        DeleteItem.Enabled = false;
+      }
     }
 
     private void TextInputButton_Click(object sender, EventArgs e)
