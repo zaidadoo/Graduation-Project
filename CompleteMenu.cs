@@ -19,6 +19,7 @@ namespace Restaurant_Contactless_Dining_System
     private static bool englishLanguage = true;
 
     private string restaurant_id = "";
+    private string restaurant_name = "";
     private string branch_id = "";
 
     string mainColor = "";
@@ -84,7 +85,7 @@ namespace Restaurant_Contactless_Dining_System
       if(englishLanguage)
         TotalPriceLabel.Text = $"Total: {currentOrder.GetTotal():0.00}";
       else
-        TotalPriceLabel.Text = $"{currentOrder.GetTotal():0.00} :المجموع";
+        TotalPriceLabel.Text = $"المجموع: {currentOrder.GetTotal():0.00}";
     }
 
     byte[] logoBytes = null;
@@ -121,20 +122,107 @@ namespace Restaurant_Contactless_Dining_System
 
       SqlDataReader dr = db.ExecuteQuery(sqlString);
 
+      int numOfTables = 0;
+
       if (dr.HasRows)
       {
         while (dr.Read())
         {
           // get restaurant_id
           restaurant_id = dr["restaurant_id"].ToString();
+
+          numOfTables = Convert.ToInt32(dr["number_of_tables"]);
         }
       }
 
       // close connection
       db.CloseConnection();
 
+      UpdateNumOfTables(numOfTables);
       updateColors();
       updateLanguage();
+    }
+
+    private void UpdateNumOfTables(int num)
+    {
+      // clear tableComboBox
+      tableComboBox.Items.Clear();
+
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
+
+      // get cmd from db
+      SqlCommand cmd = db.Command;
+
+      // clear parameters
+      cmd.Parameters.Clear();
+
+      // add parameters
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
+      // get all orders from database that are pending or preparing
+      string sqlString = "SELECT * FROM orders WHERE branch_id = @branch_id AND (status = 'pending' OR status = 'preparing')";
+
+      // create a resizable list of order ids
+      int[] orderIDs = new int[num];
+      int size = 0;
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          orderIDs[size] = Convert.ToInt32(dr["order_id"]);
+          size++;
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // resizable occuppied tables list
+      int[] occuppiedTables = new int[size];
+      int sizeTables = 0;
+
+      // iterate through order ids
+      for (int i = 0; i < size; i++)
+      {
+        // clear parameters
+        cmd.Parameters.Clear();
+
+        // add parameters
+        cmd.Parameters.AddWithValue("@order_id", orderIDs[i]);
+
+        // get all orders from database that are pending or preparing
+        sqlString = "SELECT * FROM dine_in_orders WHERE order_id = @order_id";
+
+        dr = db.ExecuteQuery(sqlString);
+
+        if (dr.HasRows)
+        {
+          while (dr.Read())
+          {
+            occuppiedTables[sizeTables] = Convert.ToInt32(dr["table_number"]);
+            sizeTables++;
+          }
+        }
+
+        // close connection
+        db.CloseConnection();
+      }
+
+      // populate tableComboBox with num
+      for (int i = 1; i <= num; i++)
+      {
+        if (!occuppiedTables.Contains(i))
+        {
+          if(englishLanguage)
+            tableComboBox.Items.Add($"Table {i}");
+          else
+            tableComboBox.Items.Add($"طاولة {i}");
+        }
+      }
     }
 
     private void updateLanguage()
@@ -148,9 +236,16 @@ namespace Restaurant_Contactless_Dining_System
         ExtraItemsButton.Text = "Extra Items";
         Title.Text = "Your Order";
         TotalPriceLabel.Text = "Total:";
-        CheckoutButton.Text = "Checkout";
         ClearAllButton.Text = "Clear All";
         ExitButton.Text = "Back";
+        dineInButton.Text = "Dine In";
+        takeOutButton.Text = "Take Out";
+        dineInNote.Text = "Please select table number if dining in.";
+
+        Title.RightToLeft = RightToLeft.No;
+        CategoryTitle.RightToLeft = RightToLeft.No;
+        TotalPriceLabel.RightToLeft = RightToLeft.No;
+        dineInNote.RightToLeft = RightToLeft.No;
       }
       else
       {
@@ -162,9 +257,16 @@ namespace Restaurant_Contactless_Dining_System
         ExtraItemsButton.Text = "الإضافات";
         Title.Text = "طلبك";
         TotalPriceLabel.Text = "المجموع:";
-        CheckoutButton.Text = "الدفع";
         ClearAllButton.Text = "مسح";
         ExitButton.Text = "رجوع";
+        dineInButton.Text = "في المطعم";
+        takeOutButton.Text = "خارج المطعم";
+        dineInNote.Text = "الرجاء اختيار رقم الطاولة.";
+
+        Title.RightToLeft = RightToLeft.Yes;
+        CategoryTitle.RightToLeft = RightToLeft.Yes;
+        TotalPriceLabel.RightToLeft = RightToLeft.Yes;
+        dineInNote.RightToLeft = RightToLeft.Yes;
       }
     }
 
@@ -188,6 +290,9 @@ namespace Restaurant_Contactless_Dining_System
       {
         while (dr.Read())
         {
+          // get restaurant name
+          restaurant_name = dr["name_english"].ToString();
+
           // get main color
           mainColor = dr["main_color"].ToString();
 
@@ -227,13 +332,16 @@ namespace Restaurant_Contactless_Dining_System
       Title.ForeColor = ColorTranslator.FromHtml(textColor);
       TotalPriceLabel.ForeColor = ColorTranslator.FromHtml(textColor);
       ExitButton.ForeColor = ColorTranslator.FromHtml(textColor);
-      CheckoutButton.ForeColor = ColorTranslator.FromHtml(textColor);
+      dineInButton.ForeColor = ColorTranslator.FromHtml(textColor);
       ClearAllButton.ForeColor = ColorTranslator.FromHtml(textColor);
       SpecialDealsButton.ForeColor = ColorTranslator.FromHtml(textColor);
       StarterItemsButton.ForeColor = ColorTranslator.FromHtml(textColor);
       MainItemsButton.ForeColor = ColorTranslator.FromHtml(textColor);
       DessertsButton.ForeColor = ColorTranslator.FromHtml(textColor);
       ExtraItemsButton.ForeColor = ColorTranslator.FromHtml(textColor);
+      takeOutButton.ForeColor = ColorTranslator.FromHtml(textColor);
+      tableComboBox.ForeColor = ColorTranslator.FromHtml(textColor);
+      dineInNote.ForeColor = ColorTranslator.FromHtml(textColor);
 
       // create a lighter color by 10%
       Color lighterAccent = ColorTranslator.FromHtml(accentColor);
@@ -241,7 +349,8 @@ namespace Restaurant_Contactless_Dining_System
       lighterColor = ColorTranslator.ToHtml(lighterAccent);
 
       // set lighter accent colors
-      CheckoutButton.BackColor = lighterAccent;
+      dineInButton.BackColor = lighterAccent;
+      takeOutButton.BackColor = lighterAccent;
       ClearAllButton.BackColor = lighterAccent;
       SpecialDealsButton.BackColor = lighterAccent;
       StarterItemsButton.BackColor = lighterAccent;
@@ -249,7 +358,7 @@ namespace Restaurant_Contactless_Dining_System
       DessertsButton.BackColor = lighterAccent;
       ExtraItemsButton.BackColor = lighterAccent;
       ExitButton.BackColor = lighterAccent;
-
+      tableComboBox.BackColor = lighterAccent;
     }
 
     public void retrieveItems(string catName)
@@ -294,6 +403,8 @@ namespace Restaurant_Contactless_Dining_System
           current.TextColor = textColor;
 
           current.PriceItem = $"{dr["price"]:0.00}";
+
+          current.DatabaseID = Convert.ToInt32(dr["item_id"]);
 
           current.EnglishLang = englishLanguage;
 
@@ -378,116 +489,199 @@ namespace Restaurant_Contactless_Dining_System
       retrieveItems("Extra Items");
     }
 
+    private void Checkout(bool isDineIn)
+    {
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
+
+      // get cmd from db
+      SqlCommand cmd = db.Command;
+
+      // clear cmd parameters
+      cmd.Parameters.Clear();
+
+      // add parameters
+      // branch id
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
+      // order time
+      cmd.Parameters.AddWithValue("@order_time", DateTime.Now);
+
+      cmd.CommandText = "INSERT INTO orders (branch_id, order_time) VALUES (@branch_id, @order_time)";
+
+      int rowsAffected = db.ExecuteNonQuery();
+
+      if (rowsAffected == 0)
+      { 
+        MessageBox.Show("Error... Could not add order. Please contact technical maintenance service.");
+        db.CloseConnection();
+
+        return;
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // clear cmd parameters
+      cmd.Parameters.Clear();
+
+      // add parameters
+      // branch id
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
+      // get order id
+      string sqlString = "SELECT TOP 1 order_id FROM orders WHERE branch_id = @branch_id ORDER BY order_id DESC";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      int order_id = 0;
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          order_id = Convert.ToInt32(dr["order_id"]);
+        }
+      }
+      else
+      {
+        // error
+        MessageBox.Show("Error... Could not get order ID. Please contact technical maintenance service.");
+        db.CloseConnection();
+
+        return;
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // clear cmd parameters
+      cmd.Parameters.Clear();
+
+      // create data table to store cart info
+      DataTable cart = new DataTable();
+      cart.Columns.Add("order_id", typeof(int));
+      cart.Columns.Add("item_id", typeof(int));
+      cart.Columns.Add("quantity", typeof(int));
+      cart.Columns.Add("description", typeof(string));
+
+      for (int i = 0; i < currentOrder.size; i++)
+      {
+        // add row to cart
+        cart.Rows.Add(order_id, currentOrder.databaseIDs[i], currentOrder.quantity[i], currentOrder.notes[i] == null ? "" : currentOrder.notes[i]);
+      }
+
+      if(!db.BulkCopy(cart, "customer_order_items"))
+      {
+        // error
+        MessageBox.Show("Error... Could not add order items. Please contact technical maintenance service.");
+        db.CloseConnection();
+
+        return;
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      RatingPrompt rating = new RatingPrompt(order_id, englishLanguage);
+      rating.ShowDialog();
+
+      var writer = new StreamWriter("receipt.txt");
+      writer.WriteLine("▀█▀ █░█ ▄▀█ █▄░█ █▄▀   █▄█ █▀█ █░█");
+      writer.WriteLine("░█░ █▀█ █▀█ █░▀█ █░█   ░█░ █▄█ █▄█");
+      writer.WriteLine("");
+      writer.WriteLine("");
+      writer.WriteLine("");
+      writer.WriteLine("\t\t\t" + restaurant_name);
+      writer.WriteLine("");
+      writer.WriteLine("\tPlease go to the counter");
+      writer.WriteLine("\tto pay for your order.");
+      writer.WriteLine("");
+      writer.WriteLine("\t\tOrder ID: " + order_id.ToString());
+      writer.WriteLine("");
+      writer.WriteLine("");
+      writer.WriteLine("#ORD " + order_id.ToString() + " - " + DateTime.Now);
+      writer.WriteLine("#\tTotal\t\tProduct");
+
+      for (int i = 0; i < currentOrder.size; i++)
+      {
+        writer.WriteLine($"{currentOrder.quantity[i]:00}\t{(currentOrder.price[i] * currentOrder.quantity[i]):00.00}\t\t{currentOrder.items[i]}");
+
+        // add the notes[i] as a new line if it's not empty
+        if (currentOrder.notes[i] != null && currentOrder.notes[i] != "")
+        {
+          // split each 10 characters into a new line
+          for (int j = 0; j < currentOrder.notes[i].Length; j += 10)
+          {
+            writer.WriteLine("\t\t\t" + currentOrder.notes[i].Substring(j, Math.Min(10, currentOrder.notes[i].Length - j)));
+          }
+        }
+      }
+
+      writer.WriteLine("");
+      writer.WriteLine("Total\t\t\t" + currentOrder.GetTotal());
+      writer.WriteLine("");
+      writer.WriteLine("Have a good day!");
+
+      writer.Close();
+
+      currentOrder.ClearAll();
+
+      this.Hide();
+    }
+
     private void CheckoutButton_Click(object sender, EventArgs e)
     {
       if (currentOrder.size < 1)
       {
-        MessageBox.Show("Please select at least one item before checking out.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        if(englishLanguage)
+          MessageBox.Show("Please select at least one item before checking out.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        else
+          MessageBox.Show("الرجاء اختيار غرض واحد على الأقل قبل الدفع.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
         return;
       }
 
-      DialogResult confirmation = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+      // check if tableComboBox is selected
+      if (tableComboBox.SelectedIndex == -1)
+      {
+        if (englishLanguage)
+          MessageBox.Show("Please select a table before checking out.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        else
+          MessageBox.Show("الرجاء اختيار طاولة قبل الدفع.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-      return;
+        return;
+      }
 
-      //if (confirmation == DialogResult.Yes)
-      //{
+      DialogResult confirmation;
 
-      //  string queryString = "";
-      //  for (int i = 0; i < currentOrder.size; i++)
-      //  {
-      //    queryString += currentOrder.items[i] + ":" + currentOrder.quantity[i] + ":" + currentOrder.price[i] + "\n";
-      //  }
+      if (englishLanguage)
+        confirmation = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+      else
+        confirmation = MessageBox.Show("هل أنت متأكد؟", "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
-      //  con.Open();
-
-      //  cmd.Connection = con;
-      //  cmd.CommandText = "INSERT INTO orders (items)" + " values (@items_)";
-
-      //  cmd.Parameters.AddWithValue("items_", queryString);
-
-      //  int rowsAffected = cmd.ExecuteNonQuery();
-
-
-      //  if (rowsAffected == 0)
-      //    MessageBox.Show("Error... please contact technical maintenance service.");
-
-      //  con.Close();
-
-      //  int CurrentOrderId = 0;
-      //  string RestaurantName = "";
-
-      //  con.Open();
-      //  cmd.Connection = con;
-      //  cmd.CommandText = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
-      //  dr = cmd.ExecuteReader();
-
-      //  if (dr.HasRows)
-      //  {
-      //    while (dr.Read())
-      //    {
-      //      CurrentOrderId = int.Parse(dr["id"].ToString());
-      //    }
-      //  }
-
-      //  dr.Close();
-
-      //  cmd.CommandText = "SELECT * FROM restaurant_info";
-      //  dr = cmd.ExecuteReader();
-
-      //  if (dr.HasRows)
-      //  {
-      //    while (dr.Read())
-      //    {
-      //      RestaurantName += dr["name"].ToString();
-      //    }
-      //  }
-
-      //  dr.Close();
-      //  con.Close();
-
-      //  var writer = new StreamWriter("receipt.txt");
-      //  writer.WriteLine("▀█▀ █░█ ▄▀█ █▄░█ █▄▀   █▄█ █▀█ █░█");
-      //  writer.WriteLine("░█░ █▀█ █▀█ █░▀█ █░█   ░█░ █▄█ █▄█");
-      //  writer.WriteLine("");
-      //  writer.WriteLine("");
-      //  writer.WriteLine("");
-      //  writer.WriteLine("\t\t\t" + RestaurantName);
-      //  writer.WriteLine("");
-      //  writer.WriteLine("\tPlease go to the counter");
-      //  writer.WriteLine("\tto pay for your order.");
-      //  writer.WriteLine("");
-      //  writer.WriteLine("\t\tOrder ID: " + CurrentOrderId.ToString());
-      //  writer.WriteLine("");
-      //  writer.WriteLine("");
-      //  writer.WriteLine("#ORD " + CurrentOrderId.ToString() + " - " + DateTime.UtcNow);
-      //  writer.WriteLine("#\tTotal\t\tProduct");
-      //  for (int i = 0; i < currentOrder.size; i++)
-      //  {
-      //    writer.WriteLine($"{currentOrder.quantity[i]:00}\t{(currentOrder.price[i] * currentOrder.quantity[i]):00.00}\t\t{currentOrder.items[i]}");
-      //  }
-      //  writer.WriteLine("");
-      //  writer.WriteLine("Total\t\t\t" + currentOrder.GetTotal());
-      //  writer.WriteLine("");
-      //  writer.WriteLine("Have a good day!");
-
-      //  writer.Close();
-
-      //  currentOrder.ClearAll();
-      //  MessageBox.Show("Order received, and pending receipt printed. Please take printed receipt to counter to pay for order.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-      //  this.Hide();
-      //}
+      if (confirmation == DialogResult.Yes)
+        Checkout(true);
     }
 
     private void ClearAllButton_Click(object sender, EventArgs e)
     {
-      DialogResult confirmation = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+      DialogResult confirmation;
+
+      if (englishLanguage)
+        confirmation = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+      else
+        confirmation = MessageBox.Show("هل أنت متأكد؟", "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
       if (confirmation == DialogResult.Yes)
       {
         currentOrder.ClearAll();
       }
+    }
+
+    private void takeOutButton_Click(object sender, EventArgs e)
+    {
+
     }
   }
 }

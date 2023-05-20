@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Restaurant_Contactless_Dining_System
 {
@@ -107,6 +108,32 @@ namespace Restaurant_Contactless_Dining_System
       }
 
       return reader;
+    }
+
+
+    // bulk copy
+    public bool BulkCopy(DataTable dataTable, string tableName)
+    {
+      // open connection
+      OpenConnection();
+
+      using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection))
+      {
+        bulkCopy.DestinationTableName = tableName;
+
+        try
+        {
+          bulkCopy.WriteToServer(dataTable);
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show(ex.Message);
+
+          return false;
+        }
+      }
+
+      return true;
     }
   }
 }

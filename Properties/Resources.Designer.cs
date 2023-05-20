@@ -173,6 +173,26 @@ namespace Restaurant_Contactless_Dining_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap star__4_ {
+            get {
+                object obj = ResourceManager.GetObject("star (4)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap star__5_ {
+            get {
+                object obj = ResourceManager.GetObject("star (5)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap supervisor {
             get {
                 object obj = ResourceManager.GetObject("supervisor", resourceCulture);

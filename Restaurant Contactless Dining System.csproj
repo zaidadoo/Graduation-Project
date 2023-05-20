@@ -194,6 +194,12 @@
       <DependentUpon>CompleteMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseHandler.cs" />
+    <Compile Include="RatingPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RatingPrompt.Designer.cs">
+      <DependentUpon>RatingPrompt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -258,6 +264,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CompleteMenu.resx">
       <DependentUpon>CompleteMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingPrompt.resx">
+      <DependentUpon>RatingPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupChoice.resx">
       <DependentUpon>SetupChoice.cs</DependentUpon>
@@ -327,6 +336,8 @@
     <None Include="Resources\meal.png" />
     <Content Include="Resources\ORDER_HERE.jpg" />
     <None Include="Resources\supervisor.png" />
+    <None Include="Resources\star %284%29.png" />
+    <None Include="Resources\star %285%29.png" />
     <Content Include="Resources\TV_Screen.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

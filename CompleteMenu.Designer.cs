@@ -37,20 +37,23 @@ namespace Restaurant_Contactless_Dining_System
       this.MainItemsButton = new System.Windows.Forms.Button();
       this.StarterItemsButton = new System.Windows.Forms.Button();
       this.SpecialDealsButton = new System.Windows.Forms.Button();
-      this.LogoFrame = new System.Windows.Forms.PictureBox();
       this.SelectedItem = new System.Windows.Forms.Panel();
       this.OrderPanel = new System.Windows.Forms.Panel();
       this.TotalPriceLabel = new System.Windows.Forms.Label();
       this.ClearAllButton = new System.Windows.Forms.Button();
       this.OrderedItems = new System.Windows.Forms.FlowLayoutPanel();
-      this.CheckoutButton = new System.Windows.Forms.Button();
+      this.dineInButton = new System.Windows.Forms.Button();
       this.Title = new System.Windows.Forms.Label();
       this.DisplayItems = new System.Windows.Forms.FlowLayoutPanel();
       this.CategoryTitle = new System.Windows.Forms.Label();
+      this.takeOutButton = new System.Windows.Forms.Button();
+      this.LogoFrame = new System.Windows.Forms.PictureBox();
+      this.tableComboBox = new System.Windows.Forms.ComboBox();
+      this.dineInNote = new System.Windows.Forms.Label();
       this.Tab.SuspendLayout();
       this.CategoryMenu.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.LogoFrame)).BeginInit();
       this.OrderPanel.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.LogoFrame)).BeginInit();
       this.SuspendLayout();
       // 
       // Tab
@@ -170,16 +173,6 @@ namespace Restaurant_Contactless_Dining_System
       this.SpecialDealsButton.UseVisualStyleBackColor = false;
       this.SpecialDealsButton.Click += new System.EventHandler(this.SpecialDealsButton_Click);
       // 
-      // LogoFrame
-      // 
-      this.LogoFrame.BackColor = System.Drawing.Color.Transparent;
-      this.LogoFrame.Location = new System.Drawing.Point(70, 21);
-      this.LogoFrame.Name = "LogoFrame";
-      this.LogoFrame.Size = new System.Drawing.Size(227, 189);
-      this.LogoFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-      this.LogoFrame.TabIndex = 11;
-      this.LogoFrame.TabStop = false;
-      // 
       // SelectedItem
       // 
       this.SelectedItem.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -194,10 +187,13 @@ namespace Restaurant_Contactless_Dining_System
       this.OrderPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.OrderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-      this.OrderPanel.Controls.Add(this.TotalPriceLabel);
+      this.OrderPanel.Controls.Add(this.dineInNote);
+      this.OrderPanel.Controls.Add(this.tableComboBox);
+      this.OrderPanel.Controls.Add(this.takeOutButton);
       this.OrderPanel.Controls.Add(this.ClearAllButton);
+      this.OrderPanel.Controls.Add(this.TotalPriceLabel);
       this.OrderPanel.Controls.Add(this.OrderedItems);
-      this.OrderPanel.Controls.Add(this.CheckoutButton);
+      this.OrderPanel.Controls.Add(this.dineInButton);
       this.OrderPanel.Location = new System.Drawing.Point(1448, 166);
       this.OrderPanel.Name = "OrderPanel";
       this.OrderPanel.Size = new System.Drawing.Size(472, 913);
@@ -211,9 +207,10 @@ namespace Restaurant_Contactless_Dining_System
       this.TotalPriceLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.TotalPriceLabel.Font = new System.Drawing.Font("Calibri", 24F);
       this.TotalPriceLabel.ForeColor = System.Drawing.Color.White;
-      this.TotalPriceLabel.Location = new System.Drawing.Point(15, 747);
+      this.TotalPriceLabel.Location = new System.Drawing.Point(15, 705);
+      this.TotalPriceLabel.MinimumSize = new System.Drawing.Size(450, 0);
       this.TotalPriceLabel.Name = "TotalPriceLabel";
-      this.TotalPriceLabel.Size = new System.Drawing.Size(89, 39);
+      this.TotalPriceLabel.Size = new System.Drawing.Size(450, 39);
       this.TotalPriceLabel.TabIndex = 5;
       this.TotalPriceLabel.Text = "Total:";
       // 
@@ -225,9 +222,9 @@ namespace Restaurant_Contactless_Dining_System
       this.ClearAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.ClearAllButton.Font = new System.Drawing.Font("Calibri", 14.25F);
       this.ClearAllButton.ForeColor = System.Drawing.Color.White;
-      this.ClearAllButton.Location = new System.Drawing.Point(242, 817);
+      this.ClearAllButton.Location = new System.Drawing.Point(24, 30);
       this.ClearAllButton.Name = "ClearAllButton";
-      this.ClearAllButton.Size = new System.Drawing.Size(214, 77);
+      this.ClearAllButton.Size = new System.Drawing.Size(420, 47);
       this.ClearAllButton.TabIndex = 15;
       this.ClearAllButton.Text = "Clear All";
       this.ClearAllButton.UseVisualStyleBackColor = false;
@@ -238,26 +235,26 @@ namespace Restaurant_Contactless_Dining_System
       this.OrderedItems.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.OrderedItems.AutoScroll = true;
       this.OrderedItems.BackColor = System.Drawing.Color.Transparent;
-      this.OrderedItems.Location = new System.Drawing.Point(22, 19);
+      this.OrderedItems.Location = new System.Drawing.Point(22, 83);
       this.OrderedItems.Name = "OrderedItems";
-      this.OrderedItems.Size = new System.Drawing.Size(446, 725);
+      this.OrderedItems.Size = new System.Drawing.Size(446, 617);
       this.OrderedItems.TabIndex = 14;
       // 
-      // CheckoutButton
+      // dineInButton
       // 
-      this.CheckoutButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.CheckoutButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-      this.CheckoutButton.FlatAppearance.BorderSize = 0;
-      this.CheckoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.CheckoutButton.Font = new System.Drawing.Font("Calibri", 14.25F);
-      this.CheckoutButton.ForeColor = System.Drawing.Color.White;
-      this.CheckoutButton.Location = new System.Drawing.Point(22, 817);
-      this.CheckoutButton.Name = "CheckoutButton";
-      this.CheckoutButton.Size = new System.Drawing.Size(214, 77);
-      this.CheckoutButton.TabIndex = 13;
-      this.CheckoutButton.Text = "Checkout";
-      this.CheckoutButton.UseVisualStyleBackColor = false;
-      this.CheckoutButton.Click += new System.EventHandler(this.CheckoutButton_Click);
+      this.dineInButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.dineInButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+      this.dineInButton.FlatAppearance.BorderSize = 0;
+      this.dineInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.dineInButton.Font = new System.Drawing.Font("Calibri", 14.25F);
+      this.dineInButton.ForeColor = System.Drawing.Color.White;
+      this.dineInButton.Location = new System.Drawing.Point(22, 799);
+      this.dineInButton.Name = "dineInButton";
+      this.dineInButton.Size = new System.Drawing.Size(214, 77);
+      this.dineInButton.TabIndex = 13;
+      this.dineInButton.Text = "Dine in";
+      this.dineInButton.UseVisualStyleBackColor = false;
+      this.dineInButton.Click += new System.EventHandler(this.CheckoutButton_Click);
       // 
       // Title
       // 
@@ -269,8 +266,9 @@ namespace Restaurant_Contactless_Dining_System
       this.Title.Font = new System.Drawing.Font("Calibri", 32F);
       this.Title.ForeColor = System.Drawing.Color.White;
       this.Title.Location = new System.Drawing.Point(1439, 110);
+      this.Title.MinimumSize = new System.Drawing.Size(475, 0);
       this.Title.Name = "Title";
-      this.Title.Size = new System.Drawing.Size(253, 53);
+      this.Title.Size = new System.Drawing.Size(475, 53);
       this.Title.TabIndex = 5;
       this.Title.Text = "YOUR ORDER";
       // 
@@ -292,10 +290,60 @@ namespace Restaurant_Contactless_Dining_System
       this.CategoryTitle.Font = new System.Drawing.Font("Calibri", 48F);
       this.CategoryTitle.ForeColor = System.Drawing.Color.White;
       this.CategoryTitle.Location = new System.Drawing.Point(378, 85);
+      this.CategoryTitle.MinimumSize = new System.Drawing.Size(1060, 0);
       this.CategoryTitle.Name = "CategoryTitle";
-      this.CategoryTitle.Size = new System.Drawing.Size(1005, 78);
+      this.CategoryTitle.Size = new System.Drawing.Size(1060, 78);
       this.CategoryTitle.TabIndex = 5;
       this.CategoryTitle.Text = "Please select a category from the left.";
+      // 
+      // takeOutButton
+      // 
+      this.takeOutButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.takeOutButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+      this.takeOutButton.FlatAppearance.BorderSize = 0;
+      this.takeOutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.takeOutButton.Font = new System.Drawing.Font("Calibri", 14.25F);
+      this.takeOutButton.ForeColor = System.Drawing.Color.White;
+      this.takeOutButton.Location = new System.Drawing.Point(242, 799);
+      this.takeOutButton.Name = "takeOutButton";
+      this.takeOutButton.Size = new System.Drawing.Size(214, 77);
+      this.takeOutButton.TabIndex = 16;
+      this.takeOutButton.Text = "Take out";
+      this.takeOutButton.UseVisualStyleBackColor = false;
+      this.takeOutButton.Click += new System.EventHandler(this.takeOutButton_Click);
+      // 
+      // LogoFrame
+      // 
+      this.LogoFrame.BackColor = System.Drawing.Color.Transparent;
+      this.LogoFrame.Location = new System.Drawing.Point(70, 21);
+      this.LogoFrame.Name = "LogoFrame";
+      this.LogoFrame.Size = new System.Drawing.Size(227, 189);
+      this.LogoFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+      this.LogoFrame.TabIndex = 11;
+      this.LogoFrame.TabStop = false;
+      // 
+      // tableComboBox
+      // 
+      this.tableComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.tableComboBox.Font = new System.Drawing.Font("Calibri", 14.25F);
+      this.tableComboBox.FormattingEnabled = true;
+      this.tableComboBox.Location = new System.Drawing.Point(22, 762);
+      this.tableComboBox.Name = "tableComboBox";
+      this.tableComboBox.Size = new System.Drawing.Size(214, 31);
+      this.tableComboBox.TabIndex = 17;
+      // 
+      // dineInNote
+      // 
+      this.dineInNote.AutoSize = true;
+      this.dineInNote.BackColor = System.Drawing.Color.Transparent;
+      this.dineInNote.Font = new System.Drawing.Font("Calibri", 10F);
+      this.dineInNote.ForeColor = System.Drawing.Color.White;
+      this.dineInNote.Location = new System.Drawing.Point(24, 883);
+      this.dineInNote.MinimumSize = new System.Drawing.Size(219, 0);
+      this.dineInNote.Name = "dineInNote";
+      this.dineInNote.Size = new System.Drawing.Size(219, 17);
+      this.dineInNote.TabIndex = 18;
+      this.dineInNote.Text = "Please select table number if dining in";
       // 
       // CompleteMenu
       // 
@@ -314,9 +362,9 @@ namespace Restaurant_Contactless_Dining_System
       this.Load += new System.EventHandler(this.CompleteMenu_Load);
       this.Tab.ResumeLayout(false);
       this.CategoryMenu.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.LogoFrame)).EndInit();
       this.OrderPanel.ResumeLayout(false);
       this.OrderPanel.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.LogoFrame)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -335,12 +383,15 @@ namespace Restaurant_Contactless_Dining_System
         private System.Windows.Forms.Button ExtraItemsButton;
         private System.Windows.Forms.Button DessertsButton;
         private System.Windows.Forms.Panel OrderPanel;
-        private System.Windows.Forms.Button CheckoutButton;
+        private System.Windows.Forms.Button dineInButton;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.FlowLayoutPanel DisplayItems;
         private System.Windows.Forms.FlowLayoutPanel OrderedItems;
         private System.Windows.Forms.Button ClearAllButton;
         private System.Windows.Forms.Label CategoryTitle;
         private System.Windows.Forms.Label TotalPriceLabel;
-    }
+    private System.Windows.Forms.Button takeOutButton;
+    private System.Windows.Forms.ComboBox tableComboBox;
+    private System.Windows.Forms.Label dineInNote;
+  }
 }

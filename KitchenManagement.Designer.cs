@@ -75,7 +75,6 @@ namespace Restaurant_Contactless_Dining_System
       this.label2 = new System.Windows.Forms.Label();
       this.ItemNameLabel = new System.Windows.Forms.Label();
       this.ItemNameInput = new System.Windows.Forms.TextBox();
-      this.UploadItemPicture = new System.Windows.Forms.PictureBox();
       this.AddNewItems = new System.Windows.Forms.Button();
       this.ModifyItems = new System.Windows.Forms.Button();
       this.ModifyItemsPanel = new System.Windows.Forms.Panel();
@@ -93,18 +92,14 @@ namespace Restaurant_Contactless_Dining_System
       this.nameEnglishField = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label7 = new System.Windows.Forms.Label();
-      this.textColorBox = new System.Windows.Forms.PictureBox();
       this.nameArabicField = new System.Windows.Forms.TextBox();
       this.label8 = new System.Windows.Forms.Label();
       this.textColorField = new System.Windows.Forms.TextBox();
-      this.accentColorBox = new System.Windows.Forms.PictureBox();
       this.label9 = new System.Windows.Forms.Label();
       this.accentColorField = new System.Windows.Forms.TextBox();
-      this.mainColorBox = new System.Windows.Forms.PictureBox();
       this.label10 = new System.Windows.Forms.Label();
       this.mainColorField = new System.Windows.Forms.TextBox();
       this.label11 = new System.Windows.Forms.Label();
-      this.LogoUpload = new System.Windows.Forms.PictureBox();
       this.BranchInfo = new System.Windows.Forms.TabPage();
       this.subbmitBranchInfo = new System.Windows.Forms.Button();
       this.label6 = new System.Windows.Forms.Label();
@@ -124,6 +119,11 @@ namespace Restaurant_Contactless_Dining_System
       this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.UploadItemPicture = new System.Windows.Forms.PictureBox();
+      this.textColorBox = new System.Windows.Forms.PictureBox();
+      this.accentColorBox = new System.Windows.Forms.PictureBox();
+      this.mainColorBox = new System.Windows.Forms.PictureBox();
+      this.LogoUpload = new System.Windows.Forms.PictureBox();
       this.Tabs.SuspendLayout();
       this.PendingOrders.SuspendLayout();
       this.PendingOrdersTabs.SuspendLayout();
@@ -137,17 +137,17 @@ namespace Restaurant_Contactless_Dining_System
       this.MenuItems.SuspendLayout();
       this.ItemDetailsPanel.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ItemPriceInput)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.UploadItemPicture)).BeginInit();
       this.ModifyItemsPanel.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.RestaurantInfo.SuspendLayout();
+      this.BranchInfo.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numOfTablesField)).BeginInit();
+      this.MostTopMenuStrip.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.UploadItemPicture)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.accentColorBox)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.mainColorBox)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.LogoUpload)).BeginInit();
-      this.BranchInfo.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.numOfTablesField)).BeginInit();
-      this.MostTopMenuStrip.SuspendLayout();
       this.SuspendLayout();
       // 
       // Tabs
@@ -800,18 +800,6 @@ namespace Restaurant_Contactless_Dining_System
       this.ItemNameInput.Size = new System.Drawing.Size(278, 32);
       this.ItemNameInput.TabIndex = 20;
       // 
-      // UploadItemPicture
-      // 
-      this.UploadItemPicture.BackColor = System.Drawing.Color.White;
-      this.UploadItemPicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.UploadItemPicture.Location = new System.Drawing.Point(13, 36);
-      this.UploadItemPicture.Name = "UploadItemPicture";
-      this.UploadItemPicture.Size = new System.Drawing.Size(278, 136);
-      this.UploadItemPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-      this.UploadItemPicture.TabIndex = 19;
-      this.UploadItemPicture.TabStop = false;
-      this.UploadItemPicture.Click += new System.EventHandler(this.UploadItemPicture_Click);
-      // 
       // AddNewItems
       // 
       this.AddNewItems.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -974,17 +962,17 @@ namespace Restaurant_Contactless_Dining_System
       this.RestaurantInfo.Controls.Add(this.nameEnglishField);
       this.RestaurantInfo.Controls.Add(this.label1);
       this.RestaurantInfo.Controls.Add(this.label7);
-      this.RestaurantInfo.Controls.Add(this.textColorBox);
       this.RestaurantInfo.Controls.Add(this.nameArabicField);
       this.RestaurantInfo.Controls.Add(this.label8);
       this.RestaurantInfo.Controls.Add(this.textColorField);
-      this.RestaurantInfo.Controls.Add(this.accentColorBox);
       this.RestaurantInfo.Controls.Add(this.label9);
       this.RestaurantInfo.Controls.Add(this.accentColorField);
-      this.RestaurantInfo.Controls.Add(this.mainColorBox);
       this.RestaurantInfo.Controls.Add(this.label10);
       this.RestaurantInfo.Controls.Add(this.mainColorField);
       this.RestaurantInfo.Controls.Add(this.label11);
+      this.RestaurantInfo.Controls.Add(this.textColorBox);
+      this.RestaurantInfo.Controls.Add(this.accentColorBox);
+      this.RestaurantInfo.Controls.Add(this.mainColorBox);
       this.RestaurantInfo.Controls.Add(this.LogoUpload);
       this.RestaurantInfo.Font = new System.Drawing.Font("Calibri", 8.25F);
       this.RestaurantInfo.Location = new System.Drawing.Point(4, 54);
@@ -1061,16 +1049,6 @@ namespace Restaurant_Contactless_Dining_System
       this.label7.TabIndex = 32;
       this.label7.Text = "Restaurant Name In Arabic";
       // 
-      // textColorBox
-      // 
-      this.textColorBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.textColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.textColorBox.Location = new System.Drawing.Point(672, 414);
-      this.textColorBox.Name = "textColorBox";
-      this.textColorBox.Size = new System.Drawing.Size(32, 32);
-      this.textColorBox.TabIndex = 43;
-      this.textColorBox.TabStop = false;
-      // 
       // nameArabicField
       // 
       this.nameArabicField.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -1108,16 +1086,6 @@ namespace Restaurant_Contactless_Dining_System
       this.textColorField.TabIndex = 41;
       this.textColorField.TextChanged += new System.EventHandler(this.textColorField_TextChanged);
       // 
-      // accentColorBox
-      // 
-      this.accentColorBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.accentColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.accentColorBox.Location = new System.Drawing.Point(672, 342);
-      this.accentColorBox.Name = "accentColorBox";
-      this.accentColorBox.Size = new System.Drawing.Size(32, 32);
-      this.accentColorBox.TabIndex = 40;
-      this.accentColorBox.TabStop = false;
-      // 
       // label9
       // 
       this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -1142,16 +1110,6 @@ namespace Restaurant_Contactless_Dining_System
       this.accentColorField.Size = new System.Drawing.Size(115, 32);
       this.accentColorField.TabIndex = 38;
       this.accentColorField.TextChanged += new System.EventHandler(this.accentColorField_TextChanged);
-      // 
-      // mainColorBox
-      // 
-      this.mainColorBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.mainColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.mainColorBox.Location = new System.Drawing.Point(672, 270);
-      this.mainColorBox.Name = "mainColorBox";
-      this.mainColorBox.Size = new System.Drawing.Size(32, 32);
-      this.mainColorBox.TabIndex = 37;
-      this.mainColorBox.TabStop = false;
       // 
       // label10
       // 
@@ -1189,19 +1147,6 @@ namespace Restaurant_Contactless_Dining_System
       this.label11.Size = new System.Drawing.Size(160, 17);
       this.label11.TabIndex = 34;
       this.label11.Text = "Click box to upload logo";
-      // 
-      // LogoUpload
-      // 
-      this.LogoUpload.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.LogoUpload.BackColor = System.Drawing.Color.Transparent;
-      this.LogoUpload.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.LogoUpload.Location = new System.Drawing.Point(833, 226);
-      this.LogoUpload.Name = "LogoUpload";
-      this.LogoUpload.Size = new System.Drawing.Size(350, 350);
-      this.LogoUpload.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-      this.LogoUpload.TabIndex = 29;
-      this.LogoUpload.TabStop = false;
-      this.LogoUpload.Click += new System.EventHandler(this.LogoUpload_Click);
       // 
       // BranchInfo
       // 
@@ -1412,7 +1357,7 @@ namespace Restaurant_Contactless_Dining_System
             this.onToolStripMenuItem,
             this.offToolStripMenuItem});
       this.lockScreenToolStripMenuItem.Name = "lockScreenToolStripMenuItem";
-      this.lockScreenToolStripMenuItem.Size = new System.Drawing.Size(150, 24);
+      this.lockScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
       this.lockScreenToolStripMenuItem.Text = "Lock Screen";
       // 
       // onToolStripMenuItem
@@ -1434,9 +1379,64 @@ namespace Restaurant_Contactless_Dining_System
       // signOutToolStripMenuItem
       // 
       this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-      this.signOutToolStripMenuItem.Size = new System.Drawing.Size(150, 24);
+      this.signOutToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
       this.signOutToolStripMenuItem.Text = "Sign Out";
       this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
+      // 
+      // UploadItemPicture
+      // 
+      this.UploadItemPicture.BackColor = System.Drawing.Color.White;
+      this.UploadItemPicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.UploadItemPicture.Location = new System.Drawing.Point(13, 36);
+      this.UploadItemPicture.Name = "UploadItemPicture";
+      this.UploadItemPicture.Size = new System.Drawing.Size(278, 136);
+      this.UploadItemPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+      this.UploadItemPicture.TabIndex = 19;
+      this.UploadItemPicture.TabStop = false;
+      this.UploadItemPicture.Click += new System.EventHandler(this.UploadItemPicture_Click);
+      // 
+      // textColorBox
+      // 
+      this.textColorBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.textColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.textColorBox.Location = new System.Drawing.Point(672, 414);
+      this.textColorBox.Name = "textColorBox";
+      this.textColorBox.Size = new System.Drawing.Size(32, 32);
+      this.textColorBox.TabIndex = 43;
+      this.textColorBox.TabStop = false;
+      // 
+      // accentColorBox
+      // 
+      this.accentColorBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.accentColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.accentColorBox.Location = new System.Drawing.Point(672, 342);
+      this.accentColorBox.Name = "accentColorBox";
+      this.accentColorBox.Size = new System.Drawing.Size(32, 32);
+      this.accentColorBox.TabIndex = 40;
+      this.accentColorBox.TabStop = false;
+      // 
+      // mainColorBox
+      // 
+      this.mainColorBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.mainColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.mainColorBox.Location = new System.Drawing.Point(672, 270);
+      this.mainColorBox.Name = "mainColorBox";
+      this.mainColorBox.Size = new System.Drawing.Size(32, 32);
+      this.mainColorBox.TabIndex = 37;
+      this.mainColorBox.TabStop = false;
+      // 
+      // LogoUpload
+      // 
+      this.LogoUpload.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.LogoUpload.BackColor = System.Drawing.Color.Transparent;
+      this.LogoUpload.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.LogoUpload.Location = new System.Drawing.Point(833, 226);
+      this.LogoUpload.Name = "LogoUpload";
+      this.LogoUpload.Size = new System.Drawing.Size(350, 350);
+      this.LogoUpload.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+      this.LogoUpload.TabIndex = 29;
+      this.LogoUpload.TabStop = false;
+      this.LogoUpload.Click += new System.EventHandler(this.LogoUpload_Click);
       // 
       // KitchenManagement
       // 
@@ -1470,21 +1470,21 @@ namespace Restaurant_Contactless_Dining_System
       this.ItemDetailsPanel.ResumeLayout(false);
       this.ItemDetailsPanel.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ItemPriceInput)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.UploadItemPicture)).EndInit();
       this.ModifyItemsPanel.ResumeLayout(false);
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
       this.RestaurantInfo.ResumeLayout(false);
       this.RestaurantInfo.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.accentColorBox)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.mainColorBox)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.LogoUpload)).EndInit();
       this.BranchInfo.ResumeLayout(false);
       this.BranchInfo.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numOfTablesField)).EndInit();
       this.MostTopMenuStrip.ResumeLayout(false);
       this.MostTopMenuStrip.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.UploadItemPicture)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.accentColorBox)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.mainColorBox)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.LogoUpload)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 

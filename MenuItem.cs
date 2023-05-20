@@ -22,6 +22,7 @@ namespace Restaurant_Contactless_Dining_System
     private string name_;
     private string description_;
     private string price_;
+    private int databaseID_;
     private Image image_;
 
     private bool englishLang_;
@@ -46,6 +47,12 @@ namespace Restaurant_Contactless_Dining_System
     {
       get { return price_; }
       set { price_ = value; ItemPrice.Text = value; }
+    }
+
+    public int DatabaseID
+    {
+      get { return databaseID_; }
+      set { databaseID_ = value; }
     }
 
     public Image ImageItem
@@ -80,7 +87,7 @@ namespace Restaurant_Contactless_Dining_System
 
     private void AddItem_Click(object sender, EventArgs e)
     {
-      currentOrderModify.InsertItem(ItemTitle.Text, float.Parse(ItemPrice.Text));
+      currentOrderModify.InsertItem(ItemTitle.Text, float.Parse(ItemPrice.Text), databaseID_);
       currentOrderModify.theMenu.currentOrder_Tick();
     }
 

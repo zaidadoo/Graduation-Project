@@ -8,6 +8,7 @@ namespace Restaurant_Contactless_Dining_System
 {
   public class Order
   {
+    public int[] databaseIDs = new int[100];
     public string[] items = new string[100];
     public int[] quantity = new int[100];
     public float[] price = new float[100];
@@ -47,10 +48,14 @@ namespace Restaurant_Contactless_Dining_System
         quantity[index]++;
     }
 
-    public void InsertItem(string val, float price_)
+    public void InsertItem(string val, float price_, int databaseID)
     {
+      if(size > 99)
+        return;
+
       if (size < 1)
       {
+        databaseIDs[0] = databaseID;
         items[0] = val;
         quantity[0] = 1;
         price[0] = price_;
@@ -72,6 +77,7 @@ namespace Restaurant_Contactless_Dining_System
         return;
       }
 
+      databaseIDs[size] = databaseID;
       items[size] = val;
       quantity[size] = 1;
       price[size] = price_;

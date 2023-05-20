@@ -3,18 +3,25 @@
 
 
 
-			Khashuga
+			Tomato
 
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 5
+		Order ID: 12
 
 
-#ORD 5 - 16/05/2023 4:26:24 PM
+#ORD 12 - 20/05/2023 7:37:44 PM
 #	Total		Product
-03	369.00		Hamza
+01	03.75		Classic Burger
+			Extra Chee
+			se
+02	07.50		Classic Burger
+			Less Salt
+01	03.75		Classic Burger
+			No Pickles
+03	11.25		Classic Burger
 
-Total			369
+Total			26.25
 
 Have a good day!
