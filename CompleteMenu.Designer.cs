@@ -102,7 +102,7 @@ namespace Restaurant_Contactless_Dining_System
       this.ExtraItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.ExtraItemsButton.Font = new System.Drawing.Font("Calibri", 14.25F);
       this.ExtraItemsButton.ForeColor = System.Drawing.Color.White;
-      this.ExtraItemsButton.Location = new System.Drawing.Point(0, 646);
+      this.ExtraItemsButton.Location = new System.Drawing.Point(0, 670);
       this.ExtraItemsButton.Name = "ExtraItemsButton";
       this.ExtraItemsButton.Size = new System.Drawing.Size(365, 97);
       this.ExtraItemsButton.TabIndex = 12;
@@ -117,7 +117,7 @@ namespace Restaurant_Contactless_Dining_System
       this.DessertsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.DessertsButton.Font = new System.Drawing.Font("Calibri", 14.25F);
       this.DessertsButton.ForeColor = System.Drawing.Color.White;
-      this.DessertsButton.Location = new System.Drawing.Point(0, 543);
+      this.DessertsButton.Location = new System.Drawing.Point(0, 561);
       this.DessertsButton.Name = "DessertsButton";
       this.DessertsButton.Size = new System.Drawing.Size(365, 97);
       this.DessertsButton.TabIndex = 12;
@@ -132,7 +132,7 @@ namespace Restaurant_Contactless_Dining_System
       this.MainItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.MainItemsButton.Font = new System.Drawing.Font("Calibri", 14.25F);
       this.MainItemsButton.ForeColor = System.Drawing.Color.White;
-      this.MainItemsButton.Location = new System.Drawing.Point(0, 440);
+      this.MainItemsButton.Location = new System.Drawing.Point(0, 452);
       this.MainItemsButton.Name = "MainItemsButton";
       this.MainItemsButton.Size = new System.Drawing.Size(365, 97);
       this.MainItemsButton.TabIndex = 12;
@@ -147,7 +147,7 @@ namespace Restaurant_Contactless_Dining_System
       this.StarterItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.StarterItemsButton.Font = new System.Drawing.Font("Calibri", 14.25F);
       this.StarterItemsButton.ForeColor = System.Drawing.Color.White;
-      this.StarterItemsButton.Location = new System.Drawing.Point(-3, 337);
+      this.StarterItemsButton.Location = new System.Drawing.Point(0, 343);
       this.StarterItemsButton.Name = "StarterItemsButton";
       this.StarterItemsButton.Size = new System.Drawing.Size(365, 97);
       this.StarterItemsButton.TabIndex = 12;
@@ -182,15 +182,17 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // SelectedItem
       // 
+      this.SelectedItem.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.SelectedItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-      this.SelectedItem.Location = new System.Drawing.Point(356, 234);
+      this.SelectedItem.Location = new System.Drawing.Point(355, 234);
       this.SelectedItem.Name = "SelectedItem";
       this.SelectedItem.Size = new System.Drawing.Size(10, 97);
       this.SelectedItem.TabIndex = 2;
       // 
       // OrderPanel
       // 
-      this.OrderPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.OrderPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.OrderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
       this.OrderPanel.Controls.Add(this.TotalPriceLabel);
       this.OrderPanel.Controls.Add(this.ClearAllButton);
@@ -203,6 +205,7 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // TotalPriceLabel
       // 
+      this.TotalPriceLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.TotalPriceLabel.AutoSize = true;
       this.TotalPriceLabel.BackColor = System.Drawing.Color.Transparent;
       this.TotalPriceLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -216,6 +219,7 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // ClearAllButton
       // 
+      this.ClearAllButton.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.ClearAllButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
       this.ClearAllButton.FlatAppearance.BorderSize = 0;
       this.ClearAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -231,14 +235,17 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // OrderedItems
       // 
+      this.OrderedItems.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.OrderedItems.AutoScroll = true;
-      this.OrderedItems.Location = new System.Drawing.Point(21, 19);
+      this.OrderedItems.BackColor = System.Drawing.Color.Transparent;
+      this.OrderedItems.Location = new System.Drawing.Point(22, 19);
       this.OrderedItems.Name = "OrderedItems";
       this.OrderedItems.Size = new System.Drawing.Size(446, 725);
       this.OrderedItems.TabIndex = 14;
       // 
       // CheckoutButton
       // 
+      this.CheckoutButton.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.CheckoutButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
       this.CheckoutButton.FlatAppearance.BorderSize = 0;
       this.CheckoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -254,7 +261,8 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // Title
       // 
-      this.Title.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.Title.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.Title.AutoSize = true;
       this.Title.BackColor = System.Drawing.Color.Transparent;
       this.Title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -269,6 +277,7 @@ namespace Restaurant_Contactless_Dining_System
       // DisplayItems
       // 
       this.DisplayItems.AutoScroll = true;
+      this.DisplayItems.BackColor = System.Drawing.Color.Transparent;
       this.DisplayItems.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
       this.DisplayItems.Location = new System.Drawing.Point(391, 166);
       this.DisplayItems.Name = "DisplayItems";

@@ -28,8 +28,8 @@ namespace Restaurant_Contactless_Dining_System
         return;
       }
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from DatabaseHandler
       SqlCommand cmd = db.Command;
@@ -77,6 +77,9 @@ namespace Restaurant_Contactless_Dining_System
         // write branch_id to DoneSetup.txt
         System.IO.File.WriteAllText("DoneSetup.txt", branchField.Text);
 
+        // close database connection
+        db.CloseConnection();
+
         // show MainMenu form
         Form changeForm = new MainMenu();
         this.Hide();
@@ -93,9 +96,6 @@ namespace Restaurant_Contactless_Dining_System
 
         return;
       }
-
-      // close database connection
-      db.CloseConnection();
     }
 
     private void setupButton_Click(object sender, EventArgs e)

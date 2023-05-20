@@ -52,7 +52,7 @@ namespace Restaurant_Contactless_Dining_System
       WindowState = FormWindowState.Maximized;
 
       // create a databasehandler
-      DatabaseHandler db = new DatabaseHandler();
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get branch_id from DoneSetup.txt
       string branch_id = File.ReadAllText("DoneSetup.txt");

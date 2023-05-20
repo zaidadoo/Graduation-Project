@@ -41,8 +41,8 @@ namespace Restaurant_Contactless_Dining_System
       // get branch_id from DoneSetup.txt 
       string branch_id = File.ReadAllText("DoneSetup.txt");
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from DatabaseHandler
       SqlCommand cmd = db.Command;

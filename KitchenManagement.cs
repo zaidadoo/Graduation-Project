@@ -464,8 +464,8 @@ namespace Restaurant_Contactless_Dining_System
       // read branch_id from DoneSetup.txt
       branch_id = File.ReadAllText("DoneSetup.txt");
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from database
       SqlCommand cmd = db.Command;
@@ -499,8 +499,8 @@ namespace Restaurant_Contactless_Dining_System
 
     private void OnRestaurantInfoLoad()
     {
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from database
       SqlCommand cmd = db.Command;
@@ -741,8 +741,8 @@ namespace Restaurant_Contactless_Dining_System
       if (!SpecialDealsRadio.Checked)
         return;
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -788,8 +788,8 @@ namespace Restaurant_Contactless_Dining_System
       if (!StarterItemsRadio.Checked)
         return;
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -837,8 +837,8 @@ namespace Restaurant_Contactless_Dining_System
       if (!MainItemsRadio.Checked)
         return;
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -887,8 +887,8 @@ namespace Restaurant_Contactless_Dining_System
       if (!DessertsRadio.Checked)
         return;
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -936,8 +936,8 @@ namespace Restaurant_Contactless_Dining_System
       if (!ExtraItemsRadio.Checked)
         return;
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -985,8 +985,8 @@ namespace Restaurant_Contactless_Dining_System
 
       string itemID = (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.'));
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       SqlCommand cmd = db.Command;
 
@@ -1118,8 +1118,8 @@ namespace Restaurant_Contactless_Dining_System
 
       if (newItem)
       {
-        // create database handler
-        DatabaseHandler db = new DatabaseHandler();
+        // get database handler instance
+        DatabaseHandler db = DatabaseHandler.Instance;
 
         // get cmd from database
         SqlCommand cmd = db.Command;
@@ -1166,8 +1166,8 @@ namespace Restaurant_Contactless_Dining_System
       }
       else
       {
-        // create database handler
-        DatabaseHandler db = new DatabaseHandler();
+        // get database handler instance
+        DatabaseHandler db = DatabaseHandler.Instance;
 
         // get cmd from database
         SqlCommand cmd = db.Command;
@@ -1230,8 +1230,8 @@ namespace Restaurant_Contactless_Dining_System
       if (res == DialogResult.No)
         return;
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -1326,8 +1326,8 @@ namespace Restaurant_Contactless_Dining_System
       }
 
       // check if current password is correct
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from database
       SqlCommand cmd = db.Command;
@@ -1462,8 +1462,8 @@ namespace Restaurant_Contactless_Dining_System
         return;
       }
 
-      // create database handler
-      DatabaseHandler db = new DatabaseHandler();
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from database
       SqlCommand cmd = db.Command;

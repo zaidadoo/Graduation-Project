@@ -51,11 +51,15 @@ namespace Restaurant_Contactless_Dining_System
         MessageBox.Show(e.Message);
       }
 
+      // get 10 percent lighter color from accent
+      Color lighterAccent = ColorTranslator.FromHtml(accentColor);
+      lighterAccent = ControlPaint.Light(lighterAccent, 0.1f);
+
       // set accent color to all buttons on this page recursively
       try
       {
         // set accentColorBox BG
-        accentColorBox.BackColor = ColorTranslator.FromHtml(accentColor);
+        accentColorBox.BackColor = lighterAccent;
 
         // set topStripPanel bg too
         topStripPanel.BackColor = ColorTranslator.FromHtml(accentColor);
@@ -64,7 +68,8 @@ namespace Restaurant_Contactless_Dining_System
         {
           if (c is Button)
           {
-            c.BackColor = ColorTranslator.FromHtml(accentColor);
+            c.BackColor = lighterAccent;
+            c.ForeColor = ColorTranslator.FromHtml(textColor);
           }
         }
 
@@ -72,7 +77,8 @@ namespace Restaurant_Contactless_Dining_System
         {
           if (c is Button)
           {
-            c.BackColor = ColorTranslator.FromHtml(accentColor);
+            c.BackColor = lighterAccent;
+            c.ForeColor = ColorTranslator.FromHtml(textColor);
           }
         }
       }
@@ -214,7 +220,7 @@ namespace Restaurant_Contactless_Dining_System
       }
 
       // create DatabaseHandler
-      DatabaseHandler db = new DatabaseHandler();
+      DatabaseHandler db = DatabaseHandler.Instance;
       SqlDataReader reader;
 
       if(newRestaurantCheck.Checked)

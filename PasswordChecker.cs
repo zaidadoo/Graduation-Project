@@ -31,7 +31,7 @@ namespace Restaurant_Contactless_Dining_System
       }
 
       // create databse handler
-      DatabaseHandler db = new DatabaseHandler();
+      DatabaseHandler db = DatabaseHandler.Instance;
 
       // hash password with sha 512
       SHA512 sha512 = SHA512.Create();

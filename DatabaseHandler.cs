@@ -10,6 +10,7 @@ namespace Restaurant_Contactless_Dining_System
 {
   public class DatabaseHandler
   {
+    private static DatabaseHandler instance = null;
     private SqlConnection connection;
     private SqlCommand command;
 
@@ -21,10 +22,26 @@ namespace Restaurant_Contactless_Dining_System
       command = new SqlCommand();
     }
 
+    public static DatabaseHandler Instance
+    {
+      get
+      {
+        if (instance == null)
+        {
+          instance = new DatabaseHandler();
+        }
+
+        return instance;
+      }
+    }
+
     // getter for command
     public SqlCommand Command
     {
-      get { return command; }
+      get 
+      {
+        return command; 
+      }
     }
 
     // open connection
