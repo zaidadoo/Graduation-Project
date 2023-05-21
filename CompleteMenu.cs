@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
-using System.Data.SqlTypes;
+using System.Text.RegularExpressions;
 
 namespace Restaurant_Contactless_Dining_System
 {
@@ -21,6 +21,7 @@ namespace Restaurant_Contactless_Dining_System
     private string restaurant_id = "";
     private string restaurant_name = "";
     private string branch_id = "";
+    private int table_count = 0;
 
     string mainColor = "";
     string accentColor = "";
@@ -138,6 +139,8 @@ namespace Restaurant_Contactless_Dining_System
       // close connection
       db.CloseConnection();
 
+      table_count = numOfTables;
+
       UpdateNumOfTables(numOfTables);
       updateColors();
       updateLanguage();
@@ -145,6 +148,14 @@ namespace Restaurant_Contactless_Dining_System
 
     private void UpdateNumOfTables(int num)
     {
+      if(num == 0)
+      {
+        // disable dine in button
+        dineInButton.Enabled = false;
+
+        return;
+      }
+
       // clear tableComboBox
       tableComboBox.Items.Clear();
 
@@ -491,8 +502,28 @@ namespace Restaurant_Contactless_Dining_System
 
     private void Checkout(bool isDineIn)
     {
-      // get database handler instance
-      DatabaseHandler db = DatabaseHandler.Instance;
+      if (currentOrder.size < 1)
+      {
+        if (englishLanguage)
+          MessageBox.Show("Please select at least one item before checking out.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        else
+          MessageBox.Show("الرجاء اختيار غرض واحد على الأقل قبل الدفع.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+        return;
+      }
+
+      DialogResult confirmation;
+
+      if (englishLanguage)
+        confirmation = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+      else
+        confirmation = MessageBox.Show("هل أنت متأكد؟", "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+      if (confirmation == DialogResult.No)
+        return;
+
+        // get database handler instance
+        DatabaseHandler db = DatabaseHandler.Instance;
 
       // get cmd from db
       SqlCommand cmd = db.Command;
@@ -583,6 +614,41 @@ namespace Restaurant_Contactless_Dining_System
       // close connection
       db.CloseConnection();
 
+      if(isDineIn)
+      {
+        // get tableComboBox selected item
+        string table = tableComboBox.SelectedItem.ToString();
+
+        // remove everything that isn't a number
+        table = Regex.Replace(table, "[^0-9]", "");
+
+        // clear cmd parameters
+        cmd.Parameters.Clear();
+
+        // add parameters
+        // order id
+        cmd.Parameters.AddWithValue("@order_id", order_id);
+
+        // table number
+        cmd.Parameters.AddWithValue("@table_number", table);
+
+        // add table number to dine_in_orders
+        cmd.CommandText = "INSERT INTO dine_in_orders (order_id, table_number) VALUES (@order_id, @table_number)";
+
+        rowsAffected = db.ExecuteNonQuery();
+
+        if (rowsAffected == 0)
+        {
+          MessageBox.Show("Error... Could not add table number. Please contact technical maintenance service.");
+          db.CloseConnection();
+
+          return;
+        }
+
+        // close connection
+        db.CloseConnection();
+      }
+
       RatingPrompt rating = new RatingPrompt(order_id, englishLanguage);
       rating.ShowDialog();
 
@@ -632,16 +698,6 @@ namespace Restaurant_Contactless_Dining_System
 
     private void CheckoutButton_Click(object sender, EventArgs e)
     {
-      if (currentOrder.size < 1)
-      {
-        if(englishLanguage)
-          MessageBox.Show("Please select at least one item before checking out.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        else
-          MessageBox.Show("الرجاء اختيار غرض واحد على الأقل قبل الدفع.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-        return;
-      }
-
       // check if tableComboBox is selected
       if (tableComboBox.SelectedIndex == -1)
       {
@@ -653,15 +709,28 @@ namespace Restaurant_Contactless_Dining_System
         return;
       }
 
-      DialogResult confirmation;
+      // get selected table
+      string selectedTable = tableComboBox.SelectedItem.ToString();
 
-      if (englishLanguage)
-        confirmation = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-      else
-        confirmation = MessageBox.Show("هل أنت متأكد؟", "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+      // update table combox box
+      UpdateNumOfTables(table_count);
 
-      if (confirmation == DialogResult.Yes)
-        Checkout(true);
+      // check if table still available in comboBox
+      if (!tableComboBox.Items.Contains(selectedTable))
+      {
+        // table is not available
+        if (englishLanguage)
+          MessageBox.Show("Sorry, this table is no longer available.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        else
+          MessageBox.Show("عذرا، هذه الطاولة غير متوفرة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+        return;
+      }
+
+      // select table
+      tableComboBox.SelectedItem = selectedTable;
+
+      Checkout(true);
     }
 
     private void ClearAllButton_Click(object sender, EventArgs e)
@@ -681,7 +750,7 @@ namespace Restaurant_Contactless_Dining_System
 
     private void takeOutButton_Click(object sender, EventArgs e)
     {
-
+      Checkout(false);
     }
   }
 }

@@ -8,20 +8,13 @@
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 12
+		Order ID: 16
 
 
-#ORD 12 - 20/05/2023 7:37:44 PM
+#ORD 16 - 21/05/2023 5:52:26 AM
 #	Total		Product
-01	03.75		Classic Burger
-			Extra Chee
-			se
-02	07.50		Classic Burger
-			Less Salt
-01	03.75		Classic Burger
-			No Pickles
-03	11.25		Classic Burger
+04	15.00		كلاسيك برجر..
 
-Total			26.25
+Total			15
 
 Have a good day!
