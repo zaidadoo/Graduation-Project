@@ -142,6 +142,30 @@ namespace Restaurant_Contactless_Dining_System
         LogoUpload.Image = new Bitmap(open.FileName);
 
         logoUploadOkay = true;
+
+        // convert image to byte array
+        byte[] logoBytes = File.ReadAllBytes(open.FileName);
+
+        List<string> top3Colors = ColorAnalyzer.GetTop3FrequentColors(logoBytes);
+
+        int i = 0;
+        foreach (string color in top3Colors)
+        {
+          switch (i)
+          {
+            case 0:
+              mainColorField.Text = color;
+              break;
+            case 1:
+              accentColorField.Text = color;
+              break;
+            case 2:
+              textColorField.Text = color;
+              break;
+          }
+
+          i++;
+        }
       }
     }
 

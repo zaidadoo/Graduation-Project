@@ -538,7 +538,18 @@ namespace Restaurant_Contactless_Dining_System
       // order time
       cmd.Parameters.AddWithValue("@order_time", DateTime.Now);
 
-      cmd.CommandText = "INSERT INTO orders (branch_id, order_time) VALUES (@branch_id, @order_time)";
+      // get total price from TotalPriceLabel
+      string totalPrice = TotalPriceLabel.Text;
+
+      // remove any alphabets from string
+      totalPrice = Regex.Replace(totalPrice, "[^0-9.]", "");
+
+      // total price
+      cmd.Parameters.AddWithValue("@total_price", totalPrice);
+
+      cmd.CommandText = "INSERT INTO orders (branch_id, order_time, total_price) VALUES (@branch_id, @order_time, @total_price)";
+
+      //cmd.CommandText = "INSERT INTO orders (branch_id, order_time) VALUES (@branch_id, @order_time)";
 
       int rowsAffected = db.ExecuteNonQuery();
 

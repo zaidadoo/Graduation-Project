@@ -21,6 +21,9 @@ namespace Restaurant_Contactless_Dining_System
     private string branch_id;
     private string restaurant_id;
 
+    // map item_id to item_name
+    private Dictionary<string, string> item_id_to_name = new Dictionary<string, string>();
+
     public KitchenManagement()
     {
       InitializeComponent();
@@ -31,6 +34,8 @@ namespace Restaurant_Contactless_Dining_System
       CompleteOrder.Enabled = false;
       ConfirmOrder.Enabled = false;
       CancelOrder.Enabled = false;
+
+      UpdateItemIdDictionary();
 
       foreach (TabPage tab in Tabs.TabPages)
       {
@@ -130,6 +135,42 @@ namespace Restaurant_Contactless_Dining_System
       }
     }
 
+    private void UpdateItemIdDictionary()
+    {
+      // clear dictionary
+      item_id_to_name.Clear();
+
+      // get db handler
+      DatabaseHandler db = DatabaseHandler.Instance;
+
+      // get cmd
+      SqlCommand cmd = db.Command;
+
+      // clear params
+      cmd.Parameters.Clear();
+
+      // read branch_id from DoneSetup.txt
+      branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // add params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
+      string sqlString = "SELECT item_id, name_english FROM menu_items WHERE branch_id=@branch_id";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          item_id_to_name.Add(dr["item_id"].ToString(), dr["name_english"].ToString());
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
+    }
+
     private void PendingOrdersTabs_SelectedIndexChanged(object sender, EventArgs e)
     {
       foreach (TabPage tab in PendingOrdersTabs.TabPages)
@@ -137,6 +178,12 @@ namespace Restaurant_Contactless_Dining_System
         tab.Enabled = false;
       }
         (PendingOrdersTabs.TabPages[PendingOrdersTabs.SelectedIndex] as TabPage).Enabled = true;
+
+      // if pending orders tab name selected called "cashier side"
+      if (PendingOrdersTabs.SelectedTab.Name.Equals("CashierSide"))
+      {
+        UpdateItemIdDictionary();
+      }
     }
 
     private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -146,192 +193,219 @@ namespace Restaurant_Contactless_Dining_System
 
     private void RetrieveOrdersList_Click(object sender, EventArgs e)
     {
-      //OrdersList.Items.Clear();
+      OrdersList.Items.Clear();
 
-      //con.Open();
-      //cmd.Connection = con;
-      //cmd.CommandText = "SELECT id FROM orders where status='pending' OR status='preparing'";
-      //dr = cmd.ExecuteReader();
+      // get db handler
+      DatabaseHandler db = DatabaseHandler.Instance;
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    OrdersList.Items.Add(dr["id"]);
-      //  }
-      //}
+      // get cmd
+      SqlCommand cmd = db.Command;
 
-      //dr.Close();
-      //con.Close();
+      // clear params
+      cmd.Parameters.Clear();
+
+      // read branch_id from DoneSetup.txt
+      branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // add params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
+      string sqlString = "SELECT order_id FROM orders WHERE status='pending' OR status='preparing' AND branch_id=@branch_id";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          OrdersList.Items.Add(dr["order_id"]);
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
     }
 
     private void OrdersList_SelectedIndexChanged(object sender, EventArgs e)
     {
-      //ReviewGroupBox.Enabled = true;
-      //OrderedItemsList.Items.Clear();
+      ReviewGroupBox.Enabled = true;
+      OrderedItemsList.Items.Clear();
 
-      //string lines = "";
+      string order_id = OrdersList.SelectedItem.ToString();
 
-      //con.Open();
-      //cmd.Connection = con;
-      //cmd.CommandText = "SELECT * FROM orders where id=" + OrdersList.SelectedItem;
-      //try
-      //{
-      //  dr = cmd.ExecuteReader();
-      //}
-      //catch (SQLiteException)
-      //{
-      //  MessageBox.Show("Connection with database was cut, reconnecting...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-      //}
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
-      //try
-      //{
-      //  var check = dr.HasRows;
-      //}
-      //catch (InvalidOperationException)
-      //{
-      //  dr.Close();
-      //  con.Close();
-      //  return;
-      //}
+      // get cmd
+      SqlCommand cmd = db.Command;
 
-      //if (dr.HasRows)
-      //{
-      //  double total = 0;
+      // clear params
+      cmd.Parameters.Clear();
 
-      //  while (dr.Read())
-      //  {
-      //    lines += dr["items"];
+      // add params
+      cmd.Parameters.AddWithValue("@order_id", order_id);
 
-      //    foreach (string line in lines.Split('\n'))
-      //    {
-      //      var found = line.IndexOf(":");
-      //      var found2 = line.LastIndexOf(":");
+      string sqlString = "SELECT item_id FROM customer_order_items WHERE order_id=@order_id";
 
-      //      try
-      //      {
-      //        if (found > 0 && found2 - 1 > 0)
-      //        {
-      //          int i = 0;
-      //          if (found2 - found > 2)
-      //          {
-      //            i = 2;
-      //          }
-      //          else
-      //          {
-      //            i = 1;
-      //          }
-      //          OrderedItemsList.Items.Add($"{line.Substring(found + 1, i)}x {line.Substring(0, found)}");
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
 
-      //          total += (float.Parse(line.Substring(found2 + 1)) * int.Parse(line.Substring(found + 1, i)));
-      //        }
-      //      }
-      //      catch (ArgumentOutOfRangeException)
-      //      {
-      //        MessageBox.Show("Error: no items found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //      }
-      //      finally { }
-      //    }
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          // get item name from item_id_to_name dictionary
+          string item_name = item_id_to_name[dr["item_id"].ToString()];
+          OrderedItemsList.Items.Add(item_name);
+        }
+      }
 
-      //    PriceNumber.Text = $"{total:0.00} JD";
+      // close connection
+      db.CloseConnection();
 
-      //    if (dr["status"].Equals("preparing"))
-      //    {
-      //      StatusLabel.Text = "Status: Preparing";
-      //      ConfirmOrder.Enabled = false;
-      //      CancelOrder.Enabled = true;
-      //      CompleteOrder.Enabled = true;
-      //    }
-      //    else
-      //    {
-      //      StatusLabel.Text = "Status: Pending";
-      //      CompleteOrder.Enabled = false;
-      //      ConfirmOrder.Enabled = true;
-      //      CancelOrder.Enabled = true;
-      //    }
-      //  }
-      //}
+      // clear params
+      cmd.Parameters.Clear();
 
-      //dr.Close();
-      //con.Close();
+      // add params
+      cmd.Parameters.AddWithValue("@order_id", order_id);
+
+      sqlString = "SELECT * FROM orders WHERE order_id=@order_id";
+
+      dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          // if preparing
+          if (dr["status"].ToString().Equals("preparing"))
+          {
+            StatusLabel.Text = "Status: Preparing";
+            ConfirmOrder.Enabled = false;
+            CancelOrder.Enabled = true;
+            CompleteOrder.Enabled = true;
+          }
+
+          if (dr["status"].ToString().Equals("pending"))
+          {
+            StatusLabel.Text = "Status: Pending";
+            CompleteOrder.Enabled = false;
+            ConfirmOrder.Enabled = true;
+            CancelOrder.Enabled = true;
+          }
+
+          // total price
+          PriceNumber.Text = dr["total_price"].ToString() + " JD";
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
     }
 
     private void ConfirmOrder_Click(object sender, EventArgs e)
     {
-      //var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      //if (res == DialogResult.No)
-      //{
-      //  return;
-      //}
+      var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (res == DialogResult.No)
+      {
+        return;
+      }
 
-      //con.Open();
-      //cmd.Connection = con;
-      //cmd.CommandText = "UPDATE orders SET status='preparing' where id=" + OrdersList.SelectedItem;
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
-      //int rowsAffected = cmd.ExecuteNonQuery();
-      //if (rowsAffected == 0)
-      //  MessageBox.Show("Error... Record not modified.");
-      //else
-      //{
-      //  MessageBox.Show("Order confirmed successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-      //}
+      // get cmd
+      SqlCommand cmd = db.Command;
 
-      //con.Close();
+      // clear params
+      cmd.Parameters.Clear();
 
-      //RetrieveOrdersList_Click(this, new EventArgs());
-      //ReviewGroupBox.Enabled = false;
+      // add params
+      cmd.Parameters.AddWithValue("@order_id", OrdersList.SelectedItem);
+
+      cmd.CommandText = "UPDATE orders SET status='preparing' WHERE order_id=@order_id";
+
+      int rowsAffected = db.ExecuteNonQuery();
+      
+      if (rowsAffected == 0)
+        MessageBox.Show("Error... Record not modified.");
+      else
+        MessageBox.Show("Order confirmed successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+      // close connection
+      db.CloseConnection();
+
+      RetrieveOrdersList_Click(this, new EventArgs());
+      ReviewGroupBox.Enabled = false;
     }
 
     private void CancelOrder_Click(object sender, EventArgs e)
     {
-      //var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      //if (res == DialogResult.No)
-      //{
-      //  return;
-      //}
+      var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (res == DialogResult.No)
+      {
+        return;
+      }
 
-      //con.Open();
-      //cmd.Connection = con;
-      //cmd.CommandText = "UPDATE orders SET status='cancelled' where id=" + OrdersList.SelectedItem;
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
-      //int rowsAffected = cmd.ExecuteNonQuery();
-      //if (rowsAffected == 0)
-      //  MessageBox.Show("Error... Record not modified.");
-      //else
-      //{
-      //  MessageBox.Show("Order confirmed successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-      //}
+      // get cmd
+      SqlCommand cmd = db.Command;
 
-      //con.Close();
+      // clear params
+      cmd.Parameters.Clear();
 
-      //RetrieveOrdersList_Click(this, new EventArgs());
-      //ReviewGroupBox.Enabled = false;
+      // add params
+      cmd.Parameters.AddWithValue("@order_id", OrdersList.SelectedItem);
+
+      cmd.CommandText = "UPDATE orders SET status='cancelled' WHERE order_id=@order_id";
+
+      int rowsAffected = db.ExecuteNonQuery();
+
+      if (rowsAffected == 0)
+        MessageBox.Show("Error... Record not modified.");
+      else
+        MessageBox.Show("Order cancelled successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+      // close connection
+      db.CloseConnection();
+
+      RetrieveOrdersList_Click(this, new EventArgs());
+      ReviewGroupBox.Enabled = false;
     }
 
     private void CompleteOrder_Click(object sender, EventArgs e)
     {
-      //var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      //if (res == DialogResult.No)
-      //{
-      //  return;
-      //}
+      var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (res == DialogResult.No)
+      {
+        return;
+      }
 
-      //con.Open();
-      //cmd.Connection = con;
-      //cmd.CommandText = "UPDATE orders SET status='complete' where id=" + OrdersList.SelectedItem;
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
+      SqlCommand cmd = db.Command;
 
-      //int rowsAffected = cmd.ExecuteNonQuery();
-      //if (rowsAffected == 0)
-      //  MessageBox.Show("Error... Record not modified.");
-      //else
-      //{
-      //  MessageBox.Show("Order confirmed successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-      //}
+      // clear params
+      cmd.Parameters.Clear();
 
-      //con.Close();
+      // add params
+      cmd.Parameters.AddWithValue("@order_id", OrdersList.SelectedItem);
 
-      //RetrieveOrdersList_Click(this, new EventArgs());
-      //ReviewGroupBox.Enabled = false;
+      cmd.CommandText = "UPDATE orders SET status='complete' WHERE order_id=@order_id";
+
+      int rowsAffected = db.ExecuteNonQuery();
+
+      if (rowsAffected == 0)
+        MessageBox.Show("Error... Record not modified.");
+      else
+        MessageBox.Show("Order completed successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+      // close connection
+      db.CloseConnection();
+
+      RetrieveOrdersList_Click(this, new EventArgs());
+      ReviewGroupBox.Enabled = false;
     }
 
     private void KitRetrieveOrders_Click(object sender, EventArgs e)
@@ -640,6 +714,31 @@ namespace Restaurant_Contactless_Dining_System
         LogoUpload.Image = new Bitmap(open.FileName);
 
         logoUploadOkay = true;
+
+        // convert image to byte array
+        ImageConverter converter = new ImageConverter();
+        logoBytes = (byte[])converter.ConvertTo(LogoUpload.Image, typeof(byte[]));
+
+        List<string> top3Colors = ColorAnalyzer.GetTop3FrequentColors(logoBytes);
+
+        int i = 0;
+        foreach (string color in top3Colors)
+        {
+          switch(i)
+          {
+            case 0:
+              mainColorField.Text = color;
+              break;
+            case 1:
+              accentColorField.Text = color;
+              break;
+            case 2:
+              textColorField.Text = color;
+              break;
+          }
+
+          i++;
+        }
       }
       else
       {

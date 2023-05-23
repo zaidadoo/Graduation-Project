@@ -16,7 +16,7 @@ namespace Restaurant_Contactless_Dining_System
     private SqlCommand command;
 
     // constructor
-    public DatabaseHandler()
+    private DatabaseHandler()
     {
       string connectionString = Environment.GetEnvironmentVariable("MY_CONNECTION_STRING");
       connection = new SqlConnection(connectionString);
