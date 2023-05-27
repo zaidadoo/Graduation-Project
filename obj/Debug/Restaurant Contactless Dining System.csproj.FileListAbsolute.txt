@@ -221,3 +221,4 @@ E:\University\Graduation Project\gp-main\obj\Debug\Restaurant Contactless Dining
 E:\University\Graduation Project\gp-main\obj\Debug\Kiosk JO.exe
 E:\University\Graduation Project\gp-main\obj\Debug\Kiosk JO.pdb
 E:\University\Graduation Project\gp-main\obj\Debug\Restaurant_Contactless_Dining_System.RatingPrompt.resources
+E:\University\Graduation Project\gp-main\obj\Debug\Restaurant_Contactless_Dining_System.KitchenOrder.resources

@@ -146,7 +146,7 @@ namespace Restaurant_Contactless_Dining_System
         // convert image to byte array
         byte[] logoBytes = File.ReadAllBytes(open.FileName);
 
-        List<string> top3Colors = ColorAnalyzer.GetTop3FrequentColors(logoBytes);
+        List<string> top3Colors = ColorAnalyzer.GetTop3DistinctColors(logoBytes);
 
         int i = 0;
         foreach (string color in top3Colors)

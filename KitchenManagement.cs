@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Restaurant_Contactless_Dining_System
 {
@@ -24,9 +25,17 @@ namespace Restaurant_Contactless_Dining_System
     // map item_id to item_name
     private Dictionary<string, string> item_id_to_name = new Dictionary<string, string>();
 
+    // map item_id to usual_time
+    private Dictionary<string, string> item_id_to_usual_time = new Dictionary<string, string>();
+
+    // create a tick event for kitchen orders
+    Timer ordersTimer;
+
     public KitchenManagement()
     {
       InitializeComponent();
+
+      ordersTimer = new Timer();
     }
 
     private void KitchenManagement_Load(object sender, EventArgs e)
@@ -139,6 +148,7 @@ namespace Restaurant_Contactless_Dining_System
     {
       // clear dictionary
       item_id_to_name.Clear();
+      item_id_to_usual_time.Clear();
 
       // get db handler
       DatabaseHandler db = DatabaseHandler.Instance;
@@ -155,7 +165,7 @@ namespace Restaurant_Contactless_Dining_System
       // add params
       cmd.Parameters.AddWithValue("@branch_id", branch_id);
 
-      string sqlString = "SELECT item_id, name_english FROM menu_items WHERE branch_id=@branch_id";
+      string sqlString = "SELECT * FROM menu_items WHERE branch_id=@branch_id";
 
       SqlDataReader dr = db.ExecuteQuery(sqlString);
 
@@ -164,11 +174,18 @@ namespace Restaurant_Contactless_Dining_System
         while (dr.Read())
         {
           item_id_to_name.Add(dr["item_id"].ToString(), dr["name_english"].ToString());
+          item_id_to_usual_time.Add(dr["item_id"].ToString(), dr["usual_time"].ToString());
         }
       }
 
       // close connection
       db.CloseConnection();
+    }
+
+    // kitchen orders tick event
+    private void KitchenOrders_Tick(object sender, EventArgs e)
+    {
+      UpdateOrders();
     }
 
     private void PendingOrdersTabs_SelectedIndexChanged(object sender, EventArgs e)
@@ -183,6 +200,26 @@ namespace Restaurant_Contactless_Dining_System
       if (PendingOrdersTabs.SelectedTab.Name.Equals("CashierSide"))
       {
         UpdateItemIdDictionary();
+      }
+
+      // if kitchen view tab name selected called "kitchen view"
+      if(PendingOrdersTabs.SelectedTab.Name.Equals("KitchenView"))
+      {
+        UpdateItemIdDictionary();
+
+        // check if tick event running
+        if (!ordersTimer.Enabled)
+        {
+          ordersTimer.Interval = 1000;
+          ordersTimer.Tick += new System.EventHandler(KitchenOrders_Tick);
+          ordersTimer.Start();
+        }
+      }
+      else
+      {
+        // if tick event running destroy it
+        if (ordersTimer.Enabled)
+          ordersTimer.Stop();
       }
     }
 
@@ -228,6 +265,10 @@ namespace Restaurant_Contactless_Dining_System
 
     private void OrdersList_SelectedIndexChanged(object sender, EventArgs e)
     {
+      // check if selecting anything
+      if (OrdersList.SelectedIndex == -1)
+        return;
+
       ReviewGroupBox.Enabled = true;
       OrderedItemsList.Items.Clear();
 
@@ -245,7 +286,7 @@ namespace Restaurant_Contactless_Dining_System
       // add params
       cmd.Parameters.AddWithValue("@order_id", order_id);
 
-      string sqlString = "SELECT item_id FROM customer_order_items WHERE order_id=@order_id";
+      string sqlString = "SELECT * FROM customer_order_items WHERE order_id=@order_id";
 
       SqlDataReader dr = db.ExecuteQuery(sqlString);
 
@@ -255,7 +296,12 @@ namespace Restaurant_Contactless_Dining_System
         {
           // get item name from item_id_to_name dictionary
           string item_name = item_id_to_name[dr["item_id"].ToString()];
-          OrderedItemsList.Items.Add(item_name);
+
+          // get item quantity int
+          int item_quantity = Convert.ToInt32(dr["quantity"]);
+
+          for (int i = 0; i < item_quantity; i++)
+            OrderedItemsList.Items.Add(item_name);
         }
       }
 
@@ -322,7 +368,13 @@ namespace Restaurant_Contactless_Dining_System
       // add params
       cmd.Parameters.AddWithValue("@order_id", OrdersList.SelectedItem);
 
-      cmd.CommandText = "UPDATE orders SET status='preparing' WHERE order_id=@order_id";
+      // start_preparing_time
+      cmd.Parameters.AddWithValue("@start_prepare_time", DateTime.Now);
+
+      // end_prepare_time
+      cmd.Parameters.AddWithValue("@end_prepare_time", CalculateExpectedPreparationTime());
+
+      cmd.CommandText = "UPDATE orders SET status='preparing', start_prepare_time=@start_prepare_time, end_prepare_time=@end_prepare_time WHERE order_id=@order_id";
 
       int rowsAffected = db.ExecuteNonQuery();
       
@@ -336,6 +388,32 @@ namespace Restaurant_Contactless_Dining_System
 
       RetrieveOrdersList_Click(this, new EventArgs());
       ReviewGroupBox.Enabled = false;
+    }
+
+    private DateTime CalculateExpectedPreparationTime()
+    {
+      // create datetime object with 
+      DateTime expectedTime = DateTime.Now;
+
+      // for each item name in OrderedItemsList
+      foreach (string item_name in OrderedItemsList.Items)
+      {
+        // find item_id (key) from item_id_to_name dictionary using item_name (value)
+        string item_id = item_id_to_name.FirstOrDefault(x => x.Value == item_name).Key;
+
+        // get usual_time from item_id_to_usual_time dictionary
+        string usual_time = item_id_to_usual_time[item_id];
+
+        // split usual_time into hours, minutes, seconds
+        string[] timeParts = usual_time.Split(':');
+
+        // add hours, minutes, seconds to time object
+        expectedTime = expectedTime.AddHours(Convert.ToDouble(timeParts[0]));
+        expectedTime = expectedTime.AddMinutes(Convert.ToDouble(timeParts[1]));
+        expectedTime = expectedTime.AddSeconds(Convert.ToDouble(timeParts[2]));
+      }
+
+      return expectedTime;
     }
 
     private void CancelOrder_Click(object sender, EventArgs e)
@@ -408,25 +486,93 @@ namespace Restaurant_Contactless_Dining_System
       ReviewGroupBox.Enabled = false;
     }
 
-    private void KitRetrieveOrders_Click(object sender, EventArgs e)
+    private void UpdateOrders()
     {
-      //KitOrdersList.Items.Clear();
+      // a temporary list to hold order ids
+      List<string> order_ids = new List<string>();
 
-      //con.Open();
-      //cmd.Connection = con;
-      //cmd.CommandText = "SELECT id FROM orders where status='pending' OR status='preparing'";
-      //dr = cmd.ExecuteReader();
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
-      //if (dr.HasRows)
-      //{
-      //  while (dr.Read())
-      //  {
-      //    KitOrdersList.Items.Add(dr["id"]);
-      //  }
-      //}
+      // get cmd
+      SqlCommand cmd = db.Command;
 
-      //dr.Close();
-      //con.Close();
+      // clear params
+      cmd.Parameters.Clear();
+
+      // get branch_id from DoneSetup.txt
+      string branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // add params
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
+
+      string sqlString = "SELECT * FROM orders WHERE branch_id=@branch_id AND status='preparing'";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          // get order_id
+          string order_id = dr["order_id"].ToString();
+
+          // add order_id to list
+          order_ids.Add(order_id);
+
+          bool orderExists = false;
+
+          // check if order control already exists in flow layout panel
+          foreach (KitchenOrder order in preparingOrdersPanel.Controls)
+          {
+            if (order.OrderId == order_id)
+            {
+              orderExists = true;
+              break;
+            }
+          }
+
+          // if order control already exists in flow layout panel
+          if (orderExists)
+            continue;
+
+          // get start_prepare_time datetime
+          DateTime start_prepare_time = Convert.ToDateTime(dr["start_prepare_time"]);
+
+          // get end_prepare_time datetime
+          DateTime end_prepare_time = Convert.ToDateTime(dr["end_prepare_time"]);
+
+          // create new order control
+          KitchenOrder kitchenOrder = new KitchenOrder(order_id, start_prepare_time, end_prepare_time, item_id_to_name);
+
+          // add order control to flow layout panel
+          preparingOrdersPanel.Controls.Add(kitchenOrder);
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // for each order control in flow layout panel
+      foreach (KitchenOrder order in preparingOrdersPanel.Controls)
+      {
+        // add event handler to each order control
+        order.KitchenOrderLoad();
+      }
+
+      // for each order_id in order_ids list
+      foreach (string order_id in order_ids)
+      {
+        foreach (KitchenOrder order in preparingOrdersPanel.Controls)
+        {
+          // if order id of control is not in order_ids list then remove it from flow layout panel
+          if (order.OrderId != order_id)
+          {
+            preparingOrdersPanel.Controls.Remove(order);
+            break;
+          }
+        }
+      }
     }
 
     private void KitOrdersList_SelectedIndexChanged(object sender, EventArgs e)
@@ -719,7 +865,7 @@ namespace Restaurant_Contactless_Dining_System
         ImageConverter converter = new ImageConverter();
         logoBytes = (byte[])converter.ConvertTo(LogoUpload.Image, typeof(byte[]));
 
-        List<string> top3Colors = ColorAnalyzer.GetTop3FrequentColors(logoBytes);
+        List<string> top3Colors = ColorAnalyzer.GetTop3DistinctColors(logoBytes);
 
         int i = 0;
         foreach (string color in top3Colors)
@@ -1119,6 +1265,19 @@ namespace Restaurant_Contactless_Dining_System
           // price
           ItemPriceInput.Value = decimal.Parse(dr["price"].ToString());
 
+          // expected time
+          try
+          {
+            // convert time data type (hh:mm:ss) to date time object
+            string[] time = dr["usual_time"].ToString().Split(':');
+            ItemExpectedTimeInput.Value = new DateTime(2018, 1, 1, int.Parse(time[0]), int.Parse(time[1]), int.Parse(time[2]));
+          }
+          catch
+          {
+            // set date time to 0
+            ItemExpectedTimeInput.Value = new DateTime(2018, 1, 1, 0, 0, 0);
+          }
+
           // ItemCategoryInput selection
           if (dr["category"].ToString() == "Promotions")
             ItemCategoryInput.SelectedIndex = 0;
@@ -1201,6 +1360,13 @@ namespace Restaurant_Contactless_Dining_System
         return;
       }
 
+      // expected time (date time picker) empty
+      if (ItemExpectedTimeInput.Value == new DateTime(2018, 1, 1, 0, 0, 0))
+      {
+        MessageBox.Show("Error: Item expected time cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+      }
+
       // category empty
       if (ItemCategoryInput.SelectedIndex == -1)
       {
@@ -1230,17 +1396,29 @@ namespace Restaurant_Contactless_Dining_System
         branch_id = File.ReadAllText("DoneSetup.txt");
 
         // add parameters
+
+        // convert expected datetime to time data type for database
+        string time = ItemExpectedTimeInput.Value.ToString("00:mm:ss");
+
+        // add time parameter
+        cmd.Parameters.AddWithValue("@usual_time", time);
+
         cmd.Parameters.AddWithValue("@name_english", ItemNameInput.Text);
         cmd.Parameters.AddWithValue("@name_arabic", ItemArabicNameInput.Text);
         cmd.Parameters.AddWithValue("@description_english", ItemEnglishDescriptionInput.Text);
         cmd.Parameters.AddWithValue("@description_arabic", ItemArabicDescriptionInput.Text);
         cmd.Parameters.AddWithValue("@price", ItemPriceInput.Value);
         cmd.Parameters.AddWithValue("@category", ItemCategoryInput.SelectedItem.ToString());
-        cmd.Parameters.AddWithValue("@image", File.ReadAllBytes(open2.FileName));
         cmd.Parameters.AddWithValue("@branch_id", branch_id);
 
+        MemoryStream ms = new MemoryStream();
+        UploadItemPicture.Image.Save(ms, UploadItemPicture.Image.RawFormat);
+        byte[] img = ms.ToArray();
+
+        cmd.Parameters.AddWithValue("@image", img);
+
         // set command text
-        cmd.CommandText = "INSERT INTO menu_items (name_english, name_arabic, description_english, description_arabic, price, category, image, branch_id) VALUES (@name_english, @name_arabic, @description_english, @description_arabic, @price, @category, @image, @branch_id)";
+        cmd.CommandText = "INSERT INTO menu_items (name_english, name_arabic, description_english, description_arabic, price, usual_time, category, image, branch_id) VALUES (@name_english, @name_arabic, @description_english, @description_arabic, @price, @usual_time, @category, @image, @branch_id)";
 
         int rowsAffected = db.ExecuteNonQuery();
 
@@ -1278,18 +1456,30 @@ namespace Restaurant_Contactless_Dining_System
         branch_id = File.ReadAllText("DoneSetup.txt");
 
         // add parameters
+
+        // convert expected time to time data type for database
+        string time = ItemExpectedTimeInput.Value.ToString("00:mm:ss");
+
+        // add time parameter
+        cmd.Parameters.AddWithValue("@usual_time", time);
+
         cmd.Parameters.AddWithValue("@name_english", ItemNameInput.Text);
         cmd.Parameters.AddWithValue("@name_arabic", ItemArabicNameInput.Text);
         cmd.Parameters.AddWithValue("@description_english", ItemEnglishDescriptionInput.Text);
         cmd.Parameters.AddWithValue("@description_arabic", ItemArabicDescriptionInput.Text);
         cmd.Parameters.AddWithValue("@price", ItemPriceInput.Value);
         cmd.Parameters.AddWithValue("@category", ItemCategoryInput.SelectedItem.ToString());
-        cmd.Parameters.AddWithValue("@image", File.ReadAllBytes(open2.FileName));
         cmd.Parameters.AddWithValue("@branch_id", branch_id);
         cmd.Parameters.AddWithValue("@id", (MenuItemsList.SelectedItem.ToString()).Substring(0, MenuItemsList.SelectedItem.ToString().IndexOf('.')));
 
+        MemoryStream ms = new MemoryStream();
+        UploadItemPicture.Image.Save(ms, UploadItemPicture.Image.RawFormat);
+        byte[] img = ms.ToArray();
+
+        cmd.Parameters.AddWithValue("@image", img);
+
         // set command text
-        cmd.CommandText = "UPDATE menu_items SET name_english = @name_english, name_arabic = @name_arabic, description_english = @description_english, description_arabic = @description_arabic, price = @price, category = @category, image = @image WHERE item_id = @id";
+        cmd.CommandText = "UPDATE menu_items SET name_english = @name_english, name_arabic = @name_arabic, description_english = @description_english, description_arabic = @description_arabic, price = @price, usual_time = @usual_time, category = @category, image = @image WHERE item_id = @id";
 
         int rowsAffected = db.ExecuteNonQuery();
 
@@ -1309,7 +1499,22 @@ namespace Restaurant_Contactless_Dining_System
       }
 
       MenuItemsList.Enabled = false;
-      SpecialDealsRadio_CheckedChanged(this, new EventArgs());
+
+      // check which radio button is checked
+      if (SpecialDealsRadio.Checked)
+        SpecialDealsRadio_CheckedChanged(this, new EventArgs());
+
+      if (StarterItemsRadio.Checked)
+        StarterItemsRadio_CheckedChanged(this, new EventArgs());
+
+      if (MainItemsRadio.Checked)
+        MainItemsRadio_CheckedChanged(this, new EventArgs());
+
+      if (DessertsRadio.Checked)
+        DessertsRadio_CheckedChanged(this, new EventArgs());
+
+      if (ExtraItemsRadio.Checked)
+        ExtraItemsRadio_CheckedChanged(this, new EventArgs());
     }
 
     private void ClearFormFields_Click(object sender, EventArgs e)
@@ -1321,6 +1526,9 @@ namespace Restaurant_Contactless_Dining_System
       ItemArabicNameInput.Clear();
       ItemEnglishDescriptionInput.Clear();
       ItemArabicDescriptionInput.Clear();
+
+      // make date time to 1/1/2018 00:00:00
+      ItemExpectedTimeInput.Value = new DateTime(2018, 1, 1, 0, 0, 0);
     }
 
     private void DeleteItem_Click(object sender, EventArgs e)

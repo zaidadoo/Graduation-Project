@@ -195,6 +195,12 @@
       <DependentUpon>CompleteMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseHandler.cs" />
+    <Compile Include="KitchenOrder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KitchenOrder.Designer.cs">
+      <DependentUpon>KitchenOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="RatingPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +271,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CompleteMenu.resx">
       <DependentUpon>CompleteMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KitchenOrder.resx">
+      <DependentUpon>KitchenOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RatingPrompt.resx">
       <DependentUpon>RatingPrompt.cs</DependentUpon>

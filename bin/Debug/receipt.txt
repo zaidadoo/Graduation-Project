@@ -8,14 +8,25 @@
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 19
+		Order ID: 22
 
 
-#ORD 19 - 23/05/2023 8:20:23 PM
+#ORD 22 - 27/05/2023 8:05:22 PM
 #	Total		Product
-07	26.25		تاكوليشيس
-03	11.25		كلاسيك برجر..
+02	07.50		Classic Burger
+			gfsdg
+04	15.00		Tacolicious
+			asd
+02	07.50		Classic Burger
+			asdas
+02	07.50		Classic Burger
+			asd
+02	09.00		Chocolate Lava Cake
+			gdfh
+01	04.50		Chocolate Lava Cake
+			asgfas
+01	03.75		Tacolicious
 
-Total			37.5
+Total			54.75
 
 Have a good day!
