@@ -11,6 +11,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Restaurant_Contactless_Dining_System
 {
@@ -1981,6 +1982,27 @@ namespace Restaurant_Contactless_Dining_System
       {
         MessageBox.Show("Error: Invalid color", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
+    }
+
+    private void submitDataAnalyzerButton_Click(object sender, EventArgs e)
+    {
+      UpdateItemIdDictionary();
+
+      // TODO enable it only if there were rows in the database
+      // enable dataExporterButton
+      dataExporterButton.Enabled = true;
+    }
+
+    private void dataExporterButton_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void chart1_Click(object sender, EventArgs e)
+    {
+      var series = new Series();
+
+      series.ChartType = SeriesChartType.Pie;
     }
   }
 }
