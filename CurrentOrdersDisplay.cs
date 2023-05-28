@@ -14,6 +14,8 @@ namespace Restaurant_Contactless_Dining_System
 {
   public partial class CustomerOrdersDisplay : Form
   {
+    private string branch_id;
+
     public CustomerOrdersDisplay()
     {
       InitializeComponent();
@@ -21,27 +23,61 @@ namespace Restaurant_Contactless_Dining_System
 
     private void ordersTimer_Tick(object sender, EventArgs e)
     {
-      //con.Open();
+      string preparingOrders = "";
+      string readyOrders = "";
 
-      //cmd.Connection = con;
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
 
-      //cmd.CommandText = "SELECT * FROM orders WHERE status='preparing'";
+      // get cmd from db
+      SqlCommand cmd = db.Command;
 
-      //dr = cmd.ExecuteReader();
+      // clear cmd
+      cmd.Parameters.Clear();
 
-      //if (!dr.HasRows)
-      //    OrderNumbers.Text = "None at the moment...";
-      //else
-      //{
-      //    OrderNumbers.Text = "";
-      //    while (dr.Read())
-      //    {
-      //        OrderNumbers.Text += "#" + dr["id"].ToString() + " ";
-      //    }
-      //}
+      // add parameters
+      cmd.Parameters.AddWithValue("@branch_id", branch_id);
 
-      //dr.Close();
-      //con.Close();
+      string sqlString = "SELECT * FROM orders WHERE status='preparing' AND branch_id=@branch_id";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          // get end_prepare_time
+          DateTime end_prepare_time = Convert.ToDateTime(dr["end_prepare_time"]);
+
+          // calculate time left
+          TimeSpan timeLeft = end_prepare_time.Subtract(DateTime.Now);
+
+          // get in minutes
+          int minutesLeft = (int)timeLeft.TotalMinutes;
+
+          // check if minutes greatear than 0
+          if (minutesLeft > 0)
+          {
+            // add to preparingOrders
+            preparingOrders += "#" + dr["order_id"].ToString() + " (" + minutesLeft + " minutes) ";
+          }
+          else
+          {
+            // add to readyOrders
+            readyOrders += "#" + dr["order_id"].ToString() + " ";
+          }
+        }
+      }
+      else
+      {
+        preparingOrders = "";
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      PreparingOrderNumbers.Text = preparingOrders;
+      ReadyOrderNumbers.Text = readyOrders;
     }
 
     byte[] logoBytes = null;
@@ -55,7 +91,7 @@ namespace Restaurant_Contactless_Dining_System
       DatabaseHandler db = DatabaseHandler.Instance;
 
       // get branch_id from DoneSetup.txt
-      string branch_id = File.ReadAllText("DoneSetup.txt");
+      branch_id = File.ReadAllText("DoneSetup.txt");
       string restaurant_id = "";
 
       // get cmd from DatabaseHandler
@@ -131,6 +167,8 @@ namespace Restaurant_Contactless_Dining_System
 
       LogoFrame.Image = finalImage;
 
+      ordersTimer_Tick(null, null);
+
       Timer ordersTimer = new Timer();
       ordersTimer.Interval = 5000;
       ordersTimer.Tick += new System.EventHandler(ordersTimer_Tick);
@@ -143,23 +181,29 @@ namespace Restaurant_Contactless_Dining_System
       // update logo panel with accent color
       LogoPanel.BackColor = ColorTranslator.FromHtml(accentColor);
 
-      // update bottom panel with accent color
-      BottomPanel.BackColor = ColorTranslator.FromHtml(accentColor);
-
       // update customer orders panel with main color
       this.BackColor = ColorTranslator.FromHtml(mainColor);
 
       // update OrderNumbers with main color
-      OrderNumbers.BackColor = ColorTranslator.FromHtml(mainColor);
+      PreparingOrderNumbers.BackColor = ColorTranslator.FromHtml(mainColor);
+      ReadyOrderNumbers.BackColor = ColorTranslator.FromHtml(mainColor);
 
       // update OrderNumbers with text color
-      OrderNumbers.ForeColor = ColorTranslator.FromHtml(textColor);
+      PreparingOrderNumbers.ForeColor = ColorTranslator.FromHtml(textColor);
+      ReadyOrderNumbers.ForeColor = ColorTranslator.FromHtml(textColor);
 
       // update all controls with text color
       foreach (Control c in this.Controls)
       {
         c.ForeColor = ColorTranslator.FromHtml(textColor);
       }
+
+      // get accent color 10% darker
+      Color lighterAccentColor = ColorTranslator.FromHtml(accentColor);
+      lighterAccentColor = ControlPaint.Light(lighterAccentColor, 0.1f);
+
+      // update bottom panel
+      BottomPanel.BackColor = lighterAccentColor;
     }
 
     private void ExitButton_Click(object sender, EventArgs e)

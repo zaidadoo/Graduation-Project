@@ -35,7 +35,9 @@ namespace Restaurant_Contactless_Dining_System
       this.LogoPanel = new System.Windows.Forms.Panel();
       this.LogoFrame = new System.Windows.Forms.PictureBox();
       this.Title = new System.Windows.Forms.Label();
-      this.OrderNumbers = new System.Windows.Forms.TextBox();
+      this.PreparingOrderNumbers = new System.Windows.Forms.TextBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this.ReadyOrderNumbers = new System.Windows.Forms.TextBox();
       this.BottomPanel.SuspendLayout();
       this.LogoPanel.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.LogoFrame)).BeginInit();
@@ -96,25 +98,50 @@ namespace Restaurant_Contactless_Dining_System
       this.Title.ForeColor = System.Drawing.Color.White;
       this.Title.Location = new System.Drawing.Point(237, 9);
       this.Title.Name = "Title";
-      this.Title.Size = new System.Drawing.Size(1447, 106);
+      this.Title.Size = new System.Drawing.Size(1038, 106);
       this.Title.TabIndex = 4;
-      this.Title.Text = "CURRENT ORDERS BEING PREPARED:";
+      this.Title.Text = "ORDERS BEING PREPARED";
       // 
-      // OrderNumbers
+      // PreparingOrderNumbers
       // 
-      this.OrderNumbers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-      this.OrderNumbers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.OrderNumbers.Enabled = false;
-      this.OrderNumbers.Font = new System.Drawing.Font("Segoe UI Semilight", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.OrderNumbers.ForeColor = System.Drawing.Color.White;
-      this.OrderNumbers.Location = new System.Drawing.Point(233, 112);
-      this.OrderNumbers.Multiline = true;
-      this.OrderNumbers.Name = "OrderNumbers";
-      this.OrderNumbers.ReadOnly = true;
-      this.OrderNumbers.Size = new System.Drawing.Size(1498, 810);
-      this.OrderNumbers.TabIndex = 5;
-      this.OrderNumbers.TabStop = false;
-      this.OrderNumbers.Text = "None at the moment...";
+      this.PreparingOrderNumbers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+      this.PreparingOrderNumbers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.PreparingOrderNumbers.Font = new System.Drawing.Font("Segoe UI Semilight", 40F);
+      this.PreparingOrderNumbers.ForeColor = System.Drawing.Color.White;
+      this.PreparingOrderNumbers.Location = new System.Drawing.Point(233, 112);
+      this.PreparingOrderNumbers.Multiline = true;
+      this.PreparingOrderNumbers.Name = "PreparingOrderNumbers";
+      this.PreparingOrderNumbers.ReadOnly = true;
+      this.PreparingOrderNumbers.Size = new System.Drawing.Size(1215, 422);
+      this.PreparingOrderNumbers.TabIndex = 5;
+      this.PreparingOrderNumbers.TabStop = false;
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.BackColor = System.Drawing.Color.Transparent;
+      this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.label1.Font = new System.Drawing.Font("Segoe UI", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label1.ForeColor = System.Drawing.Color.White;
+      this.label1.Location = new System.Drawing.Point(237, 529);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(639, 106);
+      this.label1.TabIndex = 6;
+      this.label1.Text = "READY ORDERS\r\n";
+      // 
+      // ReadyOrderNumbers
+      // 
+      this.ReadyOrderNumbers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+      this.ReadyOrderNumbers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.ReadyOrderNumbers.Font = new System.Drawing.Font("Segoe UI Semilight", 40F);
+      this.ReadyOrderNumbers.ForeColor = System.Drawing.Color.White;
+      this.ReadyOrderNumbers.Location = new System.Drawing.Point(255, 638);
+      this.ReadyOrderNumbers.Multiline = true;
+      this.ReadyOrderNumbers.Name = "ReadyOrderNumbers";
+      this.ReadyOrderNumbers.ReadOnly = true;
+      this.ReadyOrderNumbers.Size = new System.Drawing.Size(1193, 354);
+      this.ReadyOrderNumbers.TabIndex = 7;
+      this.ReadyOrderNumbers.TabStop = false;
       // 
       // CustomerOrdersDisplay
       // 
@@ -122,7 +149,9 @@ namespace Restaurant_Contactless_Dining_System
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
       this.ClientSize = new System.Drawing.Size(1904, 1041);
-      this.Controls.Add(this.OrderNumbers);
+      this.Controls.Add(this.ReadyOrderNumbers);
+      this.Controls.Add(this.label1);
+      this.Controls.Add(this.PreparingOrderNumbers);
       this.Controls.Add(this.Title);
       this.Controls.Add(this.BottomPanel);
       this.Controls.Add(this.LogoPanel);
@@ -147,6 +176,8 @@ namespace Restaurant_Contactless_Dining_System
         private System.Windows.Forms.Panel LogoPanel;
         private System.Windows.Forms.PictureBox LogoFrame;
         private System.Windows.Forms.Label Title;
-        private System.Windows.Forms.TextBox OrderNumbers;
-    }
+        private System.Windows.Forms.TextBox PreparingOrderNumbers;
+    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.TextBox ReadyOrderNumbers;
+  }
 }
