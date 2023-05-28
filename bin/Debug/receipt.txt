@@ -8,25 +8,14 @@
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 22
+		Order ID: 30
 
 
-#ORD 22 - 27/05/2023 8:05:22 PM
+#ORD 30 - 28/05/2023 6:10:42 PM
 #	Total		Product
-02	07.50		Classic Burger
-			gfsdg
-04	15.00		Tacolicious
-			asd
-02	07.50		Classic Burger
-			asdas
-02	07.50		Classic Burger
-			asd
-02	09.00		Chocolate Lava Cake
-			gdfh
-01	04.50		Chocolate Lava Cake
-			asgfas
+04	15.00		Classic Burger
 01	03.75		Tacolicious
 
-Total			54.75
+Total			18.75
 
 Have a good day!

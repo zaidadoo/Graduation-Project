@@ -48,6 +48,8 @@ namespace Restaurant_Contactless_Dining_System
       this.OrderedItemsList = new System.Windows.Forms.ListBox();
       this.OrdersList = new System.Windows.Forms.ListBox();
       this.KitchenView = new System.Windows.Forms.TabPage();
+      this.label19 = new System.Windows.Forms.Label();
+      this.preparingOrdersPanel = new System.Windows.Forms.FlowLayoutPanel();
       this.ManageOrders = new System.Windows.Forms.TabPage();
       this.OrdersGridView = new System.Windows.Forms.DataGridView();
       this.RetrieveAllOrders = new System.Windows.Forms.Button();
@@ -122,8 +124,6 @@ namespace Restaurant_Contactless_Dining_System
       this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.preparingOrdersPanel = new System.Windows.Forms.FlowLayoutPanel();
-      this.label19 = new System.Windows.Forms.Label();
       this.Tabs.SuspendLayout();
       this.PendingOrders.SuspendLayout();
       this.PendingOrdersTabs.SuspendLayout();
@@ -219,7 +219,6 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // label17
       // 
-      this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.label17.BackColor = System.Drawing.Color.Transparent;
       this.label17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.label17.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -307,7 +306,7 @@ namespace Restaurant_Contactless_Dining_System
       this.CompleteOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.CompleteOrder.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold);
       this.CompleteOrder.ForeColor = System.Drawing.Color.White;
-      this.CompleteOrder.Location = new System.Drawing.Point(98, 331);
+      this.CompleteOrder.Location = new System.Drawing.Point(98, 285);
       this.CompleteOrder.Name = "CompleteOrder";
       this.CompleteOrder.Size = new System.Drawing.Size(250, 40);
       this.CompleteOrder.TabIndex = 2;
@@ -322,7 +321,7 @@ namespace Restaurant_Contactless_Dining_System
       this.CancelOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.CancelOrder.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold);
       this.CancelOrder.ForeColor = System.Drawing.Color.White;
-      this.CancelOrder.Location = new System.Drawing.Point(98, 285);
+      this.CancelOrder.Location = new System.Drawing.Point(98, 331);
       this.CancelOrder.Name = "CancelOrder";
       this.CancelOrder.Size = new System.Drawing.Size(250, 40);
       this.CancelOrder.TabIndex = 2;
@@ -418,6 +417,33 @@ namespace Restaurant_Contactless_Dining_System
       this.KitchenView.TabIndex = 1;
       this.KitchenView.Text = "Kitchen View";
       // 
+      // label19
+      // 
+      this.label19.BackColor = System.Drawing.Color.Transparent;
+      this.label19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.label19.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label19.ForeColor = System.Drawing.Color.Gray;
+      this.label19.Location = new System.Drawing.Point(3, 3);
+      this.label19.Name = "label19";
+      this.label19.RightToLeft = System.Windows.Forms.RightToLeft.No;
+      this.label19.Size = new System.Drawing.Size(469, 71);
+      this.label19.TabIndex = 47;
+      this.label19.Text = "KITCHEN";
+      this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+      // 
+      // preparingOrdersPanel
+      // 
+      this.preparingOrdersPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.preparingOrdersPanel.AutoScroll = true;
+      this.preparingOrdersPanel.BackColor = System.Drawing.Color.White;
+      this.preparingOrdersPanel.Location = new System.Drawing.Point(6, 77);
+      this.preparingOrdersPanel.Name = "preparingOrdersPanel";
+      this.preparingOrdersPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+      this.preparingOrdersPanel.Size = new System.Drawing.Size(1325, 623);
+      this.preparingOrdersPanel.TabIndex = 0;
+      // 
       // ManageOrders
       // 
       this.ManageOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(197)))), ((int)(((byte)(232)))));
@@ -506,7 +532,6 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // label16
       // 
-      this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.label16.BackColor = System.Drawing.Color.Transparent;
       this.label16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.label16.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -981,7 +1006,6 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // label12
       // 
-      this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.label12.BackColor = System.Drawing.Color.Transparent;
       this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.label12.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1313,7 +1337,6 @@ namespace Restaurant_Contactless_Dining_System
       // 
       // Title
       // 
-      this.Title.Anchor = System.Windows.Forms.AnchorStyles.None;
       this.Title.BackColor = System.Drawing.Color.Transparent;
       this.Title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
       this.Title.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1405,29 +1428,6 @@ namespace Restaurant_Contactless_Dining_System
       this.signOutToolStripMenuItem.Size = new System.Drawing.Size(150, 24);
       this.signOutToolStripMenuItem.Text = "Sign Out";
       this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
-      // 
-      // preparingOrdersPanel
-      // 
-      this.preparingOrdersPanel.Location = new System.Drawing.Point(6, 77);
-      this.preparingOrdersPanel.Name = "preparingOrdersPanel";
-      this.preparingOrdersPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.preparingOrdersPanel.Size = new System.Drawing.Size(1325, 623);
-      this.preparingOrdersPanel.TabIndex = 0;
-      // 
-      // label19
-      // 
-      this.label19.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label19.BackColor = System.Drawing.Color.Transparent;
-      this.label19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.label19.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label19.ForeColor = System.Drawing.Color.Gray;
-      this.label19.Location = new System.Drawing.Point(3, 3);
-      this.label19.Name = "label19";
-      this.label19.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.label19.Size = new System.Drawing.Size(469, 71);
-      this.label19.TabIndex = 47;
-      this.label19.Text = "KITCHEN";
-      this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // KitchenManagement
       // 

@@ -350,7 +350,7 @@ namespace Restaurant_Contactless_Dining_System
 
     private void ConfirmOrder_Click(object sender, EventArgs e)
     {
-      var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      var res = MessageBox.Show("Are you sure you want to prepare order?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
       if (res == DialogResult.No)
       {
         return;
@@ -418,7 +418,7 @@ namespace Restaurant_Contactless_Dining_System
 
     private void CancelOrder_Click(object sender, EventArgs e)
     {
-      var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      var res = MessageBox.Show("Are you sure you want cancel order?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
       if (res == DialogResult.No)
       {
         return;
@@ -454,7 +454,7 @@ namespace Restaurant_Contactless_Dining_System
 
     private void CompleteOrder_Click(object sender, EventArgs e)
     {
-      var res = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      var res = MessageBox.Show("Are you sure you want to complete order?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
       if (res == DialogResult.No)
       {
         return;
@@ -467,10 +467,16 @@ namespace Restaurant_Contactless_Dining_System
       // clear params
       cmd.Parameters.Clear();
 
+      // get order_id
+      string order_id = OrdersList.SelectedItem.ToString();
+
       // add params
       cmd.Parameters.AddWithValue("@order_id", OrdersList.SelectedItem);
 
-      cmd.CommandText = "UPDATE orders SET status='complete' WHERE order_id=@order_id";
+      // end_prepare_time
+      cmd.Parameters.AddWithValue("@end_prepare_time", DateTime.Now);
+
+      cmd.CommandText = "UPDATE orders SET status='complete', end_prepare_time=@end_prepare_time WHERE order_id=@order_id";
 
       int rowsAffected = db.ExecuteNonQuery();
 
@@ -484,6 +490,148 @@ namespace Restaurant_Contactless_Dining_System
 
       RetrieveOrdersList_Click(this, new EventArgs());
       ReviewGroupBox.Enabled = false;
+
+      // update items usual time
+      UpdateItemsUsualTime(order_id);
+
+      // update items 
+      UpdateItemIdDictionary();
+    }
+
+    private void UpdateItemsUsualTime(string order_id)
+    {
+      // get number of items in OrderedItemsList
+      int itemsCount = OrderedItemsList.Items.Count;
+
+      // create an array of size itemsCount to store percentage of each item
+      double[] percentage = new double[itemsCount];
+
+      double totalSeconds = 0;
+
+      // for each item name in OrderedItemsList using foreach
+      foreach (string item_name in OrderedItemsList.Items)
+      {
+        double totalTime = GetItemUsualTimeInSeconds(item_name);
+
+        // add total time to totalSeconds
+        totalSeconds += totalTime;
+      }
+
+      // same as above but calculate percentage of each item using foreach
+      foreach (string item_name in OrderedItemsList.Items)
+      {
+        double totalTime = GetItemUsualTimeInSeconds(item_name);
+
+        percentage[OrderedItemsList.Items.IndexOf(item_name)] = totalTime / totalSeconds;
+      }
+
+      // get db instance
+      DatabaseHandler db = DatabaseHandler.Instance;
+
+      // get cmd
+      SqlCommand cmd = db.Command;
+
+      // clear params
+      cmd.Parameters.Clear();
+
+      // add params
+      cmd.Parameters.AddWithValue("@order_id", order_id);
+
+      string sqlString = "SELECT * FROM orders WHERE order_id=@order_id";
+
+      SqlDataReader dr = db.ExecuteQuery(sqlString);
+
+      // get start_prepare_time and end_prepare_time
+      DateTime start_prepare_time = new DateTime();
+      DateTime end_prepare_time = new DateTime();
+
+      if (dr.HasRows)
+      {
+        while (dr.Read())
+        {
+          start_prepare_time = Convert.ToDateTime(dr["start_prepare_time"]);
+          end_prepare_time = Convert.ToDateTime(dr["end_prepare_time"]);
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // calculate total time taken to prepare order
+      TimeSpan timeTaken = end_prepare_time.Subtract(start_prepare_time);
+
+      // get total time taken in seconds
+      double totalTimeTaken = timeTaken.TotalSeconds;
+
+      // magic number that modifies usual time by that amount of percent
+      double ModifyPercentage = 0.1;
+
+      // for each item in OrderedItemsList
+      foreach (string item_name in OrderedItemsList.Items)
+      {
+        // get item_id from item_id_to_name dictionary
+        string item_id = item_id_to_name.FirstOrDefault(x => x.Value == item_name).Key;
+
+        // get total time in seconds
+        double totalTime = GetItemUsualTimeInSeconds(item_name);
+
+        // get derived usual time
+        double newUsualTime = totalTimeTaken * percentage[OrderedItemsList.Items.IndexOf(item_name)];
+
+        // calculate difference between old usual time and derived usual time
+        double difference = newUsualTime - totalTime;
+
+        // update totalTime by adding difference with ModifyPercentage
+        totalTime += difference * ModifyPercentage;
+
+        // convert totalTime to time object
+        TimeSpan time = TimeSpan.FromSeconds(totalTime);
+
+        // get db instance
+        db = DatabaseHandler.Instance;
+
+        // get cmd
+        cmd = db.Command;
+
+        // clear params
+        cmd.Parameters.Clear();
+
+        // add params
+        cmd.Parameters.AddWithValue("@item_id", item_id);
+
+        // convert time object to string
+        string usual_time = time.ToString(@"hh\:mm\:ss");
+
+        // add params
+        cmd.Parameters.AddWithValue("@usual_time", usual_time);
+
+        cmd.CommandText = "UPDATE menu_items SET usual_time=@usual_time WHERE item_id=@item_id";
+
+        db.ExecuteNonQuery();
+      }
+
+      // close connection
+      db.CloseConnection();
+    }
+
+    private double GetItemUsualTimeInSeconds(string item_name)
+    {
+      // find item_id (key) from item_id_to_name dictionary using item_name (value)
+      string item_id = item_id_to_name.FirstOrDefault(x => x.Value == item_name).Key;
+
+      // get usual_time from item_id_to_usual_time dictionary
+      string usual_time = item_id_to_usual_time[item_id];
+
+      // split usual_time into hours, minutes, seconds
+      string[] timeParts = usual_time.Split(':');
+
+      // add hours, minutes, seconds to time object
+      TimeSpan time = new TimeSpan(Convert.ToInt32(timeParts[0]), Convert.ToInt32(timeParts[1]), Convert.ToInt32(timeParts[2]));
+
+      // get total time in seconds
+      double totalTime = time.TotalSeconds;
+
+      return totalTime;
     }
 
     private void UpdateOrders()
@@ -558,19 +706,12 @@ namespace Restaurant_Contactless_Dining_System
       {
         // add event handler to each order control
         order.KitchenOrderLoad();
-      }
 
-      // for each order_id in order_ids list
-      foreach (string order_id in order_ids)
-      {
-        foreach (KitchenOrder order in preparingOrdersPanel.Controls)
+        // check if control order id is in order_ids list
+        if (!order_ids.Contains(order.OrderId))
         {
-          // if order id of control is not in order_ids list then remove it from flow layout panel
-          if (order.OrderId != order_id)
-          {
-            preparingOrdersPanel.Controls.Remove(order);
-            break;
-          }
+          // remove order control from flow layout panel
+          preparingOrdersPanel.Controls.Remove(order);
         }
       }
     }
