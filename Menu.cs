@@ -28,6 +28,8 @@ namespace Restaurant_Contactless_Dining_System
 
       // make title to text color
       Title.ForeColor = ColorTranslator.FromHtml(textColor);
+      engStartOrder.ForeColor = ColorTranslator.FromHtml(textColor);
+      arabicStartOrder.ForeColor = ColorTranslator.FromHtml(textColor);
 
       // make StartOrder to accent color
       engStartOrder.BackColor = ColorTranslator.FromHtml(accentColor);

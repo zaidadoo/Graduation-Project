@@ -46,9 +46,8 @@ namespace Restaurant_Contactless_Dining_System
           }
         }
       }
-      catch (Exception e)
+      catch
       {
-        MessageBox.Show(e.Message);
       }
 
       // get 10 percent lighter color from accent
@@ -82,9 +81,8 @@ namespace Restaurant_Contactless_Dining_System
           }
         }
       }
-      catch (Exception e)
+      catch
       {
-        MessageBox.Show(e.Message);
       }
 
       // set text color to all labels on this page recursively
@@ -101,9 +99,8 @@ namespace Restaurant_Contactless_Dining_System
           }
         }
       }
-      catch (Exception e)
+      catch
       {
-        MessageBox.Show(e.Message);
       }
     }
 
@@ -156,9 +153,6 @@ namespace Restaurant_Contactless_Dining_System
             case 0:
               mainColorField.Text = color;
               break;
-            case 1:
-              accentColorField.Text = color;
-              break;
             case 2:
               textColorField.Text = color;
               break;
@@ -166,6 +160,12 @@ namespace Restaurant_Contactless_Dining_System
 
           i++;
         }
+
+        // set accent color by getting main color and making it 30% lighter
+        string mainColor = mainColorField.Text;
+        Color lighterAccent = ColorTranslator.FromHtml(mainColor);
+        lighterAccent = ControlPaint.Light(lighterAccent, 0.3f);
+        accentColorField.Text = ColorTranslator.ToHtml(lighterAccent);
       }
     }
 

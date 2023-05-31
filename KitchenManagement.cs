@@ -1048,9 +1048,6 @@ namespace Restaurant_Contactless_Dining_System
             case 0:
               mainColorField.Text = color;
               break;
-            case 1:
-              accentColorField.Text = color;
-              break;
             case 2:
               textColorField.Text = color;
               break;
@@ -1058,6 +1055,12 @@ namespace Restaurant_Contactless_Dining_System
 
           i++;
         }
+
+        // set accent color by getting main color and making it 30% lighter
+        string mainColor = mainColorField.Text;
+        Color lighterAccent = ColorTranslator.FromHtml(mainColor);
+        lighterAccent = ControlPaint.Light(lighterAccent, 0.3f);
+        accentColorField.Text = ColorTranslator.ToHtml(lighterAccent);
       }
       else
       {
@@ -1983,9 +1986,8 @@ namespace Restaurant_Contactless_Dining_System
         // take color from mainColorField and set it to mainColorBox
         mainColorBox.BackColor = ColorTranslator.FromHtml(mainColorField.Text);
       }
-      catch (Exception)
+      catch
       {
-        MessageBox.Show("Error: Invalid color", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
 
@@ -1996,9 +1998,8 @@ namespace Restaurant_Contactless_Dining_System
         // take color from accentColorField and set it to accentColorBox
         accentColorBox.BackColor = ColorTranslator.FromHtml(accentColorField.Text);
       }
-      catch (Exception)
+      catch
       {
-        MessageBox.Show("Error: Invalid color", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
 
@@ -2009,9 +2010,8 @@ namespace Restaurant_Contactless_Dining_System
         // take color from textColorField and set it to textColorBox
         textColorBox.BackColor = ColorTranslator.FromHtml(textColorField.Text);
       }
-      catch (Exception)
+      catch
       {
-        MessageBox.Show("Error: Invalid color", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
 
