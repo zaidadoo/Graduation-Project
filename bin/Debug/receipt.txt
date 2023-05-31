@@ -8,14 +8,23 @@
 	Please go to the counter
 	to pay for your order.
 
-		Order ID: 30
+		Order ID: 32
 
 
-#ORD 30 - 28/05/2023 6:10:42 PM
+#ORD 32 - 31/05/2023 7:44:06 PM
 #	Total		Product
-04	15.00		Classic Burger
-01	03.75		Tacolicious
+01	03.75		Classic Burger
+			This is a 
+			very long 
+			note for p
+			reparing t
+			his very c
+			lassical b
+			urger, I h
+			ope it tas
+			tes very g
+			ood
 
-Total			18.75
+Total			3.75
 
 Have a good day!

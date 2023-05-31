@@ -10,8 +10,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Windows.Forms.DataVisualization.Charting;
+using OfficeOpenXml;
+using System.Diagnostics;
+using OfficeOpenXml.Table;
 
 namespace Restaurant_Contactless_Dining_System
 {
@@ -32,6 +34,12 @@ namespace Restaurant_Contactless_Dining_System
     // create a tick event for kitchen orders
     Timer ordersTimer;
 
+    // create a data table that will store all orders selected
+    DataTable orders = new DataTable();
+
+    // create a data table that will store all order items selected
+    DataTable orderItems = new DataTable();
+
     public KitchenManagement()
     {
       InitializeComponent();
@@ -46,6 +54,29 @@ namespace Restaurant_Contactless_Dining_System
       CancelOrder.Enabled = false;
 
       UpdateItemIdDictionary();
+
+      // set default date time picker values
+
+      // set start range to beginning of year
+      dataStartRangeDateTime.Value = new DateTime(DateTime.Now.Year, 1, 1);
+
+      // set date time picker to current date
+      dataEndRangeDateTime.Value = DateTime.Now;
+
+      // add to order data table columns: order_id, branch_id, order_time, rating, total_price, start_prepare_time, end_prepare_time
+      orders.Columns.Add("Order ID", typeof(string));
+      orders.Columns.Add("Branch ID", typeof(string));
+      orders.Columns.Add("Order Time", typeof(DateTime));
+      orders.Columns.Add("Experience Rating", typeof(int));
+      orders.Columns.Add("Price of Order", typeof(double));
+      orders.Columns.Add("Time of Preparing Start", typeof(DateTime));
+      orders.Columns.Add("Time of Preparing End", typeof(DateTime));
+
+      // add to order items data table columns: order_id, item name, quantity, description
+      orderItems.Columns.Add("Order ID", typeof(string));
+      orderItems.Columns.Add("Item Name", typeof(string));
+      orderItems.Columns.Add("Quantity", typeof(int));
+      orderItems.Columns.Add("Preparation Note", typeof(string));
 
       foreach (TabPage tab in Tabs.TabPages)
       {
@@ -1988,21 +2019,516 @@ namespace Restaurant_Contactless_Dining_System
     {
       UpdateItemIdDictionary();
 
-      // TODO enable it only if there were rows in the database
+      // clear data in columnChart Rating
+      columnChart.Series["Rating"].Points.Clear();
+
+      // clear data in pieChart SalesBreakdown
+      pieChart.Series["SalesBreakdown"].Points.Clear();
+
+      // clear series in lineChart
+      lineChart.Series.Clear();
+
+      // clear order data table
+      orders.Rows.Clear();
+
+      // clear item data table
+      orderItems.Rows.Clear();
+
+      // disable dataExporterButton
+      dataExporterButton.Enabled = false;
+
+      // create a dynamic list that will hold menu items to filter
+      List<string> menuItems = new List<string>();
+
+      // check if items to analyze is empty
+      if(itemsToAnalyzeInput.Text == "")
+      {
+        // add all item id from dictionary (item_id_to_name) to menuItems
+        foreach (KeyValuePair<string, string> entry in item_id_to_name)
+        {
+          menuItems.Add(entry.Key);
+        }
+      }
+      else
+      {
+        string itemsToAnalyzeInputString = itemsToAnalyzeInput.Text;
+        string itemsNotFound = "";
+
+        // for each item in itemsToAnalyzeInput separated by comma
+        foreach (string item in itemsToAnalyzeInputString.Split(','))
+        {
+          // trim value
+          string trimmedItem = item.Trim();
+
+          // check if item_name (value) exists in item_id_to_name dictionary
+          if (item_id_to_name.ContainsValue(trimmedItem))
+          {
+            // add item_id (key) to menuItems
+            menuItems.Add(item_id_to_name.FirstOrDefault(x => x.Value.Equals(trimmedItem, StringComparison.OrdinalIgnoreCase)).Key);
+          }
+          else
+          {
+            // check if a similar item_name exists in item_id_to_name dictionary
+            bool similarItemFound = item_id_to_name.Any(x => x.Value.Equals(trimmedItem, StringComparison.OrdinalIgnoreCase));
+
+            if (similarItemFound)
+            {
+              // add item_id (key) to menuItems
+              menuItems.Add(item_id_to_name.FirstOrDefault(x => x.Value.Equals(trimmedItem, StringComparison.OrdinalIgnoreCase)).Key);
+            }
+            else
+            {
+              // add item to itemsNotFound
+              itemsNotFound += trimmedItem + ", ";
+            }
+          }
+        }
+
+        // check if itemsNotFound is not empty
+        if (!itemsNotFound.Equals(""))
+        {
+          // remove last comma
+          itemsNotFound = itemsNotFound.Remove(itemsNotFound.Length - 2);
+
+          // popup error
+          MessageBox.Show("Error: Items not found: " + itemsNotFound, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+          return;
+        }
+      }
+
+      // check if menuItems is empty
+      if (menuItems.Count == 0)
+      {
+        // popup error
+        MessageBox.Show("Error: No items to analyze", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        return;
+      }
+
+      // get start date
+      DateTime startDate = dataStartRangeDateTime.Value;
+
+      // get end date
+      DateTime endDate = dataEndRangeDateTime.Value;
+
+      // create new dictionary list that holds date and rating count
+      Dictionary<DateTime, int> dateRatingCount = new Dictionary<DateTime, int>();
+
+      // create new dictionary list that holds date and rating sum
+      Dictionary<DateTime, int> dateRatingSum = new Dictionary<DateTime, int>();
+
+      // create new dictionary list that holds date and a dictionary list that holds item id and sales count
+      Dictionary<DateTime, Dictionary<string, int>> dateItemSalesCount = new Dictionary<DateTime, Dictionary<string, int>>();
+
+      // add x axis as each month from start date to end date
+      for (DateTime date = startDate; date <= endDate; date = date.AddMonths(1))
+      {
+        // add date and 0 to dateRatingCount
+        dateRatingCount.Add(date, 0);
+
+        // add date and 0 to dateRatingSum
+        dateRatingSum.Add(date, 0);
+
+        // create new dictionary list that holds item id and sales count
+        Dictionary<string, int> itemSalesCount = new Dictionary<string, int>();
+
+        // add each menu item to itemSalesCount
+        foreach (string item in menuItems)
+        {
+          // get item name from item_id_to_name dictionary
+          string itemName = item_id_to_name[item];
+
+          // add item name and 0 to itemSalesCount
+          itemSalesCount.Add(itemName, 0);
+        }
+
+        // add date and itemSalesCount to dateItemSalesCount
+        dateItemSalesCount.Add(date, itemSalesCount);
+      }
+
+      // set y axis range
+      columnChart.ChartAreas[0].AxisY.Minimum = 1;
+      columnChart.ChartAreas[0].AxisY.Maximum = 5;
+
+      columnChart.ChartAreas[0].AxisX2.Enabled = AxisEnabled.False;
+      columnChart.ChartAreas[0].AxisY2.Enabled = AxisEnabled.False;
+
+      // get database handler instance
+      DatabaseHandler db = DatabaseHandler.Instance;
+
+      // get cmd from database
+      SqlCommand cmd = db.Command;
+
+      // clear paramter
+      cmd.Parameters.Clear();
+
+      // create new dynamic list that hold order ids in data range
+      List<string> orderIds = new List<string>();
+
+      // get start date in string format
+      string startDateString = startDate.ToString("yyyy-MM-dd");
+
+      // get end date in string format
+      string endDateString = endDate.ToString("yyyy-MM-dd");
+
+      // get branch_id from DoneSetup.txt
+      branch_id = File.ReadAllText("DoneSetup.txt");
+
+      // get all order ids in data range where status is complete, and filter orders without selected menu items
+      string sqlString = "SELECT * FROM orders WHERE branch_id = @branchId AND order_time BETWEEN @startDate AND @endDate AND status = 'complete' AND EXISTS (SELECT 1 FROM customer_order_items WHERE customer_order_items.order_id = orders.order_id AND item_id IN (" + string.Join(",", menuItems) + "))";
+
+      // add branch_id
+      cmd.Parameters.AddWithValue("@branchId", branch_id);
+      // add startDate
+      cmd.Parameters.AddWithValue("@startDate", startDateString);
+      // add endDate
+      cmd.Parameters.AddWithValue("@endDate", endDateString);
+
+      // execute query
+      SqlDataReader reader = db.ExecuteQuery(sqlString);
+
+      // check if there are rows in the database
+      if (reader.HasRows)
+      {
+        // read all rows
+        while (reader.Read())
+        {
+          // add order_id to orderIds
+          orderIds.Add(reader["order_id"].ToString());
+
+          // get date of order
+          DateTime orderDate = DateTime.Parse(reader["order_time"].ToString());
+
+          // reset date to first day of month
+          orderDate = new DateTime(orderDate.Year, orderDate.Month, 1);
+
+          // get rating of order
+          int orderRating = int.Parse(reader["rating"].ToString());
+
+          // check if dateRatingCount contains orderDate
+          if (dateRatingCount.ContainsKey(orderDate))
+          {
+            // increment dateRatingCount
+            dateRatingCount[orderDate]++;
+
+            // add orderRating to dateRatingSum
+            dateRatingSum[orderDate] += orderRating;
+          }
+
+          // get date again
+          orderDate = DateTime.Parse(reader["order_time"].ToString());
+          
+          // store total price in double
+          double totalPrice = double.Parse(reader["total_price"].ToString());
+
+          // check if start prepare time is not null
+          if (reader["start_prepare_time"] != DBNull.Value)
+          {
+            // store start prepare time in DateTime
+            DateTime startPrepareTime = DateTime.Parse(reader["start_prepare_time"].ToString());
+
+            // check if end prepare time is not null
+            if (reader["end_prepare_time"] != DBNull.Value)
+            {
+              // store end prepare time in DateTime
+              DateTime endPrepareTime = DateTime.Parse(reader["end_prepare_time"].ToString());
+
+              // add order to orders data table
+              orders.Rows.Add(reader["order_id"].ToString(), reader["branch_id"].ToString(), orderDate, orderRating, totalPrice, startPrepareTime, endPrepareTime);
+            }
+            else
+            {
+              // add order to orders data table
+              orders.Rows.Add(reader["order_id"].ToString(), reader["branch_id"].ToString(), orderDate, orderRating, totalPrice, startPrepareTime, DBNull.Value);
+            }
+          }
+          else
+          {
+            // add order to orders data table
+            orders.Rows.Add(reader["order_id"].ToString(), reader["branch_id"].ToString(), orderDate, orderRating, totalPrice, DBNull.Value, DBNull.Value);
+          }
+        }
+      }
+      else
+      {
+        // popup error
+        MessageBox.Show("Error: No data found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        // close connection
+        db.CloseConnection();
+
+        return;
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // add data to columnChart Rating
+      foreach (KeyValuePair<DateTime, int> entry in dateRatingSum)
+      {
+        // get date
+        DateTime date = entry.Key;
+
+        // get rating sum
+        int ratingSum = entry.Value;
+
+        // get rating count
+        int ratingCount = dateRatingCount[date];
+
+        // calculate average rating
+        double averageRating = Math.Round((double)ratingSum / ratingCount, 2);
+
+        // add data to columnChart Rating
+        columnChart.Series["Rating"].Points.AddXY(date.ToString("MMM yyyy"), averageRating);
+      }
+
+      // clear cmd params
+      cmd.Parameters.Clear();
+
+      // get all order items in order list
+      sqlString = "SELECT customer_order_items.*, orders.order_time FROM customer_order_items INNER JOIN orders ON customer_order_items.order_id = orders.order_id WHERE customer_order_items.order_id IN (" + string.Join(",", orderIds) + ")";
+
+      // execute query
+      reader = db.ExecuteQuery(sqlString);
+
+      // check if there are rows in the database
+      if (reader.HasRows)
+      {
+        // read all rows
+        while (reader.Read())
+        {
+          // get item id
+          string itemId = reader["item_id"].ToString();
+
+          // get item name
+          string itemName = item_id_to_name[itemId];
+
+          // get item quantity
+          int itemQuantity = int.Parse(reader["quantity"].ToString());
+
+          // check if itemQuantity is more than 0
+          if (itemQuantity > 0)
+          {
+            // add data to pieChart
+            bool itemExists = false;
+
+            // check if pieChart already has item name in series SalesBreakdown
+            foreach(DataPoint dataPoint in pieChart.Series["SalesBreakdown"].Points)
+            {
+              // check if dataPoint has same item name
+              if (dataPoint.AxisLabel.Equals(itemName))
+              {
+                // add itemQuantity to dataPoint
+                dataPoint.YValues[0] += itemQuantity;
+
+                // set itemExists to true
+                itemExists = true;
+
+                // exit loop
+                break;
+              }
+            }
+
+            // check if itemExists is false
+            if (!itemExists)
+            {
+              // add item name and itemQuantity to pieChart
+              pieChart.Series["SalesBreakdown"].Points.AddXY(itemName, itemQuantity);
+            }
+          }
+
+          // get date of order
+          DateTime orderDate = DateTime.Parse(reader["order_time"].ToString());
+
+          // reset date to first day of month
+          orderDate = new DateTime(orderDate.Year, orderDate.Month, 1);
+
+          // check if dateItemSalesCount contains orderDate
+          if (dateItemSalesCount.ContainsKey(orderDate))
+          {
+            // check if dateItemSalesCount[orderDate] contains itemName
+            if (dateItemSalesCount[orderDate].ContainsKey(itemName))
+            {
+              // increment dateItemSalesCount
+              dateItemSalesCount[orderDate][itemName] += itemQuantity;
+            }
+            else
+            {
+              // add itemName to dateItemSalesCount
+              dateItemSalesCount[orderDate].Add(itemName, itemQuantity);
+            }
+          }
+
+          // add order item to orderItems data table
+          orderItems.Rows.Add(reader["order_id"].ToString(), itemName, itemQuantity, reader["description"].ToString());
+        }
+      }
+
+      // close connection
+      db.CloseConnection();
+
+      // shows quantity for each item in pieChart
+      pieChart.Series["SalesBreakdown"].IsValueShownAsLabel = true;
+
+      // get total sales (number of items sold)
+      int totalSales = 0;
+
+      // get total sales (number of items sold)
+      foreach (DataPoint dataPoint in pieChart.Series["SalesBreakdown"].Points)
+      {
+        // add dataPoint to totalSales
+        totalSales += (int)dataPoint.YValues[0];
+      }
+
+      // add percentages to pieChart
+      foreach (DataPoint dataPoint in pieChart.Series["SalesBreakdown"].Points)
+      {
+        // get item quantity
+        int itemQuantity = (int)dataPoint.YValues[0];
+
+        // calculate percentage
+        double percentage = Math.Round((double)itemQuantity / totalSales * 100, 2);
+
+        // set dataPoint label to item name, quantity, and percentage
+        dataPoint.Label = dataPoint.AxisLabel + " (" + itemQuantity + ", " + percentage + "%)";
+      }
+
+      // add data to lineChart, create a series for each item, x is date, y is quantity
+      foreach (KeyValuePair<DateTime, Dictionary<string, int>> entry in dateItemSalesCount)
+      {
+        // get date
+        DateTime date = entry.Key;
+
+        // get item sales count
+        Dictionary<string, int> itemSalesCount = entry.Value;
+
+        // add data to lineChart
+        foreach (KeyValuePair<string, int> itemEntry in itemSalesCount)
+        {
+          // get item name
+          string itemName = itemEntry.Key;
+
+          // get item quantity
+          int itemQuantity = itemEntry.Value;
+
+          // check if lineChart already has series with item name
+          bool seriesExists = false;
+
+          // check if lineChart already has series with item name
+          foreach (Series series in lineChart.Series)
+          {
+            // check if series has same name as itemName
+            if (series.Name.Equals(itemName))
+            {
+              // add dataPoint to series
+              series.Points.AddXY(date.ToString("MMM yyyy"), itemQuantity);
+
+              // set seriesExists to true
+              seriesExists = true;
+
+              // exit loop
+              break;
+            }
+          }
+
+          // check if seriesExists is false
+          if (!seriesExists)
+          {
+            // create new series
+            Series series = new Series();
+
+            // set series name to itemName
+            series.Name = itemName;
+
+            // set series chart type to line
+            series.ChartType = SeriesChartType.Line;
+
+            // add dataPoint to series
+            series.Points.AddXY(date.ToString("MMM yyyy"), itemQuantity);
+
+            // add series to lineChart
+            lineChart.Series.Add(series);
+          }
+        }
+      }
+
       // enable dataExporterButton
       dataExporterButton.Enabled = true;
     }
 
     private void dataExporterButton_Click(object sender, EventArgs e)
     {
+      // Create a new Excel package
+      using (ExcelPackage package = new ExcelPackage())
+      {
+        // Create a worksheet for the "Orders" table
+        ExcelWorksheet ordersWorksheet = package.Workbook.Worksheets.Add("Orders");
 
-    }
+        // Load the data from the "orders" DataTable to the "Orders" worksheet
+        ordersWorksheet.Cells["A1"].LoadFromDataTable(orders, true);
 
-    private void chart1_Click(object sender, EventArgs e)
-    {
-      var series = new Series();
+        // Create a worksheet for the "Order Items" table
+        ExcelWorksheet orderItemsWorksheet = package.Workbook.Worksheets.Add("Ordered Items");
 
-      series.ChartType = SeriesChartType.Pie;
+        // Load the data from the "orderItems" DataTable to the "Order Items" worksheet
+        orderItemsWorksheet.Cells["A1"].LoadFromDataTable(orderItems, true);
+
+        // Convert the date values in the "Orders" worksheet to the desired format
+        for (int row = 2; row <= ordersWorksheet.Dimension.End.Row; row++)
+        {
+          DateTime orderDateTime = (DateTime)ordersWorksheet.Cells[row, 3].Value;
+          ordersWorksheet.Cells[row, 3].Value = orderDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+          if (ordersWorksheet.Cells[row, 6].Value != null)
+          {
+            DateTime preparingStartDateTime = (DateTime)ordersWorksheet.Cells[row, 6].Value;
+            ordersWorksheet.Cells[row, 6].Value = orderDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+          }
+
+          if (ordersWorksheet.Cells[row, 7].Value != null)
+          {
+            DateTime preparingStartDateTime = (DateTime)ordersWorksheet.Cells[row, 7].Value;
+            ordersWorksheet.Cells[row, 7].Value = orderDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+          }
+        }
+
+        // Set the table style for both worksheets
+        ExcelRange ordersTableRange = ordersWorksheet.Cells[ordersWorksheet.Dimension.Address];
+        ExcelTable ordersTable = ordersWorksheet.Tables.Add(ordersTableRange, "OrdersTable");
+        ordersTable.TableStyle = OfficeOpenXml.Table.TableStyles.Light1;
+
+        ExcelRange orderItemsTableRange = orderItemsWorksheet.Cells[orderItemsWorksheet.Dimension.Address];
+        ExcelTable orderItemsTable = orderItemsWorksheet.Tables.Add(orderItemsTableRange, "OrderItemsTable");
+        orderItemsTable.TableStyle = OfficeOpenXml.Table.TableStyles.Light1;
+
+        // Set column autofit for "Orders" worksheet
+        ordersWorksheet.Cells[ordersWorksheet.Dimension.Address].AutoFitColumns();
+
+        // Set column autofit for "Order Items" worksheet
+        orderItemsWorksheet.Cells[orderItemsWorksheet.Dimension.Address].AutoFitColumns();
+
+        // Save the Excel file locally to a new folder called "Exports"
+        // Check if the directory exists
+        if (!Directory.Exists("Exports"))
+        {
+          // Create the directory if it doesn't exist
+          Directory.CreateDirectory("Exports");
+        }
+
+        // Generate a unique file name based on the current timestamp
+        string fileName = "Exports/" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".xlsx";
+
+        // Save the Excel file
+        FileInfo fileInfo = new FileInfo(fileName);
+        package.SaveAs(fileInfo);
+
+        // remove Exports/ from filename
+        string fileNameWithoutExports = fileName.Substring(8);
+
+        // Open the directory containing the saved file
+        Process.Start(fileInfo.Directory.FullName + "\\" + fileNameWithoutExports);
+      }
     }
   }
 }

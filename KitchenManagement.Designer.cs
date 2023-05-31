@@ -32,6 +32,15 @@ namespace Restaurant_Contactless_Dining_System
       System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
       System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
       System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KitchenManagement));
       this.Tabs = new System.Windows.Forms.TabControl();
       this.PendingOrders = new System.Windows.Forms.TabPage();
@@ -54,6 +63,20 @@ namespace Restaurant_Contactless_Dining_System
       this.label19 = new System.Windows.Forms.Label();
       this.preparingOrdersPanel = new System.Windows.Forms.FlowLayoutPanel();
       this.ManageOrders = new System.Windows.Forms.TabPage();
+      this.columnChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+      this.lineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+      this.pieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+      this.dataExporterButton = new System.Windows.Forms.Button();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.label24 = new System.Windows.Forms.Label();
+      this.itemsToAnalyzeInput = new System.Windows.Forms.TextBox();
+      this.label23 = new System.Windows.Forms.Label();
+      this.submitDataAnalyzerButton = new System.Windows.Forms.Button();
+      this.dataEndRangeDateTime = new System.Windows.Forms.DateTimePicker();
+      this.label22 = new System.Windows.Forms.Label();
+      this.dataStartRangeDateTime = new System.Windows.Forms.DateTimePicker();
+      this.label21 = new System.Windows.Forms.Label();
+      this.label20 = new System.Windows.Forms.Label();
       this.ManageRestaurant = new System.Windows.Forms.TabPage();
       this.ManageRestaurantTabs = new System.Windows.Forms.TabControl();
       this.MenuItems = new System.Windows.Forms.TabPage();
@@ -125,18 +148,6 @@ namespace Restaurant_Contactless_Dining_System
       this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.label20 = new System.Windows.Forms.Label();
-      this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.label21 = new System.Windows.Forms.Label();
-      this.dataStartRangeDateTime = new System.Windows.Forms.DateTimePicker();
-      this.label22 = new System.Windows.Forms.Label();
-      this.dataEndRangeDateTime = new System.Windows.Forms.DateTimePicker();
-      this.submitDataAnalyzerButton = new System.Windows.Forms.Button();
-      this.label23 = new System.Windows.Forms.Label();
-      this.itemsToAnalyzeInput = new System.Windows.Forms.TextBox();
-      this.label24 = new System.Windows.Forms.Label();
-      this.dataExporterButton = new System.Windows.Forms.Button();
-      this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
       this.Tabs.SuspendLayout();
       this.PendingOrders.SuspendLayout();
       this.PendingOrdersTabs.SuspendLayout();
@@ -144,6 +155,10 @@ namespace Restaurant_Contactless_Dining_System
       this.ReviewGroupBox.SuspendLayout();
       this.KitchenView.SuspendLayout();
       this.ManageOrders.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.columnChart)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.lineChart)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pieChart)).BeginInit();
+      this.groupBox1.SuspendLayout();
       this.ManageRestaurant.SuspendLayout();
       this.ManageRestaurantTabs.SuspendLayout();
       this.MenuItems.SuspendLayout();
@@ -160,8 +175,6 @@ namespace Restaurant_Contactless_Dining_System
       this.BranchInfo.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numOfTablesField)).BeginInit();
       this.MostTopMenuStrip.SuspendLayout();
-      this.groupBox1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
       this.SuspendLayout();
       // 
       // Tabs
@@ -461,7 +474,9 @@ namespace Restaurant_Contactless_Dining_System
       // ManageOrders
       // 
       this.ManageOrders.BackColor = System.Drawing.Color.White;
-      this.ManageOrders.Controls.Add(this.chart1);
+      this.ManageOrders.Controls.Add(this.columnChart);
+      this.ManageOrders.Controls.Add(this.lineChart);
+      this.ManageOrders.Controls.Add(this.pieChart);
       this.ManageOrders.Controls.Add(this.dataExporterButton);
       this.ManageOrders.Controls.Add(this.groupBox1);
       this.ManageOrders.Controls.Add(this.label20);
@@ -472,6 +487,224 @@ namespace Restaurant_Contactless_Dining_System
       this.ManageOrders.Size = new System.Drawing.Size(1341, 754);
       this.ManageOrders.TabIndex = 1;
       this.ManageOrders.Text = "View All Orders";
+      // 
+      // columnChart
+      // 
+      this.columnChart.Anchor = System.Windows.Forms.AnchorStyles.Top;
+      this.columnChart.BorderSkin.BackColor = System.Drawing.Color.Black;
+      chartArea1.AxisX.Title = "Month";
+      chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+      chartArea1.AxisY.Title = "Rating";
+      chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+      chartArea1.Name = "ChartArea1";
+      this.columnChart.ChartAreas.Add(chartArea1);
+      legend1.Name = "Legend1";
+      this.columnChart.Legends.Add(legend1);
+      this.columnChart.Location = new System.Drawing.Point(636, 428);
+      this.columnChart.Name = "columnChart";
+      series1.ChartArea = "ChartArea1";
+      series1.Legend = "Legend1";
+      series1.Name = "Rating";
+      series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+      series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+      this.columnChart.Series.Add(series1);
+      this.columnChart.Size = new System.Drawing.Size(420, 305);
+      this.columnChart.SuppressExceptions = true;
+      this.columnChart.TabIndex = 53;
+      this.columnChart.Tag = "";
+      this.columnChart.Text = "chart2";
+      title1.Name = "Title1";
+      title1.Text = "Avg. Customer Experience Rating by Month";
+      this.columnChart.Titles.Add(title1);
+      // 
+      // lineChart
+      // 
+      this.lineChart.Anchor = System.Windows.Forms.AnchorStyles.Top;
+      this.lineChart.BorderSkin.BackColor = System.Drawing.Color.Black;
+      chartArea2.Name = "ChartArea1";
+      this.lineChart.ChartAreas.Add(chartArea2);
+      legend2.Name = "Legend1";
+      this.lineChart.Legends.Add(legend2);
+      this.lineChart.Location = new System.Drawing.Point(869, 77);
+      this.lineChart.Name = "lineChart";
+      series2.ChartArea = "ChartArea1";
+      series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+      series2.Legend = "Legend1";
+      series2.Name = "MonthlySales";
+      this.lineChart.Series.Add(series2);
+      this.lineChart.Size = new System.Drawing.Size(420, 305);
+      this.lineChart.TabIndex = 52;
+      this.lineChart.Tag = "";
+      this.lineChart.Text = "chart1";
+      title2.Name = "Title1";
+      title2.Text = "Monthly Sales by Menu Item";
+      this.lineChart.Titles.Add(title2);
+      // 
+      // pieChart
+      // 
+      this.pieChart.Anchor = System.Windows.Forms.AnchorStyles.Top;
+      this.pieChart.BorderSkin.BackColor = System.Drawing.Color.Black;
+      chartArea3.Name = "ChartArea1";
+      this.pieChart.ChartAreas.Add(chartArea3);
+      legend3.Name = "Legend1";
+      this.pieChart.Legends.Add(legend3);
+      this.pieChart.Location = new System.Drawing.Point(365, 77);
+      this.pieChart.Name = "pieChart";
+      series3.ChartArea = "ChartArea1";
+      series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+      series3.Legend = "Legend1";
+      series3.Name = "SalesBreakdown";
+      this.pieChart.Series.Add(series3);
+      this.pieChart.Size = new System.Drawing.Size(420, 305);
+      this.pieChart.TabIndex = 51;
+      this.pieChart.Tag = "";
+      this.pieChart.Text = "chart1";
+      title3.Name = "Title1";
+      title3.Text = "Sales Breakdown by Menu Item";
+      this.pieChart.Titles.Add(title3);
+      // 
+      // dataExporterButton
+      // 
+      this.dataExporterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(197)))), ((int)(((byte)(232)))));
+      this.dataExporterButton.Enabled = false;
+      this.dataExporterButton.FlatAppearance.BorderSize = 0;
+      this.dataExporterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.dataExporterButton.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold);
+      this.dataExporterButton.ForeColor = System.Drawing.Color.White;
+      this.dataExporterButton.Location = new System.Drawing.Point(18, 400);
+      this.dataExporterButton.Name = "dataExporterButton";
+      this.dataExporterButton.Size = new System.Drawing.Size(258, 29);
+      this.dataExporterButton.TabIndex = 50;
+      this.dataExporterButton.Text = "Export to Excel Sheet";
+      this.dataExporterButton.UseVisualStyleBackColor = false;
+      this.dataExporterButton.Click += new System.EventHandler(this.dataExporterButton_Click);
+      // 
+      // groupBox1
+      // 
+      this.groupBox1.Controls.Add(this.label24);
+      this.groupBox1.Controls.Add(this.itemsToAnalyzeInput);
+      this.groupBox1.Controls.Add(this.label23);
+      this.groupBox1.Controls.Add(this.submitDataAnalyzerButton);
+      this.groupBox1.Controls.Add(this.dataEndRangeDateTime);
+      this.groupBox1.Controls.Add(this.label22);
+      this.groupBox1.Controls.Add(this.dataStartRangeDateTime);
+      this.groupBox1.Controls.Add(this.label21);
+      this.groupBox1.Location = new System.Drawing.Point(12, 77);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Size = new System.Drawing.Size(270, 317);
+      this.groupBox1.TabIndex = 46;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "Preferences";
+      // 
+      // label24
+      // 
+      this.label24.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.label24.AutoSize = true;
+      this.label24.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label24.ForeColor = System.Drawing.Color.Black;
+      this.label24.Location = new System.Drawing.Point(6, 222);
+      this.label24.Name = "label24";
+      this.label24.Size = new System.Drawing.Size(230, 17);
+      this.label24.TabIndex = 49;
+      this.label24.Text = "*Keep blank if you want to see all items*";
+      // 
+      // itemsToAnalyzeInput
+      // 
+      this.itemsToAnalyzeInput.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.itemsToAnalyzeInput.BackColor = System.Drawing.Color.White;
+      this.itemsToAnalyzeInput.Font = new System.Drawing.Font("Segoe UI Semilight", 8F);
+      this.itemsToAnalyzeInput.Location = new System.Drawing.Point(9, 197);
+      this.itemsToAnalyzeInput.MaxLength = 50;
+      this.itemsToAnalyzeInput.Name = "itemsToAnalyzeInput";
+      this.itemsToAnalyzeInput.Size = new System.Drawing.Size(255, 22);
+      this.itemsToAnalyzeInput.TabIndex = 48;
+      // 
+      // label23
+      // 
+      this.label23.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.label23.AutoSize = true;
+      this.label23.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label23.ForeColor = System.Drawing.Color.Black;
+      this.label23.Location = new System.Drawing.Point(6, 157);
+      this.label23.Name = "label23";
+      this.label23.Size = new System.Drawing.Size(195, 34);
+      this.label23.TabIndex = 47;
+      this.label23.Text = "Items included in order\r\n(ex: burger, french fries, juice)";
+      // 
+      // submitDataAnalyzerButton
+      // 
+      this.submitDataAnalyzerButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.submitDataAnalyzerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(197)))), ((int)(((byte)(232)))));
+      this.submitDataAnalyzerButton.FlatAppearance.BorderSize = 0;
+      this.submitDataAnalyzerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.submitDataAnalyzerButton.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold);
+      this.submitDataAnalyzerButton.ForeColor = System.Drawing.Color.White;
+      this.submitDataAnalyzerButton.Location = new System.Drawing.Point(6, 269);
+      this.submitDataAnalyzerButton.Name = "submitDataAnalyzerButton";
+      this.submitDataAnalyzerButton.Size = new System.Drawing.Size(258, 42);
+      this.submitDataAnalyzerButton.TabIndex = 46;
+      this.submitDataAnalyzerButton.Text = "Submit";
+      this.submitDataAnalyzerButton.UseVisualStyleBackColor = false;
+      this.submitDataAnalyzerButton.Click += new System.EventHandler(this.submitDataAnalyzerButton_Click);
+      // 
+      // dataEndRangeDateTime
+      // 
+      this.dataEndRangeDateTime.CalendarFont = new System.Drawing.Font("Segoe UI Semilight", 14F);
+      this.dataEndRangeDateTime.Font = new System.Drawing.Font("Segoe UI Semilight", 8F);
+      this.dataEndRangeDateTime.Location = new System.Drawing.Point(9, 113);
+      this.dataEndRangeDateTime.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
+      this.dataEndRangeDateTime.Name = "dataEndRangeDateTime";
+      this.dataEndRangeDateTime.Size = new System.Drawing.Size(255, 22);
+      this.dataEndRangeDateTime.TabIndex = 34;
+      // 
+      // label22
+      // 
+      this.label22.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.label22.AutoSize = true;
+      this.label22.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label22.ForeColor = System.Drawing.Color.Black;
+      this.label22.Location = new System.Drawing.Point(6, 93);
+      this.label22.Name = "label22";
+      this.label22.Size = new System.Drawing.Size(106, 17);
+      this.label22.TabIndex = 33;
+      this.label22.Text = "Data End Range";
+      // 
+      // dataStartRangeDateTime
+      // 
+      this.dataStartRangeDateTime.CalendarFont = new System.Drawing.Font("Segoe UI Semilight", 14F);
+      this.dataStartRangeDateTime.Font = new System.Drawing.Font("Segoe UI Semilight", 8F);
+      this.dataStartRangeDateTime.Location = new System.Drawing.Point(9, 41);
+      this.dataStartRangeDateTime.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
+      this.dataStartRangeDateTime.Name = "dataStartRangeDateTime";
+      this.dataStartRangeDateTime.Size = new System.Drawing.Size(255, 22);
+      this.dataStartRangeDateTime.TabIndex = 32;
+      this.dataStartRangeDateTime.Value = new System.DateTime(2020, 1, 1, 19, 42, 0, 0);
+      // 
+      // label21
+      // 
+      this.label21.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.label21.AutoSize = true;
+      this.label21.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label21.ForeColor = System.Drawing.Color.Black;
+      this.label21.Location = new System.Drawing.Point(6, 21);
+      this.label21.Name = "label21";
+      this.label21.Size = new System.Drawing.Size(112, 17);
+      this.label21.TabIndex = 31;
+      this.label21.Text = "Data Start Range";
+      // 
+      // label20
+      // 
+      this.label20.BackColor = System.Drawing.Color.Transparent;
+      this.label20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.label20.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label20.ForeColor = System.Drawing.Color.Gray;
+      this.label20.Location = new System.Drawing.Point(3, 3);
+      this.label20.Name = "label20";
+      this.label20.RightToLeft = System.Windows.Forms.RightToLeft.No;
+      this.label20.Size = new System.Drawing.Size(645, 71);
+      this.label20.TabIndex = 45;
+      this.label20.Text = "DATA ANALYZER";
+      this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // ManageRestaurant
       // 
@@ -1419,167 +1652,6 @@ namespace Restaurant_Contactless_Dining_System
       this.signOutToolStripMenuItem.Text = "Sign Out";
       this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
       // 
-      // label20
-      // 
-      this.label20.BackColor = System.Drawing.Color.Transparent;
-      this.label20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.label20.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label20.ForeColor = System.Drawing.Color.Gray;
-      this.label20.Location = new System.Drawing.Point(3, 3);
-      this.label20.Name = "label20";
-      this.label20.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.label20.Size = new System.Drawing.Size(645, 71);
-      this.label20.TabIndex = 45;
-      this.label20.Text = "DATA ANALYZER";
-      this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      // 
-      // groupBox1
-      // 
-      this.groupBox1.Controls.Add(this.label24);
-      this.groupBox1.Controls.Add(this.itemsToAnalyzeInput);
-      this.groupBox1.Controls.Add(this.label23);
-      this.groupBox1.Controls.Add(this.submitDataAnalyzerButton);
-      this.groupBox1.Controls.Add(this.dataEndRangeDateTime);
-      this.groupBox1.Controls.Add(this.label22);
-      this.groupBox1.Controls.Add(this.dataStartRangeDateTime);
-      this.groupBox1.Controls.Add(this.label21);
-      this.groupBox1.Location = new System.Drawing.Point(12, 77);
-      this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(270, 317);
-      this.groupBox1.TabIndex = 46;
-      this.groupBox1.TabStop = false;
-      this.groupBox1.Text = "Preferences";
-      // 
-      // label21
-      // 
-      this.label21.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label21.AutoSize = true;
-      this.label21.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label21.ForeColor = System.Drawing.Color.Black;
-      this.label21.Location = new System.Drawing.Point(6, 21);
-      this.label21.Name = "label21";
-      this.label21.Size = new System.Drawing.Size(112, 17);
-      this.label21.TabIndex = 31;
-      this.label21.Text = "Data Start Range";
-      // 
-      // dataStartRangeDateTime
-      // 
-      this.dataStartRangeDateTime.CalendarFont = new System.Drawing.Font("Segoe UI Semilight", 14F);
-      this.dataStartRangeDateTime.Font = new System.Drawing.Font("Segoe UI Semilight", 8F);
-      this.dataStartRangeDateTime.Location = new System.Drawing.Point(9, 41);
-      this.dataStartRangeDateTime.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
-      this.dataStartRangeDateTime.Name = "dataStartRangeDateTime";
-      this.dataStartRangeDateTime.Size = new System.Drawing.Size(255, 22);
-      this.dataStartRangeDateTime.TabIndex = 32;
-      this.dataStartRangeDateTime.Value = new System.DateTime(2020, 1, 1, 19, 42, 0, 0);
-      // 
-      // label22
-      // 
-      this.label22.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label22.AutoSize = true;
-      this.label22.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label22.ForeColor = System.Drawing.Color.Black;
-      this.label22.Location = new System.Drawing.Point(6, 93);
-      this.label22.Name = "label22";
-      this.label22.Size = new System.Drawing.Size(106, 17);
-      this.label22.TabIndex = 33;
-      this.label22.Text = "Data End Range";
-      // 
-      // dataEndRangeDateTime
-      // 
-      this.dataEndRangeDateTime.CalendarFont = new System.Drawing.Font("Segoe UI Semilight", 14F);
-      this.dataEndRangeDateTime.Font = new System.Drawing.Font("Segoe UI Semilight", 8F);
-      this.dataEndRangeDateTime.Location = new System.Drawing.Point(9, 113);
-      this.dataEndRangeDateTime.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
-      this.dataEndRangeDateTime.Name = "dataEndRangeDateTime";
-      this.dataEndRangeDateTime.Size = new System.Drawing.Size(255, 22);
-      this.dataEndRangeDateTime.TabIndex = 34;
-      // 
-      // submitDataAnalyzerButton
-      // 
-      this.submitDataAnalyzerButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.submitDataAnalyzerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(197)))), ((int)(((byte)(232)))));
-      this.submitDataAnalyzerButton.FlatAppearance.BorderSize = 0;
-      this.submitDataAnalyzerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.submitDataAnalyzerButton.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold);
-      this.submitDataAnalyzerButton.ForeColor = System.Drawing.Color.White;
-      this.submitDataAnalyzerButton.Location = new System.Drawing.Point(6, 269);
-      this.submitDataAnalyzerButton.Name = "submitDataAnalyzerButton";
-      this.submitDataAnalyzerButton.Size = new System.Drawing.Size(258, 42);
-      this.submitDataAnalyzerButton.TabIndex = 46;
-      this.submitDataAnalyzerButton.Text = "Submit";
-      this.submitDataAnalyzerButton.UseVisualStyleBackColor = false;
-      this.submitDataAnalyzerButton.Click += new System.EventHandler(this.submitDataAnalyzerButton_Click);
-      // 
-      // label23
-      // 
-      this.label23.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label23.AutoSize = true;
-      this.label23.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label23.ForeColor = System.Drawing.Color.Black;
-      this.label23.Location = new System.Drawing.Point(6, 157);
-      this.label23.Name = "label23";
-      this.label23.Size = new System.Drawing.Size(195, 34);
-      this.label23.TabIndex = 47;
-      this.label23.Text = "Items included in order\r\n(ex: burger, french fries, juice)";
-      // 
-      // itemsToAnalyzeInput
-      // 
-      this.itemsToAnalyzeInput.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.itemsToAnalyzeInput.BackColor = System.Drawing.Color.White;
-      this.itemsToAnalyzeInput.Font = new System.Drawing.Font("Segoe UI Semilight", 8F);
-      this.itemsToAnalyzeInput.Location = new System.Drawing.Point(9, 197);
-      this.itemsToAnalyzeInput.MaxLength = 50;
-      this.itemsToAnalyzeInput.Name = "itemsToAnalyzeInput";
-      this.itemsToAnalyzeInput.Size = new System.Drawing.Size(255, 22);
-      this.itemsToAnalyzeInput.TabIndex = 48;
-      // 
-      // label24
-      // 
-      this.label24.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.label24.AutoSize = true;
-      this.label24.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label24.ForeColor = System.Drawing.Color.Black;
-      this.label24.Location = new System.Drawing.Point(6, 222);
-      this.label24.Name = "label24";
-      this.label24.Size = new System.Drawing.Size(230, 17);
-      this.label24.TabIndex = 49;
-      this.label24.Text = "*Keep blank if you want to see all items*";
-      // 
-      // dataExporterButton
-      // 
-      this.dataExporterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(197)))), ((int)(((byte)(232)))));
-      this.dataExporterButton.Enabled = false;
-      this.dataExporterButton.FlatAppearance.BorderSize = 0;
-      this.dataExporterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.dataExporterButton.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold);
-      this.dataExporterButton.ForeColor = System.Drawing.Color.White;
-      this.dataExporterButton.Location = new System.Drawing.Point(18, 400);
-      this.dataExporterButton.Name = "dataExporterButton";
-      this.dataExporterButton.Size = new System.Drawing.Size(258, 29);
-      this.dataExporterButton.TabIndex = 50;
-      this.dataExporterButton.Text = "Export to .csv file";
-      this.dataExporterButton.UseVisualStyleBackColor = false;
-      this.dataExporterButton.Click += new System.EventHandler(this.dataExporterButton_Click);
-      // 
-      // chart1
-      // 
-      chartArea1.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea1);
-      legend1.Name = "Legend1";
-      this.chart1.Legends.Add(legend1);
-      this.chart1.Location = new System.Drawing.Point(651, 274);
-      this.chart1.Name = "chart1";
-      series1.ChartArea = "ChartArea1";
-      series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-      series1.Legend = "Legend1";
-      series1.Name = "Series1";
-      this.chart1.Series.Add(series1);
-      this.chart1.Size = new System.Drawing.Size(300, 300);
-      this.chart1.TabIndex = 51;
-      this.chart1.Text = "chart1";
-      this.chart1.Click += new System.EventHandler(this.chart1_Click);
-      // 
       // KitchenManagement
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1604,6 +1676,11 @@ namespace Restaurant_Contactless_Dining_System
       this.ReviewGroupBox.PerformLayout();
       this.KitchenView.ResumeLayout(false);
       this.ManageOrders.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.columnChart)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.lineChart)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.pieChart)).EndInit();
+      this.groupBox1.ResumeLayout(false);
+      this.groupBox1.PerformLayout();
       this.ManageRestaurant.ResumeLayout(false);
       this.ManageRestaurantTabs.ResumeLayout(false);
       this.MenuItems.ResumeLayout(false);
@@ -1625,9 +1702,6 @@ namespace Restaurant_Contactless_Dining_System
       ((System.ComponentModel.ISupportInitialize)(this.numOfTablesField)).EndInit();
       this.MostTopMenuStrip.ResumeLayout(false);
       this.MostTopMenuStrip.PerformLayout();
-      this.groupBox1.ResumeLayout(false);
-      this.groupBox1.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -1738,6 +1812,8 @@ namespace Restaurant_Contactless_Dining_System
     private System.Windows.Forms.TextBox itemsToAnalyzeInput;
     private System.Windows.Forms.Label label24;
     private System.Windows.Forms.Button dataExporterButton;
-    private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+    private System.Windows.Forms.DataVisualization.Charting.Chart pieChart;
+    private System.Windows.Forms.DataVisualization.Charting.Chart lineChart;
+    private System.Windows.Forms.DataVisualization.Charting.Chart columnChart;
   }
 }

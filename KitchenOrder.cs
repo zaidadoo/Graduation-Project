@@ -135,10 +135,10 @@ namespace Restaurant_Contactless_Dining_System
           // add the description as a new line if it's not empty
           if (description != null && description != "")
           {
-            // split each 10 characters into a new line
-            for (int j = 0; j < description.Length; j += 10)
+            // split each 20 characters into a new line
+            for (int j = 0; j < description.Length; j += 20)
             {
-              orderInformationLabel.Text += "-                    " + description.Substring(j, Math.Min(10, description.Length - j)) + "\n";
+              orderInformationLabel.Text += "-                    " + description.Substring(j, Math.Min(20, description.Length - j)) + "\n";
             }
           }
         }
